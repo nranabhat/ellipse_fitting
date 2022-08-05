@@ -1,0 +1,7 @@
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 5448.674922129687 better than best inf,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-v1eub54w\weights_tensor.pt, & logging model weights to W&B.
+model weights saved to v1eub54w
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 4.64634572057163 better than best 5448.674922129687,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-v1eub54w\weights_tensor.pt, & logging model weights to W&B.
+model weights saved to v1eub54w
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-v1eub54w\\weights_tensor.pt', 'score': 5448.674922129687}]

@@ -1,0 +1,6 @@
+config:
+{'loss': 3.269457178115845, 'gamma': '0.2454507300590375', 'epochs': '15', 'optimizer': 'sgd', 'batch_size': '10', 'milestones': '[10]', 'starting_lr': '0.05402435040728651', 'second_layer_size': '512'}
+model weights saved to vj2p751m
+INFO:root:Current metric value 2.970944519042969 better than 3.269457178115845, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 2.9324774646759035 better than 2.970944519042969, saving model at {model_path}, & logging model weights to W&B.

@@ -1,0 +1,22 @@
+
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to vj2p751m
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.016550006102770565 better than best 0.01792985404841602,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-vj2p751m\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-vj2p751m\\weights_tensor.pt', 'score': 0.01792985404841602}]
+model weights saved to vj2p751m
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.01299599489197135 better than best 0.016550006102770565,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-vj2p751m\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-vj2p751m\\weights_tensor.pt', 'score': 0.016550006102770565}]

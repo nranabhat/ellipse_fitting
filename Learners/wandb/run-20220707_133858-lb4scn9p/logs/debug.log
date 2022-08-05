@@ -1,0 +1,26 @@
+2022-07-07 13:38:58,691 INFO    Thread-9 (_run_job):5300 [wandb_setup.py:_flush():76] Configure stats pid to 5300
+2022-07-07 13:38:58,691 INFO    Thread-9 (_run_job):5300 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Nicor\.config\wandb\settings
+2022-07-07 13:38:58,691 INFO    Thread-9 (_run_job):5300 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-07-07 13:38:58,706 INFO    Thread-9 (_run_job):5300 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'ellipse_fitting', 'entity': 'nicoranabhat', 'root_dir': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners', 'sweep_id': 'yxh0y470', 'run_id': 'lb4scn9p', 'sweep_param_path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-yxh0y470\\config-lb4scn9p.yaml'}
+2022-07-07 13:38:58,711 INFO    Thread-9 (_run_job):5300 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'Learner 1 wandb\\learner1_wandb Sweep1.py', 'program': 'c:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\Learner 1 wandb\\learner1_wandb Sweep1.py'}
+2022-07-07 13:38:58,712 INFO    Thread-9 (_run_job):5300 [wandb_init.py:_log_setup():461] Logging user logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_133858-lb4scn9p\logs\debug.log
+2022-07-07 13:38:58,713 INFO    Thread-9 (_run_job):5300 [wandb_init.py:_log_setup():462] Logging internal logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_133858-lb4scn9p\logs\debug-internal.log
+2022-07-07 13:38:58,713 INFO    Thread-9 (_run_job):5300 [wandb_init.py:init():495] calling init triggers
+2022-07-07 13:38:58,713 INFO    Thread-9 (_run_job):5300 [wandb_init.py:init():498] wandb.init called with sweep_config: {'batch_size': 5, 'epochs': 30, 'gamma': 0.35430295024636155, 'milestones': [3, 7, 15], 'optimizer': 'adam', 'second_layer_size': 128, 'starting_lr': 0.8163040142587388}
+config: {}
+2022-07-07 13:38:58,713 INFO    Thread-9 (_run_job):5300 [wandb_init.py:init():548] starting backend
+2022-07-07 13:38:58,714 INFO    Thread-9 (_run_job):5300 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-07-07 13:38:58,735 INFO    Thread-9 (_run_job):5300 [backend.py:ensure_launched():217] starting backend process...
+2022-07-07 13:38:59,491 INFO    Thread-9 (_run_job):5300 [backend.py:ensure_launched():222] started backend process with pid: 21448
+2022-07-07 13:38:59,493 INFO    Thread-9 (_run_job):5300 [wandb_init.py:init():558] backend started and connected
+2022-07-07 13:38:59,515 INFO    Thread-9 (_run_job):5300 [wandb_run.py:_config_callback():1131] config_cb None None {'batch_size': 5, 'epochs': 30, 'gamma': 0.35430295024636155, 'milestones': [3, 7, 15], 'optimizer': 'adam', 'second_layer_size': 128, 'starting_lr': 0.8163040142587388}
+2022-07-07 13:38:59,517 INFO    Thread-9 (_run_job):5300 [wandb_init.py:init():634] updated telemetry
+2022-07-07 13:38:59,519 INFO    Thread-9 (_run_job):5300 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-07-07 13:39:01,782 INFO    Thread-9 (_run_job):5300 [wandb_run.py:_on_init():1919] communicating current version
+2022-07-07 13:39:01,874 INFO    Thread-9 (_run_job):5300 [wandb_run.py:_on_init():1923] got version response 
+2022-07-07 13:39:01,875 INFO    Thread-9 (_run_job):5300 [wandb_init.py:init():700] starting run threads in backend
+2022-07-07 13:39:02,195 INFO    Thread-9 (_run_job):5300 [wandb_run.py:_console_start():1893] atexit reg
+2022-07-07 13:39:02,198 INFO    Thread-9 (_run_job):5300 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-07-07 13:39:02,200 INFO    Thread-9 (_run_job):5300 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-07-07 13:39:02,213 INFO    Thread-9 (_run_job):5300 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-07-07 13:39:02,214 INFO    Thread-9 (_run_job):5300 [wandb_init.py:init():732] run started, returning control to user process

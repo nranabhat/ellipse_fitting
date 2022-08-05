@@ -6,14 +6,14 @@ import string
 import numpy as np
 import random as random
 from matplotlib import pyplot as plt
-# comment
+
 # Creating (x,y) from Estey approach:
     # x = c_x cos(phi_c + phi_d) + b_x
     # y = c_y cos(phi_c - phi_d) + b_y
     # Note: here Estey has c_x, c_y as Ax, Ay but I think this is the same thing
 
 numPoints = 30 # points on each ellipse plot - number of shots measuring excitation fraction
-numEllipses = 50000 # number of ellipses 
+numEllipses = 500 # number of ellipses 
 X = np.empty((numPoints, numEllipses)) # x-coordinates 
 Y = np.empty((numPoints, numEllipses)) # y-coordinates 
 Phi_c = np.empty((numPoints, numEllipses))
@@ -22,8 +22,8 @@ labels = np.empty((numEllipses, 6)) # 6 parameters for each ellipse
 
 # --- Set constants --- # 
 CONTRAST = 0.65
-c_x = CONTRAST
-c_y = CONTRAST
+c_x = CONTRAST/2
+c_y = CONTRAST/2
 # center at (0.5, 0.5)
 b_x = 1/2 
 b_y = 1/2
@@ -57,7 +57,7 @@ for j in range(numEllipses):
 
 # now we have X[30,500] and Y[30,500] data, labels[500,6], Phi_c[30,500] Phi_d[500,]
 datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Datasets"
-training_set_path = os.path.join(datasets_path, "Training Set ("+str(numEllipses)+" ellipses)")
+training_set_path = os.path.join(datasets_path, "Training Set ("+str(numEllipses)+" ellipses) updated contrast")
 if not os.path.isdir(training_set_path): os.mkdir(training_set_path)
 
 # writing X data to csv file: 

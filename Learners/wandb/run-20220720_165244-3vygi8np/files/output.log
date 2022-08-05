@@ -1,0 +1,36 @@
+config:
+{'loss': 4.9470783555487284e-05, 'gamma': '0.2454507300590375', 'epochs': '15', 'optimizer': 'sgd', 'batch_size': '10', 'milestones': '[5, 20, 50, 200]', 'starting_lr': '0.08402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+average loss for this epoch: 5.4300359370245136e-05
+starting epoch 2
+average loss for this epoch: 5.150611955286877e-05
+starting epoch 3
+average loss for this epoch: 5.1446467914502136e-05
+starting epoch 4
+average loss for this epoch: 5.143898002643254e-05
+starting epoch 5
+average loss for this epoch: 5.129812037921511e-05
+starting epoch 6
+average loss for this epoch: 5.129578534251777e-05
+starting epoch 7
+average loss for this epoch: 5.1299449369253123e-05
+starting epoch 8
+average loss for this epoch: 5.12833295033488e-05
+starting epoch 9
+average loss for this epoch: 5.1288164340803635e-05
+starting epoch 10
+average loss for this epoch: 5.1274789875606075e-05
+starting epoch 11
+average loss for this epoch: 5.1281873202242425e-05
+starting epoch 12
+average loss for this epoch: 5.128620083269197e-05
+starting epoch 13
+average loss for this epoch: 5.125799731104053e-05
+starting epoch 14
+average loss for this epoch: 5.1256731712783224e-05
+starting epoch 15
+average loss for this epoch: 5.127441221702611e-05
+starting epoch 16
+average loss for this epoch: 5.124145753143239e-05
+starting epoch 17
+average loss for this epoch: 5.125590783791267e-05

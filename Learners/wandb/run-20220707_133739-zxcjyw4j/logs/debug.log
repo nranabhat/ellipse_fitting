@@ -1,0 +1,133 @@
+2022-07-07 13:37:39,309 INFO    Thread-3 (_run_job):512 [wandb_setup.py:_flush():76] Configure stats pid to 512
+2022-07-07 13:37:39,310 INFO    Thread-3 (_run_job):512 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Nicor\.config\wandb\settings
+2022-07-07 13:37:39,310 INFO    Thread-3 (_run_job):512 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-07-07 13:37:39,310 INFO    Thread-3 (_run_job):512 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'ellipse_fitting', 'entity': 'nicoranabhat', 'root_dir': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners', 'sweep_id': 'mha9zrt6', 'run_id': 'zxcjyw4j', 'sweep_param_path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-mha9zrt6\\config-zxcjyw4j.yaml'}
+2022-07-07 13:37:39,315 INFO    Thread-3 (_run_job):512 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'Learner 1 wandb\\learner1_wandb Sweep1.py', 'program': 'c:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\Learner 1 wandb\\learner1_wandb Sweep1.py'}
+2022-07-07 13:37:39,315 INFO    Thread-3 (_run_job):512 [wandb_init.py:_log_setup():461] Logging user logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_133739-zxcjyw4j\logs\debug.log
+2022-07-07 13:37:39,316 INFO    Thread-3 (_run_job):512 [wandb_init.py:_log_setup():462] Logging internal logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_133739-zxcjyw4j\logs\debug-internal.log
+2022-07-07 13:37:39,316 INFO    Thread-3 (_run_job):512 [wandb_init.py:init():495] calling init triggers
+2022-07-07 13:37:39,316 INFO    Thread-3 (_run_job):512 [wandb_init.py:init():498] wandb.init called with sweep_config: {'batch_size': 15, 'epochs': 20, 'gamma': 0.9700648999278694, 'milestones': [3, 7, 15], 'optimizer': 'sgd', 'second_layer_size': 512, 'starting_lr': 0.6808971274726784}
+config: {}
+2022-07-07 13:37:39,316 INFO    Thread-3 (_run_job):512 [wandb_init.py:init():548] starting backend
+2022-07-07 13:37:39,316 INFO    Thread-3 (_run_job):512 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-07-07 13:37:39,322 INFO    Thread-3 (_run_job):512 [backend.py:ensure_launched():217] starting backend process...
+2022-07-07 13:37:39,408 INFO    Thread-3 (_run_job):512 [backend.py:ensure_launched():222] started backend process with pid: 20056
+2022-07-07 13:37:39,411 INFO    Thread-3 (_run_job):512 [wandb_init.py:init():558] backend started and connected
+2022-07-07 13:37:39,420 INFO    Thread-3 (_run_job):512 [wandb_run.py:_config_callback():1131] config_cb None None {'batch_size': 15, 'epochs': 20, 'gamma': 0.9700648999278694, 'milestones': [3, 7, 15], 'optimizer': 'sgd', 'second_layer_size': 512, 'starting_lr': 0.6808971274726784}
+2022-07-07 13:37:39,420 INFO    Thread-3 (_run_job):512 [wandb_init.py:init():634] updated telemetry
+2022-07-07 13:37:39,421 INFO    Thread-3 (_run_job):512 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-07-07 13:37:40,767 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_init():1919] communicating current version
+2022-07-07 13:37:40,843 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_init():1923] got version response 
+2022-07-07 13:37:40,843 INFO    Thread-3 (_run_job):512 [wandb_init.py:init():700] starting run threads in backend
+2022-07-07 13:37:41,457 INFO    Thread-3 (_run_job):512 [wandb_run.py:_console_start():1893] atexit reg
+2022-07-07 13:37:41,458 INFO    Thread-3 (_run_job):512 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-07-07 13:37:41,458 INFO    Thread-3 (_run_job):512 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-07-07 13:37:41,460 INFO    Thread-3 (_run_job):512 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-07-07 13:37:41,460 INFO    Thread-3 (_run_job):512 [wandb_init.py:init():732] run started, returning control to user process
+2022-07-07 13:37:48,185 INFO    Thread-3 (_run_job):512 [wandb_run.py:_finish():1680] finishing run nicoranabhat/ellipse_fitting/zxcjyw4j
+2022-07-07 13:37:48,185 INFO    Thread-3 (_run_job):512 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 1
+2022-07-07 13:37:48,185 INFO    Thread-3 (_run_job):512 [wandb_run.py:_restore():1834] restore
+2022-07-07 13:37:49,107 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 706
+  total_bytes: 706
+}
+
+2022-07-07 13:37:49,285 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 706
+  total_bytes: 706
+}
+
+2022-07-07 13:37:49,406 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 706
+  total_bytes: 706
+}
+
+2022-07-07 13:37:49,881 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 4
+}
+pusher_stats {
+  uploaded_bytes: 706
+  total_bytes: 3604
+}
+
+2022-07-07 13:37:49,994 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 706
+  total_bytes: 3728
+}
+
+2022-07-07 13:37:50,108 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 3728
+  total_bytes: 3728
+}
+
+2022-07-07 13:37:50,221 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 3728
+  total_bytes: 3728
+}
+
+2022-07-07 13:37:50,338 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 3728
+  total_bytes: 3728
+}
+
+2022-07-07 13:37:50,459 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 3728
+  total_bytes: 3728
+}
+
+2022-07-07 13:37:50,574 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 3728
+  total_bytes: 3728
+}
+
+2022-07-07 13:37:50,740 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 3728
+  total_bytes: 3728
+}
+
+2022-07-07 13:37:51,058 INFO    Thread-3 (_run_job):512 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 3728
+  total_bytes: 3728
+}
+local_info {
+}
+
+2022-07-07 13:37:52,518 INFO    Thread-3 (_run_job):512 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-07-07 13:37:52,518 INFO    Thread-3 (_run_job):512 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-07-07 13:37:52,528 INFO    Thread-3 (_run_job):512 [wandb_run.py:_footer_sync_info():3055] logging synced files

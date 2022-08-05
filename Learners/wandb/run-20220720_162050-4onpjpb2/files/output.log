@@ -1,0 +1,346 @@
+config:
+{'loss': 7.386329350993037e-05, 'gamma': '0.2454507300590375', 'epochs': '15', 'optimizer': 'sgd', 'batch_size': '10', 'milestones': '[5, 40, 200]', 'starting_lr': '0.05402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+average loss for this epoch: 8.132154864142648e-05
+starting epoch 2
+average loss for this epoch: 7.809159975295187e-05
+starting epoch 3
+average loss for this epoch: 6.380754861311289e-05
+model weights saved to vj2p751m
+starting epoch 4
+INFO:root:Current metric value 6.380754861311289e-05 better than 7.386329350993037e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.759187177318381e-05 better than 6.380754861311289e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.759187177318381e-05
+model weights saved to vj2p751m
+starting epoch 5
+average loss for this epoch: 5.503607064383686e-05
+model weights saved to vj2p751m
+starting epoch 6
+INFO:root:Current metric value 5.503607064383686e-05 better than 5.759187177318381e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.470244930620538e-05 better than 5.503607064383686e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.470244930620538e-05
+model weights saved to vj2p751m
+starting epoch 7
+INFO:root:Current metric value 5.439292161099729e-05 better than 5.470244930620538e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.439292161099729e-05
+model weights saved to vj2p751m
+starting epoch 8
+average loss for this epoch: 5.422797503342736e-05
+model weights saved to vj2p751m
+starting epoch 9
+INFO:root:Current metric value 5.422797503342736e-05 better than 5.439292161099729e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.3962552083248735e-05
+model weights saved to vj2p751m
+starting epoch 10
+INFO:root:Current metric value 5.3962552083248735e-05 better than 5.422797503342736e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.378565670980606e-05
+model weights saved to vj2p751m
+starting epoch 11
+INFO:root:Current metric value 5.378565670980606e-05 better than 5.3962552083248735e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.364548065699637e-05
+model weights saved to vj2p751m
+starting epoch 12
+INFO:root:Current metric value 5.364548065699637e-05 better than 5.378565670980606e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.3563652127195386e-05 better than 5.364548065699637e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.3563652127195386e-05
+model weights saved to vj2p751m
+starting epoch 13
+average loss for this epoch: 5.334461877282592e-05
+model weights saved to vj2p751m
+starting epoch 14
+INFO:root:Current metric value 5.334461877282592e-05 better than 5.3563652127195386e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.329274217729108e-05 better than 5.334461877282592e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.329274217729108e-05
+model weights saved to vj2p751m
+starting epoch 15
+average loss for this epoch: 5.3248217664076944e-05
+model weights saved to vj2p751m
+starting epoch 16
+INFO:root:Current metric value 5.3248217664076944e-05 better than 5.329274217729108e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.3082915092090846e-05 better than 5.3248217664076944e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.3082915092090846e-05
+model weights saved to vj2p751m
+starting epoch 17
+average loss for this epoch: 5.2997224192949945e-05
+model weights saved to vj2p751m
+starting epoch 18
+INFO:root:Current metric value 5.2997224192949945e-05 better than 5.3082915092090846e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.292923151500872e-05
+model weights saved to vj2p751m
+starting epoch 19
+INFO:root:Current metric value 5.292923151500872e-05 better than 5.2997224192949945e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.2915456835762596e-05 better than 5.292923151500872e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.2915456835762596e-05
+model weights saved to vj2p751m
+starting epoch 20
+average loss for this epoch: 5.2806728690484305e-05
+model weights saved to vj2p751m
+starting epoch 21
+INFO:root:Current metric value 5.2806728690484305e-05 better than 5.2915456835762596e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.273656095596379e-05 better than 5.2806728690484305e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.273656095596379e-05
+model weights saved to vj2p751m
+starting epoch 22
+average loss for this epoch: 5.268208398774732e-05
+model weights saved to vj2p751m
+starting epoch 23
+INFO:root:Current metric value 5.268208398774732e-05 better than 5.273656095596379e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.263921464575105e-05 better than 5.268208398774732e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.263921464575105e-05
+model weights saved to vj2p751m
+starting epoch 24
+INFO:root:Current metric value 5.261786809569457e-05 better than 5.263921464575105e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.261786809569457e-05
+model weights saved to vj2p751m
+starting epoch 25
+INFO:root:Current metric value 5.259715035208501e-05 better than 5.261786809569457e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.259715035208501e-05
+model weights saved to vj2p751m
+starting epoch 26
+INFO:root:Current metric value 5.257880744466092e-05 better than 5.259715035208501e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.257880744466092e-05
+model weights saved to vj2p751m
+starting epoch 27
+INFO:root:Current metric value 5.252945524262032e-05 better than 5.257880744466092e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.252945524262032e-05
+model weights saved to vj2p751m
+starting epoch 28
+INFO:root:Current metric value 5.244391499218182e-05 better than 5.252945524262032e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.244391499218182e-05
+model weights saved to vj2p751m
+starting epoch 29
+INFO:root:Current metric value 5.243089499344933e-05 better than 5.244391499218182e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.243089499344933e-05
+model weights saved to vj2p751m
+starting epoch 30
+INFO:root:Current metric value 5.241085236775689e-05 better than 5.243089499344933e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.241085236775689e-05
+model weights saved to vj2p751m
+starting epoch 31
+INFO:root:Current metric value 5.234640706476057e-05 better than 5.241085236775689e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.234640706476057e-05
+model weights saved to vj2p751m
+starting epoch 32
+average loss for this epoch: 5.233109215623699e-05
+model weights saved to vj2p751m
+starting epoch 33
+INFO:root:Current metric value 5.233109215623699e-05 better than 5.234640706476057e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.232246378000127e-05 better than 5.233109215623699e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.232246378000127e-05
+model weights saved to vj2p751m
+starting epoch 34
+INFO:root:Current metric value 5.2267585924710144e-05 better than 5.232246378000127e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.2267585924710144e-05
+model weights saved to vj2p751m
+starting epoch 35
+average loss for this epoch: 5.226349288932397e-05
+model weights saved to vj2p751m
+starting epoch 36
+INFO:root:Current metric value 5.226349288932397e-05 better than 5.2267585924710144e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.227765626841574e-05
+starting epoch 37
+average loss for this epoch: 5.222158079050132e-05
+model weights saved to vj2p751m
+INFO:root:Current metric value 5.222158079050132e-05 better than 5.226349288932397e-05, saving model at {model_path}, & logging model weights to W&B.
+starting epoch 38
+average loss for this epoch: 5.220328550421982e-05
+model weights saved to vj2p751m
+starting epoch 39
+INFO:root:Current metric value 5.220328550421982e-05 better than 5.222158079050132e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.216045421548188e-05 better than 5.220328550421982e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.216045421548188e-05
+model weights saved to vj2p751m
+starting epoch 40
+average loss for this epoch: 5.218203350523254e-05
+starting epoch 41
+average loss for this epoch: 5.215510393099976e-05
+model weights saved to vj2p751m
+starting epoch 42
+INFO:root:Current metric value 5.215510393099976e-05 better than 5.216045421548188e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.209573952015489e-05 better than 5.215510393099976e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.209573952015489e-05
+model weights saved to vj2p751m
+starting epoch 43
+average loss for this epoch: 5.212380823650165e-05
+starting epoch 44
+INFO:root:Current metric value 5.209573537285905e-05 better than 5.209573952015489e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.209573537285905e-05
+model weights saved to vj2p751m
+starting epoch 45
+INFO:root:Current metric value 5.205468205531361e-05 better than 5.209573537285905e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.205468205531361e-05
+model weights saved to vj2p751m
+starting epoch 46
+INFO:root:Current metric value 5.2036147953913316e-05 better than 5.205468205531361e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.2036147953913316e-05
+model weights saved to vj2p751m
+starting epoch 47
+average loss for this epoch: 5.205723166000098e-05
+starting epoch 48
+average loss for this epoch: 5.207205882470589e-05
+starting epoch 49
+INFO:root:Current metric value 5.2015944529557604e-05 better than 5.2036147953913316e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.2015944529557604e-05
+model weights saved to vj2p751m
+starting epoch 50
+average loss for this epoch: 5.200398272791063e-05
+model weights saved to vj2p751m
+starting epoch 51
+INFO:root:Current metric value 5.200398272791063e-05 better than 5.2015944529557604e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.198464506975142e-05
+model weights saved to vj2p751m
+starting epoch 52
+INFO:root:Current metric value 5.198464506975142e-05 better than 5.200398272791063e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.195361485675676e-05
+model weights saved to vj2p751m
+starting epoch 53
+INFO:root:Current metric value 5.195361485675676e-05 better than 5.198464506975142e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.1976797003590036e-05
+starting epoch 54
+average loss for this epoch: 5.194583044612955e-05
+model weights saved to vj2p751m
+starting epoch 55
+INFO:root:Current metric value 5.194583044612955e-05 better than 5.195361485675676e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.19270679615147e-05 better than 5.194583044612955e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.19270679615147e-05
+model weights saved to vj2p751m
+starting epoch 56
+average loss for this epoch: 5.190968307942967e-05
+model weights saved to vj2p751m
+starting epoch 57
+INFO:root:Current metric value 5.190968307942967e-05 better than 5.19270679615147e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.191186985030072e-05
+starting epoch 58
+INFO:root:Current metric value 5.188402398744074e-05 better than 5.190968307942967e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.188402398744074e-05
+model weights saved to vj2p751m
+starting epoch 59
+average loss for this epoch: 5.187777460378129e-05
+model weights saved to vj2p751m
+starting epoch 60
+INFO:root:Current metric value 5.187777460378129e-05 better than 5.188402398744074e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.186350745134405e-05
+model weights saved to vj2p751m
+starting epoch 61
+INFO:root:Current metric value 5.186350745134405e-05 better than 5.187777460378129e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.1906203261751215e-05
+starting epoch 62
+average loss for this epoch: 5.186784497709595e-05
+starting epoch 63
+average loss for this epoch: 5.183585445593053e-05
+model weights saved to vj2p751m
+starting epoch 64
+INFO:root:Current metric value 5.183585445593053e-05 better than 5.186350745134405e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.18090825426043e-05
+model weights saved to vj2p751m
+starting epoch 65
+INFO:root:Current metric value 5.18090825426043e-05 better than 5.183585445593053e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.181338703550864e-05
+starting epoch 66
+average loss for this epoch: 5.1783397702820365e-05
+model weights saved to vj2p751m
+starting epoch 67
+INFO:root:Current metric value 5.1783397702820365e-05 better than 5.18090825426043e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.1777748685708504e-05
+model weights saved to vj2p751m
+starting epoch 68
+INFO:root:Current metric value 5.1777748685708504e-05 better than 5.1783397702820365e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.177561157324817e-05
+model weights saved to vj2p751m
+starting epoch 69
+INFO:root:Current metric value 5.177561157324817e-05 better than 5.1777748685708504e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.175771771973814e-05
+model weights saved to vj2p751m
+starting epoch 70
+INFO:root:Current metric value 5.175771771973814e-05 better than 5.177561157324817e-05, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 5.173536063011852e-05 better than 5.175771771973814e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.173536063011852e-05
+model weights saved to vj2p751m
+starting epoch 71
+average loss for this epoch: 5.17394713642716e-05
+starting epoch 72
+average loss for this epoch: 5.1702876553463285e-05
+model weights saved to vj2p751m
+starting epoch 73
+INFO:root:Current metric value 5.1702876553463285e-05 better than 5.173536063011852e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.1744886131928067e-05
+starting epoch 74
+average loss for this epoch: 5.173944191483315e-05
+starting epoch 75
+average loss for this epoch: 5.168649298866512e-05
+model weights saved to vj2p751m
+starting epoch 76
+INFO:root:Current metric value 5.168649298866512e-05 better than 5.1702876553463285e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.1684444297279694e-05
+model weights saved to vj2p751m
+starting epoch 77
+INFO:root:Current metric value 5.1684444297279694e-05 better than 5.168649298866512e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.169182557438035e-05
+starting epoch 78
+average loss for this epoch: 5.165311911696335e-05
+model weights saved to vj2p751m
+starting epoch 79
+INFO:root:Current metric value 5.165311911696335e-05 better than 5.1684444297279694e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.165499140275642e-05
+starting epoch 80
+average loss for this epoch: 5.164578768017236e-05
+model weights saved to vj2p751m
+starting epoch 81
+INFO:root:Current metric value 5.164578768017236e-05 better than 5.165311911696335e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.164208932910697e-05
+model weights saved to vj2p751m
+starting epoch 82
+INFO:root:Current metric value 5.164208932910697e-05 better than 5.164578768017236e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.164407033589669e-05
+starting epoch 83
+average loss for this epoch: 5.164414174942067e-05
+starting epoch 84
+INFO:root:Current metric value 5.159618480320205e-05 better than 5.164208932910697e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.159618480320205e-05
+model weights saved to vj2p751m
+starting epoch 85
+average loss for this epoch: 5.16258485185972e-05
+starting epoch 86
+average loss for this epoch: 5.166081749848672e-05
+starting epoch 87
+average loss for this epoch: 5.158880314411363e-05
+model weights saved to vj2p751m
+starting epoch 88
+INFO:root:Current metric value 5.158880314411363e-05 better than 5.159618480320205e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.156140216058702e-05
+model weights saved to vj2p751m
+starting epoch 89
+INFO:root:Current metric value 5.156140216058702e-05 better than 5.158880314411363e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.1592719773907445e-05
+starting epoch 90
+average loss for this epoch: 5.1533005116652933e-05
+model weights saved to vj2p751m
+starting epoch 91
+INFO:root:Current metric value 5.1533005116652933e-05 better than 5.156140216058702e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.157134473847691e-05
+starting epoch 92
+average loss for this epoch: 5.161005568879773e-05
+starting epoch 93
+average loss for this epoch: 5.1544463913160145e-05
+starting epoch 94
+average loss for this epoch: 5.150976587174228e-05
+model weights saved to vj2p751m
+starting epoch 95
+INFO:root:Current metric value 5.150976587174228e-05 better than 5.1533005116652933e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.151507280970691e-05
+starting epoch 96
+average loss for this epoch: 5.147301975739538e-05
+model weights saved to vj2p751m
+starting epoch 97
+INFO:root:Current metric value 5.147301975739538e-05 better than 5.150976587174228e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.1505199207895204e-05
+starting epoch 98
+INFO:root:Current metric value 5.147182420842e-05 better than 5.147301975739538e-05, saving model at {model_path}, & logging model weights to W&B.
+average loss for this epoch: 5.147182420842e-05
+model weights saved to vj2p751m
+starting epoch 99
+average loss for this epoch: 5.14907089927874e-05
+starting epoch 100
+average loss for this epoch: 5.1470783555487285e-05
+model weights saved to vj2p751m
+INFO:root:Current metric value 5.1470783555487285e-05 better than 5.147182420842e-05, saving model at {model_path}, & logging model weights to W&B.

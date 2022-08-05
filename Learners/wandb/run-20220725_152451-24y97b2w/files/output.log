@@ -1,0 +1,10 @@
+config:
+{'loss': 0.0085, 'gamma': '0.5454507300590375', 'epochs': '75', 'optimizer': 'sgd', 'batch_size': '15', 'milestones': '[10]', 'starting_lr': '0.01402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+average loss for this epoch: 0.09531331897266371
+starting epoch 2
+average loss for this epoch: 0.051859549271942716
+starting epoch 3
+average loss for this epoch: 0.04602742404530298
+starting epoch 4
+average loss for this epoch: 0.0427278807944893

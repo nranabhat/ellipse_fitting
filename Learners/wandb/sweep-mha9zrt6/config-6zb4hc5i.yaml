@@ -1,0 +1,20 @@
+wandb_version: 1
+
+batch_size:
+  value: 5
+epochs:
+  value: 40
+gamma:
+  value: 0.0988839285517598
+milestones:
+  value:
+  - 5
+  - 10
+  - 15
+  - 20
+optimizer:
+  value: adam
+second_layer_size:
+  value: 256
+starting_lr:
+  value: 0.05205967363877309

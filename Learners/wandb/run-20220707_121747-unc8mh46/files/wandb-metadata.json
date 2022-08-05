@@ -1,0 +1,18 @@
+{
+    "os": "Windows-10-10.0.19044-SP0",
+    "python": "3.10.2",
+    "heartbeatAt": "2022-07-07T17:17:53.672796",
+    "startedAt": "2022-07-07T17:17:47.187597",
+    "docker": null,
+    "gpu": "NVIDIA GeForce GTX 1050 with Max-Q Design",
+    "gpu_count": 1,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\Learner 1 wandb\\learner1_wandb Sweep1.py",
+    "codePath": "Learner 1 wandb\\learner1_wandb Sweep1.py",
+    "host": "DESKTOP-JMRU1AK",
+    "username": "Nicor",
+    "executable": "C:\\Users\\Nicor\\AppData\\Local\\Programs\\Python\\Python310\\python.exe"
+}

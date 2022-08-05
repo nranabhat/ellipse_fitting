@@ -1,10 +1,14 @@
 import math
 import csv
+import os
 from math import cos, sin, acos
 import string
 import numpy as np
 import random as random
 from matplotlib import pyplot as plt
+
+TESTING_SET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Datasets\Testing Set - updated contrast"
+if not os.path.isdir(TESTING_SET_FOLDER): os.mkdir(TESTING_SET_FOLDER)
 
 # Creating (x,y) from Estey approach:
     # x = c_x cos(phi_c + phi_d) + b_x
@@ -21,8 +25,8 @@ labels = np.empty((numEllipses, 6)) # 6 parameters for each ellipse
 
 # --- Set constants --- # 
 CONTRAST = 0.65
-c_x = CONTRAST
-c_y = CONTRAST
+c_x = CONTRAST/2
+c_y = CONTRAST/2
 # center at (0.5, 0.5)
 b_x = 1/2 
 b_y = 1/2
@@ -57,7 +61,8 @@ for j in range(numEllipses):
 # now we have X[30,100] and Y[30,100] data, labels[100,6], Phi_c[30,100] Phi_d[1,100]
 
 # writing X data to csv file: 
-with  open(r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Testing Set\testing1X.csv", "w", newline="") as f:
+testingXpath = os.path.join(TESTING_SET_FOLDER, "testing1X.csv")
+with  open(testingXpath, "w+", newline="") as f:
     writer = csv.writer(f)
     #now write the data in X to the csv file
     for j in range(numPoints):
@@ -67,8 +72,9 @@ with  open(r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Test
         writer.writerow(rowj)
 f.close() # close the file
 
-# writing Y data to csv file: 
-with open(r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Testing Set\testing1Y.csv", 'w', newline='') as f:
+# writing Y data to csv file:
+testingYpath = os.path.join(TESTING_SET_FOLDER, "testing1Y.csv") 
+with open(testingYpath, 'w+', newline='') as f:
     writer = csv.writer(f)
     #now write the data in Y to the csv file
     for j in range(numPoints):
@@ -80,7 +86,8 @@ f.close() # close the file
 
 # writing labels to csv file: 
 labels = labels.T #turns shape to (6,100)
-with open(r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Testing Set\testing1Labels.csv", 'w', newline='') as f:
+testingLpath = os.path.join(TESTING_SET_FOLDER, "testing1Labels.csv") 
+with open(testingLpath, 'w+', newline='') as f:
     writer = csv.writer(f)
     #now write the data in labels to the csv file
     for j in range(6): #6 conic parameters for each ellipse 
@@ -94,7 +101,8 @@ f.close() # close the files
 # make files containing phi_d and phi_c just in case: 
 
 # writing Phi_d to csv file:
-with open(r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Testing Set\testing1Phi_d.csv", 'w', newline='') as f:
+testingPhi_path = os.path.join(TESTING_SET_FOLDER, "testing1Phi_d.csv") 
+with open(testingPhi_path, 'w+', newline='') as f:
     writer = csv.writer(f)
     #now write the data in Phi_d to the csv file
     for m in range(numEllipses):

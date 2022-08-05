@@ -1,0 +1,92 @@
+
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.08587816242128611 better than best 0.09011982701718807, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.09011982701718807}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.06819832615554333 better than best 0.08587816242128611, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.08587816242128611}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.06484009444713593 better than best 0.06819832615554333, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.06819832615554333}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.05556104838848114 better than best 0.06484009444713593, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.06484009444713593}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.05292255388572812 better than best 0.05556104838848114, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.05556104838848114}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.044354205913841725 better than best 0.05292255388572812, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.05292255388572812}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.04295642782002687 better than best 0.044354205913841725, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.044354205913841725}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.04157563511282206 better than best 0.04295642782002687, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.04295642782002687}]
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to c8gvvssz
+INFO:root:Current metric value better than 0.03735742997378111 better than best 0.04157563511282206, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.04157563511282206}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.03390470594167709 better than best 0.03735742997378111, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.03735742997378111}]
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.03255785867571831 better than best 0.03390470594167709, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.03390470594167709}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.026506209298968315 better than best 0.03255785867571831, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.03255785867571831}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.024051017723977566 better than best 0.026506209298968315, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.026506209298968315}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.022677817940711976 better than best 0.024051017723977566, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.024051017723977566}]
+model weights saved to c8gvvssz
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 0.021605036556720733 better than best 0.022677817940711976, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.022677817940711976}]
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to c8gvvssz
+INFO:root:Current metric value better than 0.020006229691207408 better than best 0.021605036556720733, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.021605036556720733}]
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to c8gvvssz
+INFO:root:Current metric value better than 0.018486251905560493 better than best 0.020006229691207408, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-c8gvvssz\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-c8gvvssz\\weights_tensor.pt', 'score': 0.020006229691207408}]
+wandb: Sorting runs by +summary_metrics.loss

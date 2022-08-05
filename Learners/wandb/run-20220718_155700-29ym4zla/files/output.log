@@ -1,0 +1,3 @@
+
+Backend TkAgg is interactive backend. Turning interactive mode on.
+wandb: WARNING wandb.run.join() is deprecated, please use wandb.run.finish().

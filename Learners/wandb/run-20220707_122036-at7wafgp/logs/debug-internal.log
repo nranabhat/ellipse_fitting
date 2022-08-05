@@ -1,0 +1,227 @@
+2022-07-07 12:20:41,281 INFO    MainThread:20564 [internal.py:wandb_internal():90] W&B internal server running at pid: 20564, started at: 2022-07-07 12:20:41.280691
+2022-07-07 12:20:41,291 INFO    WriterThread:20564 [datastore.py:open_for_write():75] open: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\run-at7wafgp.wandb
+2022-07-07 12:20:41,296 DEBUG   SenderThread:20564 [sender.py:send():235] send: header
+2022-07-07 12:20:41,296 DEBUG   SenderThread:20564 [sender.py:send():235] send: run
+2022-07-07 12:20:41,484 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: check_version
+2022-07-07 12:20:41,495 INFO    SenderThread:20564 [dir_watcher.py:__init__():205] watching files in: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files
+2022-07-07 12:20:41,496 INFO    SenderThread:20564 [sender.py:_start_run_threads():812] run started: at7wafgp with start time 1657214438
+2022-07-07 12:20:41,496 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:41,498 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:41,499 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: check_version
+2022-07-07 12:20:41,599 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: run_start
+2022-07-07 12:20:42,175 DEBUG   HandlerThread:20564 [meta.py:__init__():35] meta init
+2022-07-07 12:20:42,175 DEBUG   HandlerThread:20564 [meta.py:__init__():49] meta init done
+2022-07-07 12:20:42,176 DEBUG   HandlerThread:20564 [meta.py:probe():209] probe
+2022-07-07 12:20:42,189 DEBUG   HandlerThread:20564 [meta.py:_save_pip():53] save pip
+2022-07-07 12:20:42,193 DEBUG   HandlerThread:20564 [meta.py:_save_pip():67] save pip done
+2022-07-07 12:20:42,193 DEBUG   HandlerThread:20564 [meta.py:probe():247] probe done
+2022-07-07 12:20:42,240 DEBUG   SenderThread:20564 [sender.py:send():235] send: files
+2022-07-07 12:20:42,240 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-metadata.json with policy now
+2022-07-07 12:20:42,245 DEBUG   SenderThread:20564 [sender.py:send():235] send: config
+2022-07-07 12:20:42,290 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-07 12:20:42,292 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: stop_status
+2022-07-07 12:20:42,436 DEBUG   SenderThread:20564 [sender.py:send():235] send: telemetry
+2022-07-07 12:20:42,511 INFO    Thread-13 :20564 [dir_watcher.py:_on_file_created():256] file/dir created: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\output.log
+2022-07-07 12:20:42,511 INFO    Thread-13 :20564 [dir_watcher.py:_on_file_created():256] file/dir created: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\requirements.txt
+2022-07-07 12:20:42,511 INFO    Thread-13 :20564 [dir_watcher.py:_on_file_created():256] file/dir created: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\wandb-summary.json
+2022-07-07 12:20:42,511 INFO    Thread-13 :20564 [dir_watcher.py:_on_file_created():256] file/dir created: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\wandb-metadata.json
+2022-07-07 12:20:42,771 INFO    Thread-17 :20564 [upload_job.py:push():132] Uploaded file C:\Users\Nicor\AppData\Local\Temp\tmp31kehsofwandb\15dwk80y-wandb-metadata.json
+2022-07-07 12:20:54,173 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,181 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,183 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,184 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,193 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,193 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,193 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,193 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,203 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,204 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,204 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,204 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,211 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,214 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,214 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,214 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,219 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,220 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,221 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,223 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,224 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,225 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,226 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,227 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,229 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,230 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,231 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,232 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,233 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,236 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,236 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,237 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,239 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,240 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,241 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,242 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,243 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,245 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,245 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,246 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,248 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,249 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,250 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,250 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,253 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,254 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,254 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,255 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,257 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,259 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,259 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,260 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,263 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,265 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,265 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,266 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,268 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,269 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,270 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,272 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,273 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,274 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,275 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,276 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:54,277 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,280 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:54,280 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:54,281 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:54,625 INFO    Thread-13 :20564 [dir_watcher.py:_on_file_modified():269] file/dir modified: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\wandb-summary.json
+2022-07-07 12:20:55,208 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: partial_history
+2022-07-07 12:20:55,210 DEBUG   SenderThread:20564 [sender.py:send():235] send: history
+2022-07-07 12:20:55,210 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:20:55,211 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:20:55,645 INFO    Thread-13 :20564 [dir_watcher.py:_on_file_modified():269] file/dir modified: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\wandb-summary.json
+2022-07-07 12:20:57,443 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: stop_status
+2022-07-07 12:20:57,444 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: stop_status
+2022-07-07 12:20:58,908 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: log_artifact
+2022-07-07 12:20:58,909 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: log_artifact
+2022-07-07 12:20:59,555 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:20:59,690 INFO    Thread-13 :20564 [dir_watcher.py:_on_file_modified():269] file/dir modified: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\output.log
+2022-07-07 12:21:00,282 INFO    Thread-19 :20564 [upload_job.py:push():90] Uploaded file C:\Users\Nicor\.cache\wandb\artifacts\obj\md5\5a\37818ccaa47fce858ebfa03965ce35
+2022-07-07 12:21:01,063 INFO    SenderThread:20564 [sender.py:send_request_log_artifact():1006] logged artifact best-mlp-sweep-y66wfb8x.pt - {'id': 'QXJ0aWZhY3Q6MTU0MjYyNjQ3', 'digest': '35677c4df746ee6e0d632ca66f02d7aa', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjIzODMwOTgw', 'latestArtifact': None}, 'version': 'latest'}
+2022-07-07 12:21:01,063 DEBUG   SenderThread:20564 [sender.py:send():235] send: telemetry
+2022-07-07 12:21:01,064 DEBUG   SenderThread:20564 [sender.py:send():235] send: telemetry
+2022-07-07 12:21:01,064 DEBUG   SenderThread:20564 [sender.py:send():235] send: exit
+2022-07-07 12:21:01,066 INFO    SenderThread:20564 [sender.py:send_exit():371] handling exit code: 0
+2022-07-07 12:21:01,066 INFO    SenderThread:20564 [sender.py:send_exit():373] handling runtime: 17
+2022-07-07 12:21:01,072 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:21:01,073 INFO    SenderThread:20564 [sender.py:send_exit():379] send defer
+2022-07-07 12:21:01,073 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:01,074 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:01,075 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 0
+2022-07-07 12:21:01,075 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:01,076 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 0
+2022-07-07 12:21:01,076 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 1
+2022-07-07 12:21:01,077 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:01,078 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 1
+2022-07-07 12:21:01,156 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:01,157 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 1
+2022-07-07 12:21:01,157 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 2
+2022-07-07 12:21:01,159 DEBUG   SenderThread:20564 [sender.py:send():235] send: stats
+2022-07-07 12:21:01,163 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:01,164 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 2
+2022-07-07 12:21:01,164 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:01,164 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 2
+2022-07-07 12:21:01,166 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 3
+2022-07-07 12:21:01,167 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:01,167 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 3
+2022-07-07 12:21:01,167 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:01,168 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 3
+2022-07-07 12:21:01,168 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 4
+2022-07-07 12:21:01,169 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:01,169 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 4
+2022-07-07 12:21:01,169 DEBUG   SenderThread:20564 [sender.py:send():235] send: summary
+2022-07-07 12:21:01,172 INFO    SenderThread:20564 [sender.py:_save_file():949] saving file wandb-summary.json with policy end
+2022-07-07 12:21:01,173 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:01,174 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 4
+2022-07-07 12:21:01,174 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 5
+2022-07-07 12:21:01,175 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:01,175 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 5
+2022-07-07 12:21:01,176 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:01,176 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 5
+2022-07-07 12:21:01,207 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:01,371 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 6
+2022-07-07 12:21:01,372 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:01,373 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:01,373 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 6
+2022-07-07 12:21:01,374 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:01,374 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 6
+2022-07-07 12:21:01,374 INFO    SenderThread:20564 [dir_watcher.py:finish():336] shutting down directory watcher
+2022-07-07 12:21:01,484 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:01,703 INFO    SenderThread:20564 [dir_watcher.py:_on_file_modified():269] file/dir modified: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\config.yaml
+2022-07-07 12:21:01,704 INFO    SenderThread:20564 [dir_watcher.py:_on_file_modified():269] file/dir modified: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\wandb-summary.json
+2022-07-07 12:21:01,705 INFO    SenderThread:20564 [dir_watcher.py:finish():366] scan: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files
+2022-07-07 12:21:01,706 INFO    SenderThread:20564 [dir_watcher.py:finish():380] scan save: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\config.yaml config.yaml
+2022-07-07 12:21:01,706 INFO    SenderThread:20564 [dir_watcher.py:finish():380] scan save: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\output.log output.log
+2022-07-07 12:21:01,708 INFO    SenderThread:20564 [dir_watcher.py:finish():380] scan save: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\requirements.txt requirements.txt
+2022-07-07 12:21:01,725 INFO    SenderThread:20564 [dir_watcher.py:finish():380] scan save: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\wandb-metadata.json wandb-metadata.json
+2022-07-07 12:21:01,728 INFO    SenderThread:20564 [dir_watcher.py:finish():380] scan save: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\wandb-summary.json wandb-summary.json
+2022-07-07 12:21:01,752 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 7
+2022-07-07 12:21:01,754 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:01,774 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:01,775 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 7
+2022-07-07 12:21:01,776 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:01,776 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 7
+2022-07-07 12:21:01,779 INFO    SenderThread:20564 [file_pusher.py:finish():145] shutting down file pusher
+2022-07-07 12:21:01,883 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:01,883 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:01,991 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:01,991 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:02,101 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:02,102 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:02,218 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:02,219 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:02,265 INFO    Thread-22 :20564 [upload_job.py:push():132] Uploaded file C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\requirements.txt
+2022-07-07 12:21:02,267 INFO    Thread-23 :20564 [upload_job.py:push():132] Uploaded file C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\wandb-summary.json
+2022-07-07 12:21:02,327 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:02,328 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:02,341 INFO    Thread-20 :20564 [upload_job.py:push():132] Uploaded file C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\config.yaml
+2022-07-07 12:21:02,439 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:02,440 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:02,552 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:02,553 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:02,626 INFO    Thread-21 :20564 [upload_job.py:push():132] Uploaded file C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\files\output.log
+2022-07-07 12:21:02,676 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:02,676 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:02,784 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:02,785 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:02,844 INFO    Thread-12 (_thread_body):20564 [sender.py:transition_state():392] send defer: 8
+2022-07-07 12:21:02,845 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:02,846 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 8
+2022-07-07 12:21:02,847 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:02,847 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 8
+2022-07-07 12:21:02,890 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:03,054 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 9
+2022-07-07 12:21:03,054 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:03,055 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:03,055 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 9
+2022-07-07 12:21:03,056 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:03,056 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 9
+2022-07-07 12:21:03,056 INFO    SenderThread:20564 [sender.py:transition_state():392] send defer: 10
+2022-07-07 12:21:03,058 DEBUG   SenderThread:20564 [sender.py:send():235] send: final
+2022-07-07 12:21:03,058 DEBUG   SenderThread:20564 [sender.py:send():235] send: footer
+2022-07-07 12:21:03,058 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: defer
+2022-07-07 12:21:03,059 INFO    HandlerThread:20564 [handler.py:handle_request_defer():164] handle defer: 10
+2022-07-07 12:21:03,059 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: defer
+2022-07-07 12:21:03,059 INFO    SenderThread:20564 [sender.py:send_request_defer():388] handle sender defer: 10
+2022-07-07 12:21:03,176 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: poll_exit
+2022-07-07 12:21:03,176 DEBUG   SenderThread:20564 [sender.py:send_request():249] send_request: poll_exit
+2022-07-07 12:21:03,177 INFO    SenderThread:20564 [file_pusher.py:join():150] waiting for file pusher
+2022-07-07 12:21:03,393 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: sampled_history
+2022-07-07 12:21:03,395 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: get_summary
+2022-07-07 12:21:03,398 DEBUG   HandlerThread:20564 [handler.py:handle_request():141] handle_request: shutdown
+2022-07-07 12:21:03,398 INFO    HandlerThread:20564 [handler.py:finish():806] shutting down handler
+2022-07-07 12:21:04,060 INFO    WriterThread:20564 [datastore.py:close():279] close: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220707_122036-at7wafgp\run-at7wafgp.wandb
+2022-07-07 12:21:04,294 INFO    SenderThread:20564 [sender.py:finish():1111] shutting down sender
+2022-07-07 12:21:04,294 INFO    SenderThread:20564 [file_pusher.py:finish():145] shutting down file pusher
+2022-07-07 12:21:04,294 INFO    SenderThread:20564 [file_pusher.py:join():150] waiting for file pusher
+2022-07-07 12:21:04,578 INFO    MainThread:20564 [internal.py:handle_exit():80] Internal process exited

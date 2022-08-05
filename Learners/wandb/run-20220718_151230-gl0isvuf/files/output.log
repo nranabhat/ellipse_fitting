@@ -1,0 +1,6 @@
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 188.8626975250244 better than best inf,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-s2vgol87\weights_tensor.pt, & logging model weights to W&B.
+model weights saved to s2vgol87
+model weights saved to s2vgol87
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 7.48797393321991 better than best 188.8626975250244,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-s2vgol87\weights_tensor.pt, & logging model weights to W&B.

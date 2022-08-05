@@ -1,0 +1,38 @@
+2022-06-23 17:05:02 INFO Running runs: []
+2022-06-23 17:05:03 INFO Agent received command: run
+2022-06-23 17:05:03 INFO Agent starting run with config:
+	batch_size: 25
+	epochs: 5
+	gamma: 0.9771837210491012
+	milestones: [5, 7, 10]
+	optimizer: adam
+	second_layer_size: 256
+	starting_lr: 0.4798878675029121
+2022-06-23 17:05:03 INFO About to run command: python "learner1_wandb Sweep1.py" --batch_size=25 --epochs=5 --gamma=0.9771837210491012 "--milestones=[5, 7, 10]" --optimizer=adam --second_layer_size=256 --starting_lr=0.4798878675029121
+2022-06-23 17:05:08 INFO Running runs: ['zsqqykdt']
+2022-06-23 17:05:08 INFO Cleaning up finished run: zsqqykdt
+2022-06-23 17:05:08 INFO Agent received command: run
+2022-06-23 17:05:08 INFO Agent starting run with config:
+	batch_size: 25
+	epochs: 5
+	gamma: 0.5441193396928876
+	milestones: [5, 7, 10]
+	optimizer: sgd
+	second_layer_size: 512
+	starting_lr: 0.4743486719105799
+2022-06-23 17:05:08 INFO About to run command: python "learner1_wandb Sweep1.py" --batch_size=25 --epochs=5 --gamma=0.5441193396928876 "--milestones=[5, 7, 10]" --optimizer=sgd --second_layer_size=512 --starting_lr=0.4743486719105799
+2022-06-23 17:05:13 INFO Running runs: ['dr8vkijn']
+2022-06-23 17:05:13 INFO Cleaning up finished run: dr8vkijn
+2022-06-23 17:05:13 INFO Agent received command: run
+2022-06-23 17:05:13 INFO Agent starting run with config:
+	batch_size: 5
+	epochs: 5
+	gamma: 0.9623519605967064
+	milestones: [5, 10, 15]
+	optimizer: sgd
+	second_layer_size: 128
+	starting_lr: 0.056256445615185655
+2022-06-23 17:05:13 INFO About to run command: python "learner1_wandb Sweep1.py" --batch_size=5 --epochs=5 --gamma=0.9623519605967064 "--milestones=[5, 10, 15]" --optimizer=sgd --second_layer_size=128 --starting_lr=0.056256445615185655
+2022-06-23 17:05:18 INFO Running runs: ['oyqvb5x6']
+2022-06-23 17:05:20 ERROR Detected 3 failed runs in the first 60 seconds, shutting down.
+2022-06-23 17:05:20 INFO To disable this check set WANDB_AGENT_DISABLE_FLAPPING=true

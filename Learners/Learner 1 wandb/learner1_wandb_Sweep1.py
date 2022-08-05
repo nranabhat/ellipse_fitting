@@ -16,8 +16,10 @@ import loadCSVdata
 from plot_nine import plot_nine
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
-NUM_TRAINING_ELLIPSES = 50000
+NUM_TRAINING_ELLIPSES = 10000
 NUM_POINTS = 30
+CONTRAST = 0.65*2
+CLAMP_EPSILON = 0.0
 
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -206,12 +208,64 @@ def build_dataset(batch_size, train):
 
 
 def build_network(second_layer_size):
+    # simply define a custom activation function
+    def clamp(input):
+        '''
+        Applies a clamp function to constrian the 6 outputs based on a fixed contrast: 
+
+        A = 1/((contrast/2)^2)
+        B = [-2/((contrast/2)^2), 2/((contrast/2)^2)]
+        C = A
+        D = [-2/((contrast/2)^2), 0]
+        E = [-2/((contrast/2)^2), 0]
+        F = [0, 1/((contrast/2)^2]
+
+        Here, A and C are fixed while the other 4 params have a physical range of values 
+        '''
+
+        e = CLAMP_EPSILON # amount of error that can be allowed on constraints of parameters
+        common_factor = (CONTRAST/2)**2
+        fixedAB = 1/common_factor
+
+        output = torch.clone(input) # should fix gradient modification RuntimeError message? 
+
+        output[:,0] = torch.clamp(output[:,0].clone(), min=fixedAB-e, max=fixedAB+e)
+        output[:,1] = torch.clamp(output[:,1].clone(), min=-2*fixedAB-e, max=2*fixedAB+e)
+        output[:,2] = torch.clamp(output[:,2].clone(), min=fixedAB-e, max=fixedAB+e)
+        output[:,3] = torch.clamp(output[:,3].clone(), min=-2*fixedAB-e, max=e)
+        output[:,4] = torch.clamp(output[:,4].clone(), min=-2*fixedAB-e, max=e)
+        output[:,5] = torch.clamp(output[:,5].clone(), min=-e, max=fixedAB+e)
+
+        return output
+
+    # create a class wrapper from PyTorch nn.Module, so
+    # the function now can be easily used in models
+    class ParameterClamp(nn.Module):
+        '''
+        Applies the parameter_clamp function
+
+        Shape:
+            - Input: (N, *) where * means, any number of additional
+            dimensions
+            - Output: (N, *), same shape as the input
+        '''
+        def __init__(self):
+            super().__init__() # init the base class
+
+        def forward(self, input):
+            '''
+            Forward pass of the function.
+            '''
+            return clamp(input) # simply apply already implemented parameter_clamp
+
+    clamp_activation_function = ParameterClamp()
     network = nn.Sequential(  # fully-connected, single hidden layer
         nn.Linear(60, second_layer_size),
         nn.ReLU(),
         nn.Linear(second_layer_size, 30),
         nn.ReLU(),
-        nn.Linear(30, 6))
+        nn.Linear(30, 6),
+        clamp_activation_function)
 
     return network.to(device)
         
@@ -268,7 +322,7 @@ def train_epoch(network, trainloader, optimizer, scheduler):
     return cumu_loss / len(trainloader)
 
 
-def test_and_plot(model_locaiton, sweep_or_run_id, is_sweep):
+def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_sweep):
 
   api = wandb.Api()
 
@@ -317,14 +371,14 @@ def test_and_plot(model_locaiton, sweep_or_run_id, is_sweep):
             wandb.log({"test set average loss": avg_loss})
 
         # create subplot of 9 fits 
-        nine_plot = plot_nine(inputs, targets, outputs) # type PIL image
+        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, CLAMP_EPSILON) # type PIL image
         image = wandb.Image(nine_plot)
 
         # log the plots 
         avg_loss_float = avg_loss.detach().numpy()
         if is_sweep: sweep_or_run = 'sweep'
         else: sweep_or_run = 'run'
-        image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+'-avgtestloss-'+str(avg_loss_float), type='plot')
+        image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+str(num_training_ellipses)+'-avgtestloss-'+str(avg_loss_float), type='plot')
         image_artifact.add(obj=image, name='Known Ellipse (black) vs. Fit (blue) for 9 testing samples')
         wandb.run.log_artifact(image_artifact)
 
@@ -358,7 +412,7 @@ def main():
     # test best model, plot results from best model (sanity check)...
     # save plot as artifact
     model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-' + sweep_id + '.pt:latest'
-    test_and_plot(model_location, sweep_id, True)
+    test_and_plot(model_location, sweep_id, NUM_TRAINING_ELLIPSES, True)
 
     print('\nALL PROCESSES COMPLETE! (for sweep '+sweep_id+')\n')
 

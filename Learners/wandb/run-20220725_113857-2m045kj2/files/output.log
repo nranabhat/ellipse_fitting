@@ -1,0 +1,540 @@
+config:
+{'loss': 0.05, 'gamma': '0.5454507300590375', 'epochs': '700+', 'optimizer': 'sgd', 'batch_size': '15', 'milestones': '[10]', 'starting_lr': '0.01402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+average loss for this epoch: 0.23836849539399682
+starting epoch 2
+average loss for this epoch: 0.10867023270862035
+starting epoch 3
+average loss for this epoch: 0.08250337956554216
+starting epoch 4
+average loss for this epoch: 0.06367669230664912
+starting epoch 5
+average loss for this epoch: 0.052065951633790714
+starting epoch 6
+average loss for this epoch: 0.04576936376531018
+model weights saved to vj2p751m
+starting epoch 7
+INFO:root:Current metric value 0.04576936376531018 better than 0.05, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.04017879626946873 better than 0.04576936376531018, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.04017879626946873
+model weights saved to vj2p751m
+starting epoch 8
+average loss for this epoch: 0.03668885735021359
+model weights saved to vj2p751m
+starting epoch 9
+INFO:root:Current metric value 0.03668885735021359 better than 0.04017879626946873, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.03284473700457249
+model weights saved to vj2p751m
+starting epoch 10
+INFO:root:Current metric value 0.03284473700457249 better than 0.03668885735021359, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.030598781319444015 better than 0.03284473700457249, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.030598781319444015
+model weights saved to vj2p751m
+starting epoch 11
+average loss for this epoch: 0.028155055417884503
+model weights saved to vj2p751m
+starting epoch 12
+INFO:root:Current metric value 0.028155055417884503 better than 0.030598781319444015, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.02671697212877436 better than 0.028155055417884503, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.02671697212877436
+model weights saved to vj2p751m
+starting epoch 13
+average loss for this epoch: 0.02482179349715608
+model weights saved to vj2p751m
+starting epoch 14
+INFO:root:Current metric value 0.02482179349715608 better than 0.02671697212877436, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.02304772852823652 better than 0.02482179349715608, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.02304772852823652
+model weights saved to vj2p751m
+starting epoch 15
+INFO:root:Current metric value 0.021632774867050383 better than 0.02304772852823652, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.021632774867050383
+model weights saved to vj2p751m
+starting epoch 16
+INFO:root:Current metric value 0.020386173125255903 better than 0.021632774867050383, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.020386173125255903
+model weights saved to vj2p751m
+starting epoch 17
+average loss for this epoch: 0.020043014095624215
+model weights saved to vj2p751m
+starting epoch 18
+INFO:root:Current metric value 0.020043014095624215 better than 0.020386173125255903, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.018321101533491976 better than 0.020043014095624215, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.018321101533491976
+model weights saved to vj2p751m
+starting epoch 19
+average loss for this epoch: 0.017737751735885373
+model weights saved to vj2p751m
+starting epoch 20
+INFO:root:Current metric value 0.017737751735885373 better than 0.018321101533491976, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.017575786462978 better than 0.017737751735885373, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.017575786462978
+model weights saved to vj2p751m
+starting epoch 21
+average loss for this epoch: 0.016599434164717146
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.016599434164717146 better than 0.017575786462978, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 22
+INFO:root:Current metric value 0.015788456794039264 better than 0.016599434164717146, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.015788456794039264
+model weights saved to vj2p751m
+starting epoch 23
+INFO:root:Current metric value 0.015071874108120822 better than 0.015788456794039264, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.015071874108120822
+model weights saved to vj2p751m
+starting epoch 24
+average loss for this epoch: 0.014397797355221688
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.014397797355221688 better than 0.015071874108120822, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 25
+INFO:root:Current metric value 0.014035458965199083 better than 0.014397797355221688, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.014035458965199083
+model weights saved to vj2p751m
+starting epoch 26
+INFO:root:Current metric value 0.013692909838405551 better than 0.014035458965199083, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.013692909838405551
+model weights saved to vj2p751m
+starting epoch 27
+INFO:root:Current metric value 0.013228202883064791 better than 0.013692909838405551, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.013228202883064791
+model weights saved to vj2p751m
+starting epoch 28
+INFO:root:Current metric value 0.012585973757356853 better than 0.013228202883064791, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.012585973757356853
+model weights saved to vj2p751m
+starting epoch 29
+INFO:root:Current metric value 0.012135703266756065 better than 0.012585973757356853, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.012135703266756065
+model weights saved to vj2p751m
+starting epoch 30
+INFO:root:Current metric value 0.011756450511344795 better than 0.012135703266756065, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.011756450511344795
+model weights saved to vj2p751m
+starting epoch 31
+INFO:root:Current metric value 0.011652619310555563 better than 0.011756450511344795, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.011652619310555563
+model weights saved to vj2p751m
+starting epoch 32
+INFO:root:Current metric value 0.01149694966585159 better than 0.011652619310555563, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.01149694966585159
+model weights saved to vj2p751m
+starting epoch 33
+INFO:root:Current metric value 0.011037642876247596 better than 0.01149694966585159, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.011037642876247596
+model weights saved to vj2p751m
+starting epoch 34
+INFO:root:Current metric value 0.010711110804042872 better than 0.011037642876247596, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.010711110804042872
+model weights saved to vj2p751m
+starting epoch 35
+INFO:root:Current metric value 0.010459392248810656 better than 0.010711110804042872, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.010459392248810656
+model weights saved to vj2p751m
+starting epoch 36
+INFO:root:Current metric value 0.010362699732946783 better than 0.010459392248810656, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.010362699732946783
+model weights saved to vj2p751m
+starting epoch 37
+INFO:root:Current metric value 0.009666850574655288 better than 0.010362699732946783, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.009666850574655288
+model weights saved to vj2p751m
+starting epoch 38
+average loss for this epoch: 0.009868851516568947
+starting epoch 39
+INFO:root:Current metric value 0.009553774039022278 better than 0.009666850574655288, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.009553774039022278
+model weights saved to vj2p751m
+starting epoch 40
+INFO:root:Current metric value 0.0091838997567416 better than 0.009553774039022278, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0091838997567416
+model weights saved to vj2p751m
+starting epoch 41
+INFO:root:Current metric value 0.009172994655318211 better than 0.0091838997567416, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.009172994655318211
+model weights saved to vj2p751m
+starting epoch 42
+INFO:root:Current metric value 0.008828311339488484 better than 0.009172994655318211, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.008828311339488484
+model weights saved to vj2p751m
+starting epoch 43
+INFO:root:Current metric value 0.008665267178073883 better than 0.008828311339488484, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.008665267178073883
+model weights saved to vj2p751m
+starting epoch 44
+INFO:root:Current metric value 0.008382468199848883 better than 0.008665267178073883, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.008382468199848883
+model weights saved to vj2p751m
+starting epoch 45
+INFO:root:Current metric value 0.00818117606143622 better than 0.008382468199848883, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.00818117606143622
+model weights saved to vj2p751m
+starting epoch 46
+average loss for this epoch: 0.008079296431742955
+model weights saved to vj2p751m
+starting epoch 47
+INFO:root:Current metric value 0.008079296431742955 better than 0.00818117606143622, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.00782107749958753
+model weights saved to vj2p751m
+starting epoch 48
+INFO:root:Current metric value 0.00782107749958753 better than 0.008079296431742955, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.007623192736588564 better than 0.00782107749958753, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.007623192736588564
+model weights saved to vj2p751m
+starting epoch 49
+INFO:root:Current metric value 0.007550466913908631 better than 0.007623192736588564, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.007550466913908631
+model weights saved to vj2p751m
+starting epoch 50
+INFO:root:Current metric value 0.0074213621841193456 better than 0.007550466913908631, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0074213621841193456
+model weights saved to vj2p751m
+starting epoch 51
+average loss for this epoch: 0.0075159358227907536
+starting epoch 52
+INFO:root:Current metric value 0.007148384076446809 better than 0.0074213621841193456, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.007148384076446809
+model weights saved to vj2p751m
+starting epoch 53
+average loss for this epoch: 0.006974333441520258
+model weights saved to vj2p751m
+starting epoch 54
+INFO:root:Current metric value 0.006974333441520258 better than 0.007148384076446809, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.006918416484545308
+model weights saved to vj2p751m
+starting epoch 55
+INFO:root:Current metric value 0.006918416484545308 better than 0.006974333441520258, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.006876483728908103
+model weights saved to vj2p751m
+starting epoch 56
+INFO:root:Current metric value 0.006876483728908103 better than 0.006918416484545308, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0066336509937454
+model weights saved to vj2p751m
+starting epoch 57
+INFO:root:Current metric value 0.0066336509937454 better than 0.006876483728908103, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.006471890762603298 better than 0.0066336509937454, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.006471890762603298
+model weights saved to vj2p751m
+starting epoch 58
+average loss for this epoch: 0.006415874663059009
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.006415874663059009 better than 0.006471890762603298, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 59
+average loss for this epoch: 0.00633059370169497
+model weights saved to vj2p751m
+starting epoch 60
+INFO:root:Current metric value 0.00633059370169497 better than 0.006415874663059009, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.006209137380183178 better than 0.00633059370169497, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.006209137380183178
+model weights saved to vj2p751m
+starting epoch 61
+INFO:root:Current metric value 0.006065252043985422 better than 0.006209137380183178, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.006065252043985422
+model weights saved to vj2p751m
+starting epoch 62
+average loss for this epoch: 0.005954525067130274
+model weights saved to vj2p751m
+starting epoch 63
+INFO:root:Current metric value 0.005954525067130274 better than 0.006065252043985422, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.005888751632397131 better than 0.005954525067130274, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.005888751632397131
+model weights saved to vj2p751m
+starting epoch 64
+INFO:root:Current metric value 0.005853518794257211 better than 0.005888751632397131, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.005853518794257211
+model weights saved to vj2p751m
+starting epoch 65
+INFO:root:Current metric value 0.00562850036274368 better than 0.005853518794257211, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.00562850036274368
+model weights saved to vj2p751m
+starting epoch 66
+average loss for this epoch: 0.005665264222938483
+starting epoch 67
+average loss for this epoch: 0.005527531083762601
+model weights saved to vj2p751m
+starting epoch 68
+INFO:root:Current metric value 0.005527531083762601 better than 0.00562850036274368, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.005357461968559711
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.005357461968559711 better than 0.005527531083762601, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 69
+INFO:root:Current metric value 0.005320024446757424 better than 0.005357461968559711, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.005320024446757424
+model weights saved to vj2p751m
+starting epoch 70
+INFO:root:Current metric value 0.0051532673396064025 better than 0.005320024446757424, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0051532673396064025
+model weights saved to vj2p751m
+starting epoch 71
+average loss for this epoch: 0.005183210371116615
+starting epoch 72
+average loss for this epoch: 0.005211328422459404
+starting epoch 73
+average loss for this epoch: 0.0050302139932647165
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0050302139932647165 better than 0.0051532673396064025, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 74
+INFO:root:Current metric value 0.0049712712624469125 better than 0.0050302139932647165, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0049712712624469125
+model weights saved to vj2p751m
+starting epoch 75
+INFO:root:Current metric value 0.004891840952837413 better than 0.0049712712624469125, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.004891840952837413
+model weights saved to vj2p751m
+starting epoch 76
+INFO:root:Current metric value 0.0048612761930834835 better than 0.004891840952837413, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0048612761930834835
+model weights saved to vj2p751m
+starting epoch 77
+average loss for this epoch: 0.004661227409054862
+model weights saved to vj2p751m
+starting epoch 78
+INFO:root:Current metric value 0.004661227409054862 better than 0.0048612761930834835, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.004723236847751267
+starting epoch 79
+average loss for this epoch: 0.004623600303941033
+model weights saved to vj2p751m
+starting epoch 80
+INFO:root:Current metric value 0.004623600303941033 better than 0.004661227409054862, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.004516433435562032 better than 0.004623600303941033, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.004516433435562032
+model weights saved to vj2p751m
+starting epoch 81
+average loss for this epoch: 0.004470524273748542
+model weights saved to vj2p751m
+starting epoch 82
+INFO:root:Current metric value 0.004470524273748542 better than 0.004516433435562032, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.004447096928736304
+model weights saved to vj2p751m
+starting epoch 83
+INFO:root:Current metric value 0.004447096928736304 better than 0.004470524273748542, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.004380397651500922
+model weights saved to vj2p751m
+starting epoch 84
+INFO:root:Current metric value 0.004380397651500922 better than 0.004447096928736304, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.004370281201748197
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.004370281201748197 better than 0.004380397651500922, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 85
+average loss for this epoch: 0.0041917673159583375
+model weights saved to vj2p751m
+starting epoch 86
+INFO:root:Current metric value 0.0041917673159583375 better than 0.004370281201748197, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.004173560763361572 better than 0.0041917673159583375, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.004173560763361572
+model weights saved to vj2p751m
+starting epoch 87
+average loss for this epoch: 0.004103139900697348
+model weights saved to vj2p751m
+starting epoch 88
+INFO:root:Current metric value 0.004103139900697348 better than 0.004173560763361572, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0041145309390475055
+starting epoch 89
+average loss for this epoch: 0.004065115617049196
+model weights saved to vj2p751m
+starting epoch 90
+INFO:root:Current metric value 0.004065115617049196 better than 0.004103139900697348, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.003986262901360798
+model weights saved to vj2p751m
+starting epoch 91
+INFO:root:Current metric value 0.003986262901360798 better than 0.004065115617049196, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.003973710780399202
+model weights saved to vj2p751m
+starting epoch 92
+INFO:root:Current metric value 0.003973710780399202 better than 0.003986262901360798, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0038907653954078345
+model weights saved to vj2p751m
+starting epoch 93
+INFO:root:Current metric value 0.0038907653954078345 better than 0.003973710780399202, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.003777712866987871
+model weights saved to vj2p751m
+starting epoch 94
+INFO:root:Current metric value 0.003777712866987871 better than 0.0038907653954078345, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0038670556498635587
+starting epoch 95
+average loss for this epoch: 0.0036410611352186532
+model weights saved to vj2p751m
+starting epoch 96
+INFO:root:Current metric value 0.0036410611352186532 better than 0.003777712866987871, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0036625339769349174
+starting epoch 97
+average loss for this epoch: 0.0036833491391045736
+starting epoch 98
+average loss for this epoch: 0.0036699619992270316
+starting epoch 99
+average loss for this epoch: 0.0036032887853226854
+model weights saved to vj2p751m
+starting epoch 100
+INFO:root:Current metric value 0.0036032887853226854 better than 0.0036410611352186532, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0035857909089031127
+model weights saved to vj2p751m
+starting epoch 101
+INFO:root:Current metric value 0.0035857909089031127 better than 0.0036032887853226854, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.003556547004546596
+model weights saved to vj2p751m
+starting epoch 102
+INFO:root:Current metric value 0.003556547004546596 better than 0.0035857909089031127, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0035265103464937773
+model weights saved to vj2p751m
+starting epoch 103
+INFO:root:Current metric value 0.0035265103464937773 better than 0.003556547004546596, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.003436404572013693
+model weights saved to vj2p751m
+starting epoch 104
+INFO:root:Current metric value 0.003436404572013693 better than 0.0035265103464937773, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0034373636434980107
+starting epoch 105
+average loss for this epoch: 0.0033352268811572216
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0033352268811572216 better than 0.003436404572013693, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 106
+INFO:root:Current metric value 0.003275514646371159 better than 0.0033352268811572216, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.003275514646371159
+model weights saved to vj2p751m
+starting epoch 107
+average loss for this epoch: 0.0032877956775004516
+starting epoch 108
+average loss for this epoch: 0.0032868306433525064
+starting epoch 109
+average loss for this epoch: 0.0032530762972533592
+model weights saved to vj2p751m
+starting epoch 110
+INFO:root:Current metric value 0.0032530762972533592 better than 0.003275514646371159, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0031778606927550133
+model weights saved to vj2p751m
+starting epoch 111
+INFO:root:Current metric value 0.0031778606927550133 better than 0.0032530762972533592, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.003162043293235709
+model weights saved to vj2p751m
+starting epoch 112
+INFO:root:Current metric value 0.003162043293235709 better than 0.0031778606927550133, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0031759039483331927
+starting epoch 113
+average loss for this epoch: 0.003093831046523507
+model weights saved to vj2p751m
+starting epoch 114
+INFO:root:Current metric value 0.003093831046523507 better than 0.003162043293235709, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.0030464926666323223 better than 0.003093831046523507, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0030464926666323223
+model weights saved to vj2p751m
+starting epoch 115
+average loss for this epoch: 0.0030115506884214683
+model weights saved to vj2p751m
+starting epoch 116
+INFO:root:Current metric value 0.0030115506884214683 better than 0.0030464926666323223, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0030778670850010225
+starting epoch 117
+average loss for this epoch: 0.0029961209476477226
+model weights saved to vj2p751m
+starting epoch 118
+INFO:root:Current metric value 0.0029961209476477226 better than 0.0030115506884214683, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0028971765292291787
+model weights saved to vj2p751m
+starting epoch 119
+INFO:root:Current metric value 0.0028971765292291787 better than 0.0029961209476477226, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.002901833503914793
+starting epoch 120
+average loss for this epoch: 0.0028498930885558433
+model weights saved to vj2p751m
+starting epoch 121
+INFO:root:Current metric value 0.0028498930885558433 better than 0.0028971765292291787, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.002798579203616269
+model weights saved to vj2p751m
+starting epoch 122
+INFO:root:Current metric value 0.002798579203616269 better than 0.0028498930885558433, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0027710665832448196
+model weights saved to vj2p751m
+starting epoch 123
+INFO:root:Current metric value 0.0027710665832448196 better than 0.002798579203616269, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0027512468970443556
+model weights saved to vj2p751m
+starting epoch 124
+INFO:root:Current metric value 0.0027512468970443556 better than 0.0027710665832448196, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.002751094622138156
+model weights saved to vj2p751m
+starting epoch 125
+INFO:root:Current metric value 0.002751094622138156 better than 0.0027512468970443556, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0027654725883534455
+starting epoch 126
+average loss for this epoch: 0.0026933336619991456
+model weights saved to vj2p751m
+starting epoch 127
+INFO:root:Current metric value 0.0026933336619991456 better than 0.002751094622138156, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0027088236866234013
+starting epoch 128
+average loss for this epoch: 0.0026857462092728605
+model weights saved to vj2p751m
+starting epoch 129
+INFO:root:Current metric value 0.0026857462092728605 better than 0.0026933336619991456, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.002591624369564141
+model weights saved to vj2p751m
+starting epoch 130
+INFO:root:Current metric value 0.002591624369564141 better than 0.0026857462092728605, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0025849617857798776
+model weights saved to vj2p751m
+starting epoch 131
+INFO:root:Current metric value 0.0025849617857798776 better than 0.002591624369564141, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+INFO:root:Current metric value 0.0025160300826920527 better than 0.0025849617857798776, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0025160300826920527
+model weights saved to vj2p751m
+starting epoch 132
+average loss for this epoch: 0.0025536286176183727
+starting epoch 133
+average loss for this epoch: 0.002546977177764969
+starting epoch 134
+average loss for this epoch: 0.002465745019904482
+model weights saved to vj2p751m
+starting epoch 135
+INFO:root:Current metric value 0.002465745019904482 better than 0.0025160300826920527, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0025206812620065223
+starting epoch 136
+average loss for this epoch: 0.0024513482964231815
+model weights saved to vj2p751m
+starting epoch 137
+INFO:root:Current metric value 0.0024513482964231815 better than 0.002465745019904482, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.002442375619527835
+model weights saved to vj2p751m
+starting epoch 138
+INFO:root:Current metric value 0.002442375619527835 better than 0.0024513482964231815, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0024556681922025354
+starting epoch 139
+average loss for this epoch: 0.0023889331501556737
+model weights saved to vj2p751m
+starting epoch 140
+INFO:root:Current metric value 0.0023889331501556737 better than 0.002442375619527835, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0023526933142458783
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0023526933142458783 better than 0.0023889331501556737, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 141
+average loss for this epoch: 0.0023113254596817136
+model weights saved to vj2p751m
+starting epoch 142
+INFO:root:Current metric value 0.0023113254596817136 better than 0.0023526933142458783, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0023214102003966336
+starting epoch 143
+average loss for this epoch: 0.0023029982203106652
+model weights saved to vj2p751m
+starting epoch 144
+INFO:root:Current metric value 0.0023029982203106652 better than 0.0023113254596817136, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0022546130542662915
+model weights saved to vj2p751m
+starting epoch 145
+INFO:root:Current metric value 0.0022546130542662915 better than 0.0023029982203106652, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.002233761574879618
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.002233761574879618 better than 0.0022546130542662915, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+starting epoch 146
+average loss for this epoch: 0.0021988395985489575
+model weights saved to vj2p751m
+starting epoch 147
+INFO:root:Current metric value 0.0021988395985489575 better than 0.002233761574879618, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0022151820527248622
+starting epoch 148
+average loss for this epoch: 0.0021744651493554967
+model weights saved to vj2p751m
+starting epoch 149
+INFO:root:Current metric value 0.0021744651493554967 better than 0.0021988395985489575, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0021651667913469464
+model weights saved to vj2p751m
+starting epoch 150
+INFO:root:Current metric value 0.0021651667913469464 better than 0.0021744651493554967, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.
+average loss for this epoch: 0.0022128830504421467

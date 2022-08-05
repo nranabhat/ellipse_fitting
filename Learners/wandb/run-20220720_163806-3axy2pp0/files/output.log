@@ -1,0 +1,18 @@
+config:
+{'loss': 5.1470783555487285e-05, 'gamma': '0.2454507300590375', 'epochs': '15', 'optimizer': 'sgd', 'batch_size': '10', 'milestones': '[40, 200]', 'starting_lr': '0.05402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+average loss for this epoch: 0.00046752608541282824
+starting epoch 2
+average loss for this epoch: 0.001766610786144156
+starting epoch 3
+average loss for this epoch: 0.0011394743976416066
+starting epoch 4
+average loss for this epoch: 0.0008584422696731053
+starting epoch 5
+average loss for this epoch: 0.0004892266052775085
+starting epoch 6
+average loss for this epoch: 0.00023869793985795696
+starting epoch 7
+average loss for this epoch: 0.0001665959884849144
+starting epoch 8
+average loss for this epoch: 0.00012185234860226046

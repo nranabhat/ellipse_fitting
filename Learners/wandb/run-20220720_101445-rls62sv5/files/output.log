@@ -1,0 +1,30 @@
+config:
+{'loss': 99.8087927699089, 'gamma': '0.5409948202027501', 'epochs': '2', 'optimizer': 'adam', 'batch_size': '25', 'milestones': '[10]', 'starting_lr': '0.14038494421387393', 'second_layer_size': '128'}
+model weights saved to hosvxrvq
+INFO:root:Current metric value 3.933369529247284 better than 99.8087927699089, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 3.056262159347534 better than 3.933369529247284, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.9780317902565003 better than 3.056262159347534, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.950998568534851 better than 2.9780317902565003, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.9373681008815766 better than 2.950998568534851, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.9120609164237976 better than 2.9373681008815766, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.7769419252872467 better than 2.9120609164237976, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 2.6635635614395143 better than 2.7769419252872467, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.5508211851119995 better than 2.6635635614395143, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.4954188585281374 better than 2.5508211851119995, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.4461986303329466 better than 2.4954188585281374, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.3344471752643585 better than 2.4461986303329466, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq
+INFO:root:Current metric value 2.3163023412227632 better than 2.3344471752643585, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 2.202673226594925 better than 2.3163023412227632, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to hosvxrvq

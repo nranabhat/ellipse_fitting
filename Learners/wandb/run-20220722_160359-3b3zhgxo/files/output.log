@@ -1,0 +1,30 @@
+
+Backend TkAgg is interactive backend. Turning interactive mode on.
+config:
+{'loss': 4.9470783555487284e-05, 'gamma': '0.5454507300590375', 'epochs': '700+', 'optimizer': 'adam', 'batch_size': '15', 'milestones': '[10]', 'starting_lr': '0.03402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+average loss for this epoch: 1.756256632462233
+starting epoch 2
+average loss for this epoch: 0.5005868199967338
+starting epoch 3
+average loss for this epoch: 0.3304065967391351
+starting epoch 4
+average loss for this epoch: 0.27604874516809413
+starting epoch 5
+average loss for this epoch: 0.2352801665306805
+starting epoch 6
+average loss for this epoch: 0.19498071741468892
+starting epoch 7
+average loss for this epoch: 0.1931953478247641
+starting epoch 8
+average loss for this epoch: 0.20585588935740337
+starting epoch 9
+average loss for this epoch: 0.163552364669071
+starting epoch 10
+average loss for this epoch: 0.16007060885518612
+starting epoch 11
+average loss for this epoch: 0.14356143988981218
+starting epoch 12
+average loss for this epoch: 0.1415585811043571
+starting epoch 13
+average loss for this epoch: 0.14560782865894412

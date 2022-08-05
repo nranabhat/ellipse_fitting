@@ -1,0 +1,4 @@
+config:
+{'loss': 0.03, 'gamma': '0.5454507300590375', 'epochs': '35+', 'optimizer': 'sgd', 'batch_size': '15', 'milestones': '[10]', 'starting_lr': '0.01402435040728651', 'second_layer_size': '512'}
+Backend TkAgg is interactive backend. Turning interactive mode on.
+starting epoch 1

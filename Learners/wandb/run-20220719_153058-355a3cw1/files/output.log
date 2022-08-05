@@ -1,0 +1,6 @@
+config:
+{'loss': 99.8087927699089, 'gamma': '0.5409948202027501', 'epochs': '2', 'optimizer': 'adam', 'batch_size': '25', 'milestones': '[10]', 'starting_lr': '0.14038494421387393', 'second_layer_size': '128'}
+model weights saved to hosvxrvq
+INFO:root:Current metric value 3.884261095523834 better than 99.8087927699089,                 saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-run-for-sweep-hosvxrvq\weights_tensor.pt, & logging model weights to W&B.
+model weights saved to hosvxrvq
+Backend TkAgg is interactive backend. Turning interactive mode on.

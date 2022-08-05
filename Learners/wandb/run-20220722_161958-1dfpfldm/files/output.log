@@ -1,0 +1,202 @@
+config:
+{'loss': 4.9470783555487284e-05, 'gamma': '0.5454507300590375', 'epochs': '100', 'optimizer': 'adam', 'batch_size': '15', 'milestones': '[10]', 'starting_lr': '0.01402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+average loss for this epoch: 0.802505216177772
+starting epoch 2
+average loss for this epoch: 0.44138839818975506
+starting epoch 3
+average loss for this epoch: 0.2941239921047407
+starting epoch 4
+average loss for this epoch: 0.18401547806227908
+starting epoch 5
+average loss for this epoch: 0.11324831810505952
+starting epoch 6
+average loss for this epoch: 0.0851157252841136
+starting epoch 7
+average loss for this epoch: 0.07090922790196012
+starting epoch 8
+average loss for this epoch: 0.06172398466836004
+starting epoch 9
+average loss for this epoch: 0.03453367959488841
+starting epoch 10
+average loss for this epoch: 0.02941457080819151
+starting epoch 11
+average loss for this epoch: 0.023903326843591297
+starting epoch 12
+average loss for this epoch: 0.02207277448135702
+starting epoch 13
+average loss for this epoch: 0.02682334795484648
+starting epoch 14
+average loss for this epoch: 0.030204154441461843
+starting epoch 15
+average loss for this epoch: 0.03283570234335082
+starting epoch 16
+average loss for this epoch: 0.030547864159897846
+starting epoch 17
+average loss for this epoch: 0.036270105060847366
+starting epoch 18
+average loss for this epoch: 0.04044636073248351
+starting epoch 19
+average loss for this epoch: 0.04347537041586988
+starting epoch 20
+average loss for this epoch: 0.04116822869571693
+starting epoch 21
+average loss for this epoch: 0.038138278047828114
+starting epoch 22
+average loss for this epoch: 0.0431726506418165
+starting epoch 23
+average loss for this epoch: 0.034807507962207586
+starting epoch 24
+average loss for this epoch: 0.027685155790737447
+starting epoch 25
+average loss for this epoch: 0.022639508797403646
+starting epoch 26
+average loss for this epoch: 0.028809576130965176
+starting epoch 27
+average loss for this epoch: 0.03285038912230555
+starting epoch 28
+average loss for this epoch: 0.03390933800598278
+starting epoch 29
+average loss for this epoch: 0.06625102991786073
+starting epoch 30
+average loss for this epoch: 0.11279007650035269
+starting epoch 31
+average loss for this epoch: 0.08615094543818165
+starting epoch 32
+average loss for this epoch: 0.08604136591448504
+starting epoch 33
+average loss for this epoch: 0.08006741840611487
+starting epoch 34
+average loss for this epoch: 0.055590720080277496
+starting epoch 35
+average loss for this epoch: 0.04188586990622913
+starting epoch 36
+average loss for this epoch: 0.049716237548957855
+starting epoch 37
+average loss for this epoch: 0.04035315262701582
+starting epoch 38
+average loss for this epoch: 0.02761267892578069
+starting epoch 39
+average loss for this epoch: 0.034681845976806736
+starting epoch 40
+average loss for this epoch: 0.04636031948029995
+starting epoch 41
+average loss for this epoch: 0.04544817119398538
+starting epoch 42
+average loss for this epoch: 0.03402577362516347
+starting epoch 43
+average loss for this epoch: 0.035637731061262244
+starting epoch 44
+average loss for this epoch: 0.028939347604618353
+starting epoch 45
+average loss for this epoch: 0.020086071590947753
+starting epoch 46
+average loss for this epoch: 0.014621295315651772
+starting epoch 47
+average loss for this epoch: 0.01106315097935936
+starting epoch 48
+average loss for this epoch: 0.01279059360625551
+starting epoch 49
+average loss for this epoch: 0.013619230484918636
+starting epoch 50
+average loss for this epoch: 0.010817830039955238
+starting epoch 51
+average loss for this epoch: 0.011290036128176487
+starting epoch 52
+average loss for this epoch: 0.013447154272238122
+starting epoch 53
+average loss for this epoch: 0.019008046379038954
+starting epoch 54
+average loss for this epoch: 0.015519400651101023
+starting epoch 55
+average loss for this epoch: 0.011730444028644878
+starting epoch 56
+average loss for this epoch: 0.009990598677712329
+starting epoch 57
+average loss for this epoch: 0.011546996435807907
+starting epoch 58
+average loss for this epoch: 0.014631552443675259
+starting epoch 59
+average loss for this epoch: 0.013082956881536281
+starting epoch 60
+average loss for this epoch: 0.017905055654837805
+starting epoch 61
+average loss for this epoch: 0.020909314002732143
+starting epoch 62
+average loss for this epoch: 0.03361336414373534
+starting epoch 63
+average loss for this epoch: 0.04088871433016132
+starting epoch 64
+average loss for this epoch: 0.048140783903791624
+starting epoch 65
+average loss for this epoch: 0.07844776421894922
+starting epoch 66
+average loss for this epoch: 0.06546397775630741
+starting epoch 67
+average loss for this epoch: 0.07201505309956915
+starting epoch 68
+average loss for this epoch: 0.08660629120491006
+starting epoch 69
+average loss for this epoch: 0.10843661526108489
+starting epoch 70
+average loss for this epoch: 0.13344695534118833
+starting epoch 71
+average loss for this epoch: 0.1012483588693773
+starting epoch 72
+average loss for this epoch: 0.06704315888311933
+starting epoch 73
+average loss for this epoch: 0.05390789989820298
+starting epoch 74
+average loss for this epoch: 0.04068404608680045
+starting epoch 75
+average loss for this epoch: 0.02724891506573733
+starting epoch 76
+average loss for this epoch: 0.01899310524630196
+starting epoch 77
+average loss for this epoch: 0.014901715207516271
+starting epoch 78
+average loss for this epoch: 0.012409268125124714
+starting epoch 79
+average loss for this epoch: 0.011880177530282013
+starting epoch 80
+average loss for this epoch: 0.01054241752717644
+starting epoch 81
+average loss for this epoch: 0.00868122064618065
+starting epoch 82
+average loss for this epoch: 0.007604501381352106
+starting epoch 83
+average loss for this epoch: 0.006601422381422976
+starting epoch 84
+average loss for this epoch: 0.005655970328542239
+starting epoch 85
+average loss for this epoch: 0.007294289514367633
+starting epoch 86
+average loss for this epoch: 0.00795625032418791
+starting epoch 87
+average loss for this epoch: 0.009853278437410207
+starting epoch 88
+average loss for this epoch: 0.009861761594519895
+starting epoch 89
+average loss for this epoch: 0.007697631865191986
+starting epoch 90
+average loss for this epoch: 0.005998931907336502
+starting epoch 91
+average loss for this epoch: 0.007238344474257354
+starting epoch 92
+average loss for this epoch: 0.00819348928737728
+starting epoch 93
+average loss for this epoch: 0.010528268511680997
+starting epoch 94
+average loss for this epoch: 0.014253877692253274
+starting epoch 95
+average loss for this epoch: 0.019004446070860413
+starting epoch 96
+average loss for this epoch: 0.014789660872124574
+starting epoch 97
+average loss for this epoch: 0.014661120552131358
+starting epoch 98
+average loss for this epoch: 0.015195939854225692
+starting epoch 99
+average loss for this epoch: 0.017196313423268935
+starting epoch 100
+average loss for this epoch: 0.020559482125784543

@@ -13,14 +13,15 @@ from learner1_wandb_Sweep1 import CheckpointSaver,Dataset,build_dataset,build_ne
 
 RUN_ID = 'vj2p751m'
 VERSION_NUM = '295'
+NUM_TRAINING_ELLIPSES = '10000'
 NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run-'+RUN_ID+'.pt:v'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'best-run-'+str(RUN_ID)+'-50000-trainingellipses.pt'
+LOG_NEW_ARTIFACT_TO = f'test-run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingellipses.pt'
 
 wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"   
-pathname = os.path.join(wandbpath, 'best-50,000-trainingellipses-run-for-sweep-'+RUN_ID)
+pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 
-EPOCHS = 15
+EPOCHS = 3
 
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -40,9 +41,9 @@ if __name__ == '__main__':
         artifact_dir = artifact.download()
         weights_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         #config = artifact.metadata
-        config = {'loss': 0.1, 
+        config = {'loss': 0.5, 
         'gamma': '0.5454507300590375', 
-        'epochs': '15', 
+        'epochs': '35+', 
         'optimizer': 'sgd', 
         'batch_size': '15',
         'milestones': '[10]', 
@@ -98,6 +99,6 @@ if __name__ == '__main__':
             
         # test and plot
         model_location = 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO+':latest'
-        test_and_plot(model_location, RUN_ID, False)
+        test_and_plot(model_location, RUN_ID, NUM_TRAINING_ELLIPSES, False)
 
         run.finish()

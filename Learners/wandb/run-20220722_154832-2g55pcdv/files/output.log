@@ -1,0 +1,26 @@
+config:
+{'loss': 4.9470783555487284e-05, 'gamma': '0.5454507300590375', 'epochs': '700+', 'optimizer': 'adam', 'batch_size': '15', 'milestones': '[10]', 'starting_lr': '0.06402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+average loss for this epoch: 3.3986388116539596
+starting epoch 2
+average loss for this epoch: 3.0107772325327296
+starting epoch 3
+average loss for this epoch: 2.962736321780496
+starting epoch 4
+average loss for this epoch: 2.967800101834143
+starting epoch 5
+average loss for this epoch: 2.964355143601309
+starting epoch 6
+average loss for this epoch: 2.963586880775269
+starting epoch 7
+average loss for this epoch: 2.9643125223542404
+starting epoch 8
+average loss for this epoch: 2.9641700965201783
+starting epoch 9
+average loss for this epoch: 2.968249718943042
+starting epoch 10
+average loss for this epoch: 2.9680629993627172
+starting epoch 11
+average loss for this epoch: 2.9684632163561746
+starting epoch 12
+average loss for this epoch: 2.966379667470555

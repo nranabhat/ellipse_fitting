@@ -1,0 +1,4 @@
+
+Backend TkAgg is interactive backend. Turning interactive mode on.
+INFO:root:Current metric value 22.20126788496971 better than inf,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-8hzqnma4\weights_tensor.pt, & logging model weights to W&B.
+model weights saved to 8hzqnma4

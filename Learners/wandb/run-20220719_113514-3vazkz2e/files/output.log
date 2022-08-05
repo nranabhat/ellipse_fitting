@@ -1,0 +1,38 @@
+
+Backend TkAgg is interactive backend. Turning interactive mode on.
+Traceback (most recent call last):
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\utils\data\dataloader.py", line 1011, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\multiprocessing\queues.py", line 114, in get
+    raise Empty
+_queue.Empty
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "c:\Users\Nicor\.vscode\extensions\ms-python.python-2022.10.1\pythonFiles\lib\python\debugpy\__main__.py", line 39, in <module>
+    cli.main()
+  File "c:\Users\Nicor\.vscode\extensions\ms-python.python-2022.10.1\pythonFiles\lib\python\debugpy/..\debugpy\server\cli.py", line 430, in main
+    run()
+  File "c:\Users\Nicor\.vscode\extensions\ms-python.python-2022.10.1\pythonFiles\lib\python\debugpy/..\debugpy\server\cli.py", line 284, in run_file
+    runpy.run_path(target, run_name="__main__")
+  File "c:\Users\Nicor\.vscode\extensions\ms-python.python-2022.10.1\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 321, in run_path
+    return _run_module_code(code, init_globals, run_name,
+  File "c:\Users\Nicor\.vscode\extensions\ms-python.python-2022.10.1\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 135, in _run_module_code
+    _run_code(code, mod_globals, init_globals,
+  File "c:\Users\Nicor\.vscode\extensions\ms-python.python-2022.10.1\pythonFiles\lib\python\debugpy\_vendored\pydevd\_pydevd_bundle\pydevd_runpy.py", line 124, in _run_code
+    exec(code, run_globals)
+  File "c:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\Learner 1 wandb\load_&_test_models.py", line 37, in <module>
+  File "c:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\Learner 1 wandb\learner1_wandb_Sweep1.py", line 234, in train_epoch
+    for i, data in enumerate(trainloader, 0):
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\utils\data\dataloader.py", line 530, in __next__
+    data = self._next_data()
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\utils\data\dataloader.py", line 1207, in _next_data
+    idx, data = self._get_data()
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\utils\data\dataloader.py", line 1173, in _get_data
+    success, data = self._try_get_data()
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\utils\data\dataloader.py", line 1024, in _try_get_data
+    raise RuntimeError('DataLoader worker (pid(s) {}) exited unexpectedly'.format(pids_str)) from e
+RuntimeError: DataLoader worker (pid(s) 17732) exited unexpectedly

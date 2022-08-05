@@ -1,0 +1,668 @@
+config:
+{'loss': 3.269457178115845, 'gamma': '0.2454507300590375', 'epochs': '15', 'optimizer': 'sgd', 'batch_size': '10', 'milestones': '[10]', 'starting_lr': '0.05402435040728651', 'second_layer_size': '512'}
+starting epoch 1
+INFO:root:Current metric value 2.959616844654083 better than 3.269457178115845, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 2
+INFO:root:Current metric value 2.7829697728157043 better than 2.959616844654083, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 3
+INFO:root:Current metric value 1.947858680486679 better than 2.7829697728157043, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 4
+INFO:root:Current metric value 0.9454471215605735 better than 1.947858680486679, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 5
+model weights saved to vj2p751m
+starting epoch 6
+INFO:root:Current metric value 0.7043893575668335 better than 0.9454471215605735, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 7
+INFO:root:Current metric value 0.49006040036678317 better than 0.7043893575668335, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 0.2805560901761055 better than 0.49006040036678317, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 8
+INFO:root:Current metric value 0.1667397651076317 better than 0.2805560901761055, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 9
+INFO:root:Current metric value 0.13583893150091172 better than 0.1667397651076317, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 10
+INFO:root:Current metric value 0.1040421973913908 better than 0.13583893150091172, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 11
+INFO:root:Current metric value 0.0835357403755188 better than 0.1040421973913908, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 12
+INFO:root:Current metric value 0.0580103525519371 better than 0.0835357403755188, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 13
+INFO:root:Current metric value 0.045127555280923846 better than 0.0580103525519371, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 14
+INFO:root:Current metric value 0.034320954959839584 better than 0.045127555280923846, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 15
+INFO:root:Current metric value 0.02723394736647606 better than 0.034320954959839584, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 16
+INFO:root:Current metric value 0.01866953831166029 better than 0.02723394736647606, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 17
+INFO:root:Current metric value 0.013747413884848356 better than 0.01866953831166029, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 18
+INFO:root:Current metric value 0.011754972874186934 better than 0.013747413884848356, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 19
+INFO:root:Current metric value 0.0099087578849867 better than 0.011754972874186934, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 20
+INFO:root:Current metric value 0.008414272512309253 better than 0.0099087578849867, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 21
+INFO:root:Current metric value 0.006472830255515874 better than 0.008414272512309253, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 22
+starting epoch 23
+INFO:root:Current metric value 0.005647680163383484 better than 0.006472830255515874, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 24
+model weights saved to vj2p751m
+starting epoch 25
+INFO:root:Current metric value 0.005563668049871922 better than 0.005647680163383484, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 26
+INFO:root:Current metric value 0.0041492172703146936 better than 0.005563668049871922, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 27
+INFO:root:Current metric value 0.003358516723383218 better than 0.0041492172703146936, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 28
+INFO:root:Current metric value 0.0031629344960674645 better than 0.003358516723383218, saving model at {model_path}, & logging model weights to W&B.
+starting epoch 29
+starting epoch 30
+model weights saved to vj2p751m
+starting epoch 31
+INFO:root:Current metric value 0.0025204325083177537 better than 0.0031629344960674645, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 32
+INFO:root:Current metric value 0.0023762389889452605 better than 0.0025204325083177537, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 33
+INFO:root:Current metric value 0.0016780011157970876 better than 0.0023762389889452605, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 34
+INFO:root:Current metric value 0.0014482169086113572 better than 0.0016780011157970876, saving model at {model_path}, & logging model weights to W&B.
+starting epoch 35
+starting epoch 36
+model weights saved to vj2p751m
+starting epoch 37
+INFO:root:Current metric value 0.0012459854397457093 better than 0.0014482169086113572, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 38
+INFO:root:Current metric value 0.0011212351778522134 better than 0.0012459854397457093, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 39
+INFO:root:Current metric value 0.001073216563090682 better than 0.0011212351778522134, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 0.00100933542533312 better than 0.001073216563090682, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 40
+INFO:root:Current metric value 0.0009590270364424213 better than 0.00100933542533312, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 41
+INFO:root:Current metric value 0.0008900063516921364 better than 0.0009590270364424213, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 42
+model weights saved to vj2p751m
+starting epoch 43
+INFO:root:Current metric value 0.0008340758952545002 better than 0.0008900063516921364, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 44
+INFO:root:Current metric value 0.0008285307441838086 better than 0.0008340758952545002, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 0.0007863339228788391 better than 0.0008285307441838086, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 45
+INFO:root:Current metric value 0.0007709713996155187 better than 0.0007863339228788391, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 46
+starting epoch 47
+starting epoch 48
+starting epoch 49
+starting epoch 50
+starting epoch 51
+starting epoch 52
+starting epoch 53
+starting epoch 54
+starting epoch 55
+starting epoch 56
+starting epoch 57
+starting epoch 58
+starting epoch 59
+starting epoch 60
+starting epoch 61
+starting epoch 62
+starting epoch 63
+starting epoch 64
+starting epoch 65
+starting epoch 66
+starting epoch 67
+starting epoch 68
+starting epoch 69
+starting epoch 70
+starting epoch 71
+starting epoch 72
+starting epoch 73
+starting epoch 74
+starting epoch 75
+starting epoch 76
+starting epoch 77
+starting epoch 78
+starting epoch 79
+starting epoch 80
+starting epoch 81
+starting epoch 82
+starting epoch 83
+starting epoch 84
+starting epoch 85
+starting epoch 86
+starting epoch 87
+starting epoch 88
+starting epoch 89
+starting epoch 90
+starting epoch 91
+starting epoch 92
+starting epoch 93
+starting epoch 94
+starting epoch 95
+INFO:root:Current metric value 0.0007288112689275294 better than 0.0007709713996155187, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 96
+starting epoch 97
+starting epoch 98
+starting epoch 99
+starting epoch 100
+starting epoch 101
+starting epoch 102
+starting epoch 103
+starting epoch 104
+starting epoch 105
+starting epoch 106
+starting epoch 107
+starting epoch 108
+starting epoch 109
+starting epoch 110
+starting epoch 111
+starting epoch 112
+starting epoch 113
+starting epoch 114
+starting epoch 115
+starting epoch 116
+starting epoch 117
+starting epoch 118
+starting epoch 119
+starting epoch 120
+starting epoch 121
+starting epoch 122
+INFO:root:Current metric value 0.0006808694789651781 better than 0.0007288112689275294, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 123
+model weights saved to vj2p751m
+starting epoch 124
+INFO:root:Current metric value 0.0006149442138848827 better than 0.0006808694789651781, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 125
+INFO:root:Current metric value 0.0005897523515159264 better than 0.0006149442138848827, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 126
+INFO:root:Current metric value 0.0005167954749776981 better than 0.0005897523515159264, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 127
+INFO:root:Current metric value 0.0004968277680745814 better than 0.0005167954749776981, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 128
+INFO:root:Current metric value 0.0004513380507705733 better than 0.0004968277680745814, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 129
+INFO:root:Current metric value 0.00041976407534093595 better than 0.0004513380507705733, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 130
+INFO:root:Current metric value 0.0004136831744108349 better than 0.00041976407534093595, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 0.00033285784709732977 better than 0.0004136831744108349, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 131
+INFO:root:Current metric value 0.0002833464207651559 better than 0.00033285784709732977, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 132
+INFO:root:Current metric value 0.00025102250467170964 better than 0.0002833464207651559, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 133
+INFO:root:Current metric value 0.0002466135712165851 better than 0.00025102250467170964, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 134
+model weights saved to vj2p751m
+starting epoch 135
+INFO:root:Current metric value 0.00023165516991866753 better than 0.0002466135712165851, saving model at {model_path}, & logging model weights to W&B.
+starting epoch 136
+starting epoch 137
+INFO:root:Current metric value 0.00022393910403479823 better than 0.00023165516991866753, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 138
+INFO:root:Current metric value 0.00021755561952886639 better than 0.00022393910403479823, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 139
+starting epoch 140
+starting epoch 141
+starting epoch 142
+starting epoch 143
+starting epoch 144
+starting epoch 145
+starting epoch 146
+starting epoch 147
+starting epoch 148
+starting epoch 149
+starting epoch 150
+starting epoch 151
+starting epoch 152
+starting epoch 153
+starting epoch 154
+starting epoch 155
+starting epoch 156
+starting epoch 157
+starting epoch 158
+starting epoch 159
+starting epoch 160
+starting epoch 161
+starting epoch 162
+starting epoch 163
+starting epoch 164
+starting epoch 165
+starting epoch 166
+starting epoch 167
+starting epoch 168
+starting epoch 169
+starting epoch 170
+starting epoch 171
+starting epoch 172
+starting epoch 173
+starting epoch 174
+starting epoch 175
+starting epoch 176
+starting epoch 177
+starting epoch 178
+starting epoch 179
+starting epoch 180
+starting epoch 181
+starting epoch 182
+starting epoch 183
+starting epoch 184
+starting epoch 185
+starting epoch 186
+starting epoch 187
+starting epoch 188
+starting epoch 189
+starting epoch 190
+starting epoch 191
+starting epoch 192
+starting epoch 193
+starting epoch 194
+starting epoch 195
+starting epoch 196
+starting epoch 197
+starting epoch 198
+starting epoch 199
+starting epoch 200
+starting epoch 201
+starting epoch 202
+starting epoch 203
+starting epoch 204
+starting epoch 205
+starting epoch 206
+starting epoch 207
+starting epoch 208
+starting epoch 209
+starting epoch 210
+starting epoch 211
+starting epoch 212
+starting epoch 213
+starting epoch 214
+starting epoch 215
+starting epoch 216
+starting epoch 217
+starting epoch 218
+starting epoch 219
+INFO:root:Current metric value 0.0002157560019986704 better than 0.00021755561952886639, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 220
+INFO:root:Current metric value 0.00019937068296712823 better than 0.0002157560019986704, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 221
+starting epoch 222
+starting epoch 223
+starting epoch 224
+starting epoch 225
+starting epoch 226
+starting epoch 227
+starting epoch 228
+starting epoch 229
+starting epoch 230
+starting epoch 231
+starting epoch 232
+starting epoch 233
+starting epoch 234
+starting epoch 235
+starting epoch 236
+starting epoch 237
+starting epoch 238
+starting epoch 239
+starting epoch 240
+starting epoch 241
+starting epoch 242
+starting epoch 243
+starting epoch 244
+starting epoch 245
+starting epoch 246
+starting epoch 247
+starting epoch 248
+starting epoch 249
+starting epoch 250
+starting epoch 251
+starting epoch 252
+starting epoch 253
+starting epoch 254
+starting epoch 255
+starting epoch 256
+starting epoch 257
+starting epoch 258
+starting epoch 259
+starting epoch 260
+starting epoch 261
+starting epoch 262
+starting epoch 263
+starting epoch 264
+starting epoch 265
+starting epoch 266
+starting epoch 267
+starting epoch 268
+starting epoch 269
+starting epoch 270
+starting epoch 271
+starting epoch 272
+starting epoch 273
+starting epoch 274
+starting epoch 275
+starting epoch 276
+starting epoch 277
+starting epoch 278
+starting epoch 279
+starting epoch 280
+starting epoch 281
+starting epoch 282
+starting epoch 283
+INFO:root:Current metric value 0.0001625193497602595 better than 0.00019937068296712823, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 284
+INFO:root:Current metric value 0.00013884549574868287 better than 0.0001625193497602595, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 285
+INFO:root:Current metric value 0.00013715956571104472 better than 0.00013884549574868287, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 286
+INFO:root:Current metric value 0.0001280880688864272 better than 0.00013715956571104472, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 287
+INFO:root:Current metric value 0.00011852297422592528 better than 0.0001280880688864272, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 288
+INFO:root:Current metric value 0.0001133812536863843 better than 0.00011852297422592528, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 289
+INFO:root:Current metric value 0.00010961043910356238 better than 0.0001133812536863843, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 290
+starting epoch 291
+starting epoch 292
+starting epoch 293
+starting epoch 294
+starting epoch 295
+INFO:root:Current metric value 0.00010624220987665467 better than 0.00010961043910356238, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 296
+INFO:root:Current metric value 0.00010490775348444003 better than 0.00010624220987665467, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 297
+model weights saved to vj2p751m
+INFO:root:Current metric value 9.718126279040007e-05 better than 0.00010490775348444003, saving model at {model_path}, & logging model weights to W&B.
+starting epoch 298
+INFO:root:Current metric value 9.588436012563761e-05 better than 9.718126279040007e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 299
+starting epoch 300
+INFO:root:Current metric value 9.480330438236706e-05 better than 9.588436012563761e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 301
+starting epoch 302
+INFO:root:Current metric value 9.452238682570169e-05 better than 9.480330438236706e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 303
+INFO:root:Current metric value 8.849047342664563e-05 better than 9.452238682570169e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 304
+starting epoch 305
+starting epoch 306
+starting epoch 307
+INFO:root:Current metric value 8.648086628454621e-05 better than 8.849047342664563e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 308
+starting epoch 309
+starting epoch 310
+starting epoch 311
+INFO:root:Current metric value 8.423543360549956e-05 better than 8.648086628454621e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 312
+INFO:root:Current metric value 8.210318748751887e-05 better than 8.423543360549956e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 313
+INFO:root:Current metric value 8.041619505092967e-05 better than 8.210318748751887e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 314
+INFO:root:Current metric value 8.004331262782215e-05 better than 8.041619505092967e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 315
+INFO:root:Current metric value 7.790592175297207e-05 better than 8.004331262782215e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 316
+starting epoch 317
+INFO:root:Current metric value 7.769218973407988e-05 better than 7.790592175297207e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 318
+INFO:root:Current metric value 7.665495872061001e-05 better than 7.769218973407988e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 319
+starting epoch 320
+INFO:root:Current metric value 7.658228547370527e-05 better than 7.665495872061001e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 321
+starting epoch 322
+starting epoch 323
+starting epoch 324
+starting epoch 325
+starting epoch 326
+starting epoch 327
+starting epoch 328
+starting epoch 329
+starting epoch 330
+starting epoch 331
+starting epoch 332
+starting epoch 333
+starting epoch 334
+starting epoch 335
+starting epoch 336
+starting epoch 337
+starting epoch 338
+starting epoch 339
+starting epoch 340
+starting epoch 341
+starting epoch 342
+starting epoch 343
+starting epoch 344
+starting epoch 345
+starting epoch 346
+starting epoch 347
+starting epoch 348
+starting epoch 349
+starting epoch 350
+starting epoch 351
+starting epoch 352
+starting epoch 353
+starting epoch 354
+starting epoch 355
+starting epoch 356
+starting epoch 357
+starting epoch 358
+starting epoch 359
+starting epoch 360
+starting epoch 361
+starting epoch 362
+starting epoch 363
+starting epoch 364
+starting epoch 365
+starting epoch 366
+INFO:root:Current metric value 7.55917074275203e-05 better than 7.658228547370527e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 367
+starting epoch 368
+starting epoch 369
+starting epoch 370
+starting epoch 371
+starting epoch 372
+starting epoch 373
+starting epoch 374
+starting epoch 375
+starting epoch 376
+starting epoch 377
+starting epoch 378
+starting epoch 379
+starting epoch 380
+starting epoch 381
+starting epoch 382
+starting epoch 383
+starting epoch 384
+starting epoch 385
+starting epoch 386
+starting epoch 387
+starting epoch 388
+starting epoch 389
+starting epoch 390
+starting epoch 391
+starting epoch 392
+starting epoch 393
+starting epoch 394
+starting epoch 395
+starting epoch 396
+starting epoch 397
+starting epoch 398
+starting epoch 399
+starting epoch 400
+starting epoch 401
+starting epoch 402
+starting epoch 403
+starting epoch 404
+starting epoch 405
+starting epoch 406
+starting epoch 407
+starting epoch 408
+starting epoch 409
+starting epoch 410
+starting epoch 411
+starting epoch 412
+starting epoch 413
+starting epoch 414
+starting epoch 415
+starting epoch 416
+starting epoch 417
+starting epoch 418
+starting epoch 419
+starting epoch 420
+INFO:root:Current metric value 7.386329350993037e-05 better than 7.55917074275203e-05, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+starting epoch 421
+starting epoch 422
+starting epoch 423
+starting epoch 424
+starting epoch 425
+starting epoch 426
+starting epoch 427
+starting epoch 428
+starting epoch 429
+starting epoch 430
+starting epoch 431
+starting epoch 432
+starting epoch 433
+starting epoch 434
+starting epoch 435
+starting epoch 436
+starting epoch 437
+starting epoch 438
+starting epoch 439
+starting epoch 440
+starting epoch 441
+starting epoch 442
+starting epoch 443
+starting epoch 444
+starting epoch 445
+starting epoch 446
+starting epoch 447
+starting epoch 448
+starting epoch 449
+starting epoch 450
+starting epoch 451
+starting epoch 452
+starting epoch 453
+starting epoch 454
+starting epoch 455
+starting epoch 456
+starting epoch 457
+starting epoch 458
+starting epoch 459
+starting epoch 460
+starting epoch 461
+starting epoch 462
+starting epoch 463
+starting epoch 464
+starting epoch 465
+starting epoch 466
+starting epoch 467
+starting epoch 468
+starting epoch 469
+starting epoch 470
+starting epoch 471
+starting epoch 472
+starting epoch 473
+starting epoch 474
+starting epoch 475
+starting epoch 476
+starting epoch 477
+starting epoch 478
+starting epoch 479
+starting epoch 480
+starting epoch 481
+starting epoch 482
+starting epoch 483
+starting epoch 484
+starting epoch 485
+starting epoch 486
+starting epoch 487
+starting epoch 488
+starting epoch 489
+starting epoch 490
+starting epoch 491
+starting epoch 492
+starting epoch 493
+starting epoch 494
+starting epoch 495
+starting epoch 496
+starting epoch 497
+starting epoch 498
+starting epoch 499
+starting epoch 500

@@ -1,0 +1,146 @@
+2022-07-18 13:31:28,137 INFO    Thread-12 (_run_job):1128 [wandb_setup.py:_flush():76] Configure stats pid to 1128
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Nicor\.config\wandb\settings
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'ellipse_fitting', 'entity': 'nicoranabhat', 'root_dir': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners', 'run_id': '5izbbt5k', 'sweep_param_path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-vj2p751m\\config-5izbbt5k.yaml', 'sweep_id': 'vj2p751m'}
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'Learner 1 wandb\\learner1_wandb Sweep1.py', 'program': 'c:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\Learner 1 wandb\\learner1_wandb Sweep1.py'}
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_init.py:_log_setup():461] Logging user logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220718_133128-5izbbt5k\logs\debug.log
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_init.py:_log_setup():462] Logging internal logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\run-20220718_133128-5izbbt5k\logs\debug-internal.log
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_init.py:init():495] calling init triggers
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_init.py:init():498] wandb.init called with sweep_config: {'batch_size': 5, 'epochs': 15, 'gamma': 0.2294394251035192, 'milestones': [10], 'optimizer': 'adam', 'second_layer_size': 256, 'starting_lr': 0.25600322148424537}
+config: {}
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [wandb_init.py:init():548] starting backend
+2022-07-18 13:31:28,138 INFO    Thread-12 (_run_job):1128 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-07-18 13:31:28,160 INFO    Thread-12 (_run_job):1128 [backend.py:ensure_launched():217] starting backend process...
+2022-07-18 13:31:28,387 INFO    Thread-12 (_run_job):1128 [backend.py:ensure_launched():222] started backend process with pid: 9824
+2022-07-18 13:31:28,388 INFO    Thread-12 (_run_job):1128 [wandb_init.py:init():558] backend started and connected
+2022-07-18 13:31:28,408 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_config_callback():1131] config_cb None None {'batch_size': 5, 'epochs': 15, 'gamma': 0.2294394251035192, 'milestones': [10], 'optimizer': 'adam', 'second_layer_size': 256, 'starting_lr': 0.25600322148424537}
+2022-07-18 13:31:28,409 INFO    Thread-12 (_run_job):1128 [wandb_init.py:init():634] updated telemetry
+2022-07-18 13:31:28,412 INFO    Thread-12 (_run_job):1128 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-07-18 13:31:31,257 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_init():1919] communicating current version
+2022-07-18 13:31:31,394 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_init():1923] got version response 
+2022-07-18 13:31:31,394 INFO    Thread-12 (_run_job):1128 [wandb_init.py:init():700] starting run threads in backend
+2022-07-18 13:31:32,098 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_console_start():1893] atexit reg
+2022-07-18 13:31:32,100 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-07-18 13:31:32,100 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-07-18 13:31:32,102 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-07-18 13:31:32,102 INFO    Thread-12 (_run_job):1128 [wandb_init.py:init():732] run started, returning control to user process
+2022-07-18 13:33:29,523 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_finish():1680] finishing run nicoranabhat/ellipse_fitting/5izbbt5k
+2022-07-18 13:33:29,523 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-07-18 13:33:29,528 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_restore():1834] restore
+2022-07-18 13:33:35,115 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: None
+2022-07-18 13:33:38,663 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 768378
+  total_bytes: 768378
+}
+
+2022-07-18 13:33:38,945 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 768378
+  total_bytes: 768378
+}
+
+2022-07-18 13:33:39,092 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 768378
+  total_bytes: 768378
+}
+
+2022-07-18 13:33:39,540 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 4
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 768378
+  total_bytes: 776020
+}
+
+2022-07-18 13:33:39,650 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 768378
+  total_bytes: 776180
+}
+
+2022-07-18 13:33:39,757 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 768378
+  total_bytes: 776180
+}
+
+2022-07-18 13:33:39,862 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 776180
+  total_bytes: 776180
+}
+
+2022-07-18 13:33:39,968 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 776180
+  total_bytes: 776180
+}
+
+2022-07-18 13:33:40,088 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 776180
+  total_bytes: 776180
+}
+
+2022-07-18 13:33:40,210 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 776180
+  total_bytes: 776180
+}
+
+2022-07-18 13:33:40,547 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 776180
+  total_bytes: 776180
+}
+
+2022-07-18 13:33:40,785 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+  artifact_count: 8
+}
+pusher_stats {
+  uploaded_bytes: 776180
+  total_bytes: 776180
+}
+local_info {
+}
+
+2022-07-18 13:33:42,322 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-07-18 13:33:42,331 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-07-18 13:33:42,345 INFO    Thread-12 (_run_job):1128 [wandb_run.py:_footer_sync_info():3055] logging synced files

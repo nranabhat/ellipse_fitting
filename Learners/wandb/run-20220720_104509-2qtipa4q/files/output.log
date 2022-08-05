@@ -1,0 +1,80 @@
+config:
+{'loss': 3.269457178115845, 'gamma': '0.2454507300590375', 'epochs': '15', 'optimizer': 'sgd', 'batch_size': '10', 'milestones': '[10]', 'starting_lr': '0.05402435040728651', 'second_layer_size': '512'}
+model weights saved to vj2p751m
+INFO:root:Current metric value 2.964724078178406 better than 3.269457178115845, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 2.85018226146698 better than 2.964724078178406, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 1.7881434524059296 better than 2.85018226146698, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.9834688431024552 better than 1.7881434524059296, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.5477861919999123 better than 0.9834688431024552, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.31390377923846247 better than 0.5477861919999123, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 0.25306700557470324 better than 0.31390377923846247, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.17521291844546794 better than 0.25306700557470324, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.16622877076268197 better than 0.17521291844546794, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 0.14429202392697335 better than 0.16622877076268197, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.08917573660612106 better than 0.14429202392697335, saving model at {model_path}, & logging model weights to W&B.
+INFO:root:Current metric value 0.06713009599596262 better than 0.08917573660612106, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.04657755631953478 better than 0.06713009599596262, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.03100044820457697 better than 0.04657755631953478, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.023031737394630908 better than 0.03100044820457697, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.016256948597729207 better than 0.023031737394630908, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.012654138170182705 better than 0.016256948597729207, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.010846067070960998 better than 0.012654138170182705, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.008967988141812384 better than 0.010846067070960998, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.007409704430028796 better than 0.008967988141812384, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.005824269254226237 better than 0.007409704430028796, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.004854770281817764 better than 0.005824269254226237, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.004217601115815341 better than 0.004854770281817764, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.003579303901642561 better than 0.004217601115815341, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.003422727056313306 better than 0.003579303901642561, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0029542166774626823 better than 0.003422727056313306, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0027635977929458024 better than 0.0029542166774626823, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.002360620687250048 better than 0.0027635977929458024, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.002030715938890353 better than 0.002360620687250048, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.001802700855769217 better than 0.002030715938890353, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0015522476873593405 better than 0.001802700855769217, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0013743884803261608 better than 0.0015522476873593405, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.001341753340093419 better than 0.0013743884803261608, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.001158802920836024 better than 0.001341753340093419, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.001078180453623645 better than 0.001158802920836024, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0010511831491021438 better than 0.001078180453623645, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0009289101301692426 better than 0.0010511831491021438, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0007549691770691424 better than 0.0009289101301692426, saving model at {model_path}, & logging model weights to W&B.
+model weights saved to vj2p751m
+INFO:root:Current metric value 0.0006617749214638025 better than 0.0007549691770691424, saving model at {model_path}, & logging model weights to W&B.

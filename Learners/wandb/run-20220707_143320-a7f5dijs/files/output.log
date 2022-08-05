@@ -1,0 +1,22 @@
+
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to qilbrmlg
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 5.165610618591309 better than best 17.231835508346556, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-qilbrmlg\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-qilbrmlg\\weights_tensor.pt', 'score': 17.231835508346556}]
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to qilbrmlg
+INFO:root:Current metric value better than 5.122511234283447 better than best 5.165610618591309, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-qilbrmlg\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-qilbrmlg\\weights_tensor.pt', 'score': 5.165610618591309}]
+model weights saved to qilbrmlg
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 5.070312767028809 better than best 5.122511234283447, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-qilbrmlg\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-qilbrmlg\\weights_tensor.pt', 'score': 5.122511234283447}]
+model weights saved to qilbrmlg
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value better than 5.012940368652344 better than best 5.070312767028809, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-qilbrmlg\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-qilbrmlg\\weights_tensor.pt', 'score': 5.070312767028809}]
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to qilbrmlg
+INFO:root:Current metric value better than 4.948327159881591 better than best 5.012940368652344, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-qilbrmlg\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-qilbrmlg\\weights_tensor.pt', 'score': 5.012940368652344}]
