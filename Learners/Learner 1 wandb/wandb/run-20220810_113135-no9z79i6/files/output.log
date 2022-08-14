@@ -1,0 +1,14 @@
+EPOCH: 1  LOSS: 9.054067562520505
+optimizer lr: 0.0672343368155328
+scheduler lr: 0.0672343368155328
+model weights saved to khog1klv
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 9.054067562520505 better than inf,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-khog1klv\weights_tensor.pt, & logging model weights to W&B.
+EPOCH: 2  LOSS: 9.055157718837261
+optimizer lr: 0.04271136318881289
+scheduler lr: 0.04271136318881289
+wandb: Sorting runs by +summary_metrics.loss
+EPOCH: 3  LOSS: 9.055157714486121
+optimizer lr: 0.04271136318881289
+scheduler lr: 0.04271136318881289
+wandb: Sorting runs by +summary_metrics.loss

@@ -1,0 +1,6 @@
+
+model weights saved to z6kq16v9
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 8.608311232805253 better than 8.92263382935524,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-z6kq16v9\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-z6kq16v9\\weights_tensor.pt', 'score': 8.92263382935524}]
+wandb: Sorting runs by +summary_metrics.loss

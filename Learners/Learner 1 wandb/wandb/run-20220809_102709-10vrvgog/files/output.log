@@ -1,0 +1,82 @@
+
+starting epoch 2
+average loss for this epoch: 0.18500640831515194
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+INFO:root:Current metric value 0.18500640831515194 better than 3.365736141324043.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+Model weights and state_dicts saved.
+starting epoch 3
+INFO:root:Current metric value 0.11018767625838519 better than 0.18500640831515194.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+average loss for this epoch: 0.11018767625838519
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+Model weights and state_dicts saved.
+starting epoch 4
+INFO:root:Current metric value 0.08596262149512768 better than 0.11018767625838519.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+average loss for this epoch: 0.08596262149512768
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+Model weights and state_dicts saved.
+starting epoch 5
+INFO:root:Current metric value 0.07388754319027066 better than 0.08596262149512768.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+average loss for this epoch: 0.07388754319027066
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+Model weights and state_dicts saved.
+starting epoch 6
+average loss for this epoch: 0.0676678177677095
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+Model weights and state_dicts saved.
+INFO:root:Current metric value 0.0676678177677095 better than 0.07388754319027066.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+starting epoch 7
+average loss for this epoch: 0.06141118295863271
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+Model weights and state_dicts saved.
+starting epoch 8
+INFO:root:Current metric value 0.06141118295863271 better than 0.0676678177677095.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+average loss for this epoch: 0.057984262011945245
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+Model weights and state_dicts saved.
+starting epoch 9
+INFO:root:Current metric value 0.057984262011945245 better than 0.06141118295863271.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+average loss for this epoch: 0.053865229008719324
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+Model weights and state_dicts saved.
+starting epoch 10
+INFO:root:Current metric value 0.053865229008719324 better than 0.057984262011945245.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+average loss for this epoch: 0.04926486475020647
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+Model weights and state_dicts saved.
+INFO:root:Current metric value 0.04926486475020647 better than 0.053865229008719324.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+starting epoch 11
+average loss for this epoch: 0.046503471869975326
+optimizer lr: 0.0030793145689333324
+scheduler lr: 0.0030793145689333324
+INFO:root:Current metric value 0.046503471869975326 better than 0.04926486475020647.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-ce6bi60h-10000-trainingEllipses.pt
+Model weights and state_dicts saved.
+Backend TkAgg is interactive backend. Turning interactive mode on.

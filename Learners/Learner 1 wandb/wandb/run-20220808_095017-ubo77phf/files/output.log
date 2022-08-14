@@ -1,0 +1,5 @@
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 8.604364101409912 better than 8.60864671242237,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-cl5f9tbh\weights_tensor.pt, & logging model weights to W&B.
+model weights saved to cl5f9tbh
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-cl5f9tbh\\weights_tensor.pt', 'score': 8.60864671242237}]
+wandb: Sorting runs by +summary_metrics.loss

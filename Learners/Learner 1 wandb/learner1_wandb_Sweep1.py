@@ -1,6 +1,7 @@
 # *** Adding wandb to github tutorial for experiment tracking *** 
 
 import functools
+import shutil
 import time
 import numpy as np
 import torch
@@ -18,7 +19,7 @@ logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
 NUM_TRAINING_ELLIPSES = 10000
 NUM_POINTS = 30
-CONTRAST = 0.65*2
+CONTRAST = 0.65
 CLAMP_EPSILON = 0.0
 
 wandb.login()
@@ -39,7 +40,7 @@ def config_params():
   sweep_config['metric'] = metric
 
   parameters_dict = {
-      'epochs': {
+      'sweep_epochs': {
           'values': [2]      # change this to >15 later
           },
       'batch_size': {
@@ -63,7 +64,7 @@ def config_params():
           'max': 0.4
         },
       'milestones' : {
-            'values': [[10]]
+            'values': [[2,4]]
           },
       }
 
@@ -102,36 +103,48 @@ class CheckpointSaver:
         self.top_model_paths = []
         self.best_metric_val = np.Inf if decreasing else -np.Inf
         
-    def __call__(self, model, metric_val, config):
+    def __call__(self, api, model, metric_val, config, epoch, optimizer, scheduler):
         model_path = os.path.join(self.dirpath, 'weights_tensor.pt')
         save = metric_val<=self.best_metric_val if self.decreasing else metric_val>=self.best_metric_val
         if save: 
-            logging.info(f"Current metric value {metric_val} better than {self.best_metric_val}, \
-                            saving model at {model_path}, & logging model weights to W&B.")
+            logging.info(f"Current metric value {metric_val} better than {self.best_metric_val} \n\
+Saving model at {model_path}, & logging model weights to W&B.")
             self.best_metric_val = metric_val
-            torch.save(model.state_dict(), model_path)
+            #torch.save(model.state_dict(), model_path)
+            torch.save({'epoch': epoch,
+                        'model_state_dict': model.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict(),
+                        'scheduler_state_dict': scheduler.state_dict(),
+                        'loss': metric_val}, 
+                        model_path)
 
             print('\nmodel weights saved to '+str(self.sweep_id)+'\n')
 
             sweep_or_run = ''
-            if 'run-' in self.dirpath: sweep_or_run = 'run'
-            else: sweep_or_run = 'sweep'
+            if 'sweep-' in self.dirpath: sweep_or_run = 'sweep'
+            else: sweep_or_run = 'run'
 
-            self.log_artifact(f'best-mlp-'+sweep_or_run+'-' +str(self.sweep_id)+'.pt', model_path, metric_val, config)
+            artifact_location_path = f'best-mlp-'+sweep_or_run+'-' +str(self.sweep_id)+'.pt'
+            current_lr = optimizer.param_groups[0]['lr']
+            self.log_artifact(artifact_location_path, model_path, metric_val, epoch, config, current_lr)
             self.top_model_paths.append({'path': model_path, 'score': metric_val})
             self.top_model_paths = sorted(self.top_model_paths, key=lambda o: o['score'], reverse=not self.decreasing)
+
         if len(self.top_model_paths)>self.top_n:
-            self.cleanup()
+            self.cleanupLocal()
     
-    def log_artifact(self, filename, model_path, metric_val, config):
+    def log_artifact(self, filename, model_path, metric_val, epoch, config, current_lr):
         config_string={k:str(v) for k,v in config.items()}
         config_string['loss'] = metric_val
+        config_string['epoch'] = epoch + 1
+        config_string['current_lr'] = current_lr
 
         artifact = wandb.Artifact(filename, type='model', metadata=config_string)
         artifact.add_file(model_path)
         wandb.run.log_artifact(artifact)        
     
-    def cleanup(self):
+    def cleanupLocal(self):
+        # cleaning up local disc
         to_remove = self.top_model_paths[self.top_n:]
         logging.info(f"Removing extra models.. {to_remove}")
         for o in to_remove:
@@ -156,15 +169,17 @@ def train(checkpoint_saver, sweep_id, config=None):
         api = wandb.Api()
         sweep = api.sweep(f"{'nicoranabhat'}/{'ellipse_fitting'}/{sweep_id}")
 
-        for epoch in range(config.epochs):
+        for epoch in range(config.sweep_epochs):
 
             avg_loss = train_epoch(network, trainloader, optimizer, scheduler)
 
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "epoch": epoch}, commit=True)
+            print('EPOCH: ' + str(epoch+1)+'  LOSS: '+str(avg_loss))
+            print('optimizer LR: '+str(optimizer.param_groups[0]['lr']))
 
             # if it's the first or last epoch, wait 3 seconds for wandb to log the loss
-            if (epoch==0 or epoch==config.epochs-1):
+            if (epoch==0 or epoch==config.sweep_epochs-1):
                 time.sleep(3)
 
             # update best_loss for next call to checkpoint_saver
@@ -172,7 +187,7 @@ def train(checkpoint_saver, sweep_id, config=None):
 
             # save weights of current best epoch (will save best model for whole network over training if top_n=1)
             if avg_loss <= best_loss:
-              checkpoint_saver(network, avg_loss, config)
+              checkpoint_saver(api, network, avg_loss, config, epoch, optimizer, scheduler)
 
         run.finish()
 
@@ -272,11 +287,9 @@ def build_network(second_layer_size):
 
 def build_optimizer(network, optimizer, starting_lr):
     if optimizer == "sgd":
-        optimizer = torch.optim.SGD(network.parameters(),
-                              lr=starting_lr, momentum=0.9)
+        optimizer = torch.optim.SGD(network.parameters(), lr=starting_lr, momentum=0.9)
     elif optimizer == "adam":
-        optimizer = torch.optim.Adam(network.parameters(),
-                              lr=starting_lr) 
+        optimizer = torch.optim.Adam(network.parameters(), lr=starting_lr) 
 
     return optimizer
 
@@ -314,11 +327,11 @@ def train_epoch(network, trainloader, optimizer, scheduler):
         
         # Perform optimization
         optimizer.step()
-        scheduler.step()
 
         # log loss 
         wandb.log({"batch loss": loss.item()})
 
+    scheduler.step()
     return cumu_loss / len(trainloader)
 
 
@@ -333,22 +346,24 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
     best_run = sweep.best_run()
     print(best_run.config) # sanity check
 
-  # Initialize a new wandb (test) run
+  # Initialize a new wandb (validation) run
   with wandb.init(project='ellipse_fitting', reinit=True) as run: 
 
-        artifact = run.use_artifact(model_locaiton, type='model')
+        artifact = run.use_artifact(model_locaiton, type='model') # should only be 1 artifact if cleanup() works 
         artifact_dir = artifact.download()
 
         #now need to get config
-        if is_sweep: config = best_run.config
-        else: config = artifact.metadata
+        #if is_sweep: config = best_run.config
+        #else: config = artifact.metadata
+        config = artifact.metadata
 
         testloader = build_dataset(int(config['batch_size']), train=False)
         # previous network build: 
         network = build_network(int(config['second_layer_size']))
         # new network built:
         weights_path = os.path.join(artifact_dir, 'weights_tensor.pt')
-        network.load_state_dict(torch.load(weights_path))
+        network.load_state_dict(torch.load(weights_path)['model_state_dict'])
+        # don't need to load scheduler and optimizer because we only run through one ~non-training~ epoch for validation
 
         # test once manually: 
         loss_function = nn.MSELoss()
@@ -360,8 +375,9 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             inputs, targets = inputs.to(device), targets.to(device)
             targets = targets.reshape((targets.shape[0], 6))
             
-            # Perform forward pass
-            outputs = network(inputs)
+            # Perform forward pass w/o training gradients 
+            with torch.no_grad():
+                outputs = network(inputs)
             
             # Compute loss
             total_loss = loss_function(outputs, targets)
@@ -369,17 +385,21 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
             # after epoch, log loss to wandb
             wandb.log({"test set average loss": avg_loss})
+            print('test set average loss: ' + str(avg_loss))
+            train_loss = str(config['loss'])
+            print('train set average loss: ' + train_loss)
 
         # create subplot of 9 fits 
-        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, CLAMP_EPSILON) # type PIL image
+        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, train_loss, CLAMP_EPSILON) # type PIL image
         image = wandb.Image(nine_plot)
 
         # log the plots 
         avg_loss_float = avg_loss.detach().numpy()
         if is_sweep: sweep_or_run = 'sweep'
         else: sweep_or_run = 'run'
-        image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+str(num_training_ellipses)+'-avgtestloss-'+str(avg_loss_float), type='plot')
-        image_artifact.add(obj=image, name='Known Ellipse (black) vs. Fit (blue) for 9 testing samples')
+        image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+str(num_training_ellipses)+\
+        '-avgtestloss-'+str(avg_loss_float), type='plot')
+        image_artifact.add(obj=image, name='Fit (blue) vs. Truth (black) for 9 testing samples')
         wandb.run.log_artifact(image_artifact)
 
         run.finish()
@@ -389,22 +409,32 @@ def main():
 
     sweep_id = config_params()
     
-    wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
+    WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
     # sweep path
-    pathname = os.path.join(wandbpath, 'sweep-'+sweep_id)
+    pathname = os.path.join(WANDBPATH, 'sweep-'+sweep_id)
 
     # instantiate CheckpointSaver object with sweep path
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 1
+    count = 2
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
 
     wandb.agent(sweep_id, function=wandb_train_func, count=count)
 
-    print('Sweep finished!')
+    # delete all artifacts that aren't "latest"
+    time.sleep(3)
+    api = wandb.Api()
+    artifact_location_path = f'best-mlp-sweep-' +str(sweep_id)+'.pt'
+    artifact_type, artifact_name = 'model', artifact_location_path # fill in the desired type + name
+    for version in api.artifact_versions(artifact_type, artifact_name):
+        if len(version.aliases) == 0:
+            version.delete()
+
+    print('\nSweep finished!\n')
+    print('Begining validation...')
     wandb.finish()
 
     # ________ sweep is complete __________ # 
@@ -413,6 +443,9 @@ def main():
     # save plot as artifact
     model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-' + sweep_id + '.pt:latest'
     test_and_plot(model_location, sweep_id, NUM_TRAINING_ELLIPSES, True)
+
+    # delete any files saved to local machine
+    if os.path.isdir(pathname): shutil.rmtree(pathname) 
 
     print('\nALL PROCESSES COMPLETE! (for sweep '+sweep_id+')\n')
 

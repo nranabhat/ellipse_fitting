@@ -6,7 +6,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 from PIL import Image
 
-CONTRAST = 0.65*2
+CONTRAST = 0.65
 CENTER = 0.5
 
 def fig2img(fig):
@@ -40,7 +40,7 @@ def print_output_range_warning(a,b,c,d,e,f,CLAMP_EPSILON):
         print('warning, output parameter \'f\' ('+str(f)+') does not fit in range ['\
             +str(2/(theNum) + ep)+', '+str(-ep)+']')
 
-def plot_nine(input_coords, target_params, output_params, test_loss, CLAMP_EPSILON):
+def plot_nine(input_coords, target_params, output_params, test_loss, train_loss, CLAMP_EPSILON):
 
     m,n = 3,3 # 3x3 subplot (9 total ellipse fits) 
     figure, axis = plt.subplots(m,n, sharex='all', sharey = 'all')
@@ -58,18 +58,18 @@ def plot_nine(input_coords, target_params, output_params, test_loss, CLAMP_EPSIL
         for h in range(n):
 
             # Contour plot of known and fit
-            x = np.linspace(-0.20, 1.2, 400)
-            y = np.linspace(-0.20, 1.2, 400)
-            #min = CENTER + CONTRAST/2
-            #max = CENTER - CONTRAST/2
-            #x = np.linspace(min, max, 400)
-            #y = np.linspace(min, max, 400)
+            #x = np.linspace(-0.20, 1.2, 400)
+            #y = np.linspace(-0.20, 1.2, 400)
+            min = CENTER + CONTRAST/2
+            max = CENTER - CONTRAST/2
+            x = np.linspace(min, max, 400)
+            y = np.linspace(min, max, 400)
             x, y = np.meshgrid(x, y)
 
             A,B,C,D,E,F = target_params[(k+1)*(h+1),:]
             a,b,c,d,e,f = output_params[(k+1)*(h+1),:]
             print('\nNeural Net output params: '+str([a,b,c,d,e,f]))
-            print('Target params:       '+str([A,B,C,D,E,F])+'\n')
+            print('Target params:        '+str([A,B,C,D,E,F])+'\n')
             print_output_range_warning(a,b,c,d,e,f,CLAMP_EPSILON)
             
             # assert b**2 - 4*a*c < 0
@@ -85,7 +85,9 @@ def plot_nine(input_coords, target_params, output_params, test_loss, CLAMP_EPSIL
             h2,_ = fit.legend_elements()
 
     # Make super plot title/label axes
-    plt.suptitle('Known Ellipse (black) vs. Fit (blue). Test Loss: '+str(test_loss.detach().numpy()), fontsize=14)
+    test_loss_str = str(test_loss.detach().numpy())
+    plot_title = 'Fit (blue) vs. Truth (black). Test Loss: '+test_loss_str[0:5]+' Train Loss: '+train_loss[0:5]
+    plt.suptitle(plot_title, fontsize=14)
     plt.sca(axis[0,2])
     #plt.xticks([])
     #plt.yticks([0.175, 0.5, 0.825])

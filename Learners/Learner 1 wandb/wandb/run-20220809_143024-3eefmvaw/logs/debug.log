@@ -1,0 +1,156 @@
+2022-08-09 14:30:24,822 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Configure stats pid to 17756
+2022-08-09 14:30:24,823 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Nicor\.config\wandb\settings
+2022-08-09 14:30:24,823 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\Learner 1 wandb\wandb\settings
+2022-08-09 14:30:24,823 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2022-08-09 14:30:24,823 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'Learners\\Learner 1 wandb\\load_and_test_models.py', 'program': 'c:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\Learner 1 wandb\\load_and_test_models.py'}
+2022-08-09 14:30:24,829 INFO    MainThread:17756 [wandb_init.py:_log_setup():461] Logging user logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\Learner 1 wandb\wandb\run-20220809_143024-3eefmvaw\logs\debug.log
+2022-08-09 14:30:24,830 INFO    MainThread:17756 [wandb_init.py:_log_setup():462] Logging internal logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\Learner 1 wandb\wandb\run-20220809_143024-3eefmvaw\logs\debug-internal.log
+2022-08-09 14:30:24,830 INFO    MainThread:17756 [wandb_init.py:init():495] calling init triggers
+2022-08-09 14:30:24,830 INFO    MainThread:17756 [wandb_init.py:init():498] wandb.init called with sweep_config: {}
+config: {}
+2022-08-09 14:30:24,830 INFO    MainThread:17756 [wandb_init.py:init():548] starting backend
+2022-08-09 14:30:24,830 INFO    MainThread:17756 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-08-09 14:30:24,834 INFO    MainThread:17756 [backend.py:ensure_launched():217] starting backend process...
+2022-08-09 14:30:25,582 INFO    MainThread:17756 [backend.py:ensure_launched():222] started backend process with pid: 20360
+2022-08-09 14:30:25,584 INFO    MainThread:17756 [wandb_init.py:init():558] backend started and connected
+2022-08-09 14:30:25,587 INFO    MainThread:17756 [wandb_init.py:init():634] updated telemetry
+2022-08-09 14:30:25,627 INFO    MainThread:17756 [wandb_init.py:init():665] communicating run to backend with 30 second timeout
+2022-08-09 14:30:27,401 INFO    MainThread:17756 [wandb_run.py:_on_init():1919] communicating current version
+2022-08-09 14:30:27,544 INFO    MainThread:17756 [wandb_run.py:_on_init():1923] got version response upgrade_message: "wandb version 0.13.1 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2022-08-09 14:30:27,544 INFO    MainThread:17756 [wandb_init.py:init():700] starting run threads in backend
+2022-08-09 14:30:28,279 INFO    MainThread:17756 [wandb_run.py:_console_start():1893] atexit reg
+2022-08-09 14:30:28,282 INFO    MainThread:17756 [wandb_run.py:_redirect():1766] redirect: SettingsConsole.WRAP
+2022-08-09 14:30:28,283 INFO    MainThread:17756 [wandb_run.py:_redirect():1803] Wrapping output streams.
+2022-08-09 14:30:28,301 INFO    MainThread:17756 [wandb_run.py:_redirect():1827] Redirects installed.
+2022-08-09 14:30:28,302 INFO    MainThread:17756 [wandb_init.py:init():732] run started, returning control to user process
+2022-08-09 14:38:22,159 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Configure stats pid to 17756
+2022-08-09 14:38:22,159 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Nicor\.config\wandb\settings
+2022-08-09 14:38:22,159 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\Learner 1 wandb\wandb\settings
+2022-08-09 14:38:22,159 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2022-08-09 14:38:22,159 INFO    MainThread:17756 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'Learners\\Learner 1 wandb\\load_and_test_models.py', 'program': 'c:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\Learner 1 wandb\\load_and_test_models.py'}
+2022-08-09 14:38:22,164 INFO    MainThread:17756 [wandb_init.py:_log_setup():461] Logging user logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\Learner 1 wandb\wandb\run-20220809_143822-laj528il\logs\debug.log
+2022-08-09 14:38:22,164 INFO    MainThread:17756 [wandb_init.py:_log_setup():462] Logging internal logs to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\Learner 1 wandb\wandb\run-20220809_143822-laj528il\logs\debug-internal.log
+2022-08-09 14:38:22,164 INFO    MainThread:17756 [wandb_init.py:init():495] calling init triggers
+2022-08-09 14:38:22,164 INFO    MainThread:17756 [wandb_init.py:init():498] wandb.init called with sweep_config: {}
+config: {}
+2022-08-09 14:38:22,165 INFO    MainThread:17756 [wandb_init.py:init():514] re-initializing run, found existing run on stack: 3eefmvaw
+2022-08-09 14:38:22,165 INFO    MainThread:17756 [wandb_run.py:_finish():1680] finishing run nicoranabhat/ellipse_fitting/3eefmvaw
+2022-08-09 14:38:22,165 INFO    MainThread:17756 [wandb_run.py:_atexit_cleanup():1862] got exitcode: 0
+2022-08-09 14:38:22,166 INFO    MainThread:17756 [wandb_run.py:_restore():1834] restore
+2022-08-09 14:38:22,886 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 384751
+  total_bytes: 384751
+}
+
+2022-08-09 14:38:23,149 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 384751
+  total_bytes: 384751
+}
+
+2022-08-09 14:38:23,301 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 1
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 384751
+  total_bytes: 384751
+}
+
+2022-08-09 14:38:23,412 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 384751
+  total_bytes: 388677
+}
+
+2022-08-09 14:38:23,523 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 384751
+  total_bytes: 388677
+}
+
+2022-08-09 14:38:23,630 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 388677
+  total_bytes: 388677
+}
+
+2022-08-09 14:38:23,737 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 388677
+  total_bytes: 388677
+}
+
+2022-08-09 14:38:23,843 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 388677
+  total_bytes: 388677
+}
+
+2022-08-09 14:38:23,953 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 388677
+  total_bytes: 388677
+}
+
+2022-08-09 14:38:24,065 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 388677
+  total_bytes: 388677
+}
+
+2022-08-09 14:38:24,297 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 388677
+  total_bytes: 388677
+}
+
+2022-08-09 14:38:24,496 INFO    MainThread:17756 [wandb_run.py:_on_finish():1991] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+  artifact_count: 2
+}
+pusher_stats {
+  uploaded_bytes: 388677
+  total_bytes: 388677
+}
+local_info {
+}
+
+2022-08-09 14:38:26,452 INFO    MainThread:17756 [wandb_run.py:_footer_history_summary_info():3099] rendering history
+2022-08-09 14:38:26,453 INFO    MainThread:17756 [wandb_run.py:_footer_history_summary_info():3131] rendering summary
+2022-08-09 14:38:26,466 INFO    MainThread:17756 [wandb_run.py:_footer_sync_info():3055] logging synced files

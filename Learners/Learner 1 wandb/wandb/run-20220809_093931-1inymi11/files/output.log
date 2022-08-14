@@ -1,0 +1,9 @@
+
+Backend TkAgg is interactive backend. Turning interactive mode on.
+starting epoch 2
+average loss for this epoch: 0.18123988304287195
+INFO:root:Current metric value 0.18123988304287195 better than 3.365736141324043, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt , & logging model weights to W&B.
+Model weights and state_dicts saved to C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt
+starting epoch 3
+average loss for this epoch: 0.11176695689558983
+INFO:root:Current metric value 0.11176695689558983 better than 0.18123988304287195, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-ce6bi60h\weights_tensor.pt , & logging model weights to W&B.

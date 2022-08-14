@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
     # Note: here Estey has c_x, c_y as Ax, Ay but I think this is the same thing
 
 numPoints = 30 # points on each ellipse plot - number of shots measuring excitation fraction
-numEllipses = 500 # number of ellipses 
+numEllipses = 100000 # number of ellipses 
 X = np.empty((numPoints, numEllipses)) # x-coordinates 
 Y = np.empty((numPoints, numEllipses)) # y-coordinates 
 Phi_c = np.empty((numPoints, numEllipses))
@@ -56,8 +56,8 @@ for j in range(numEllipses):
     labels[j] = coefficients
 
 # now we have X[30,500] and Y[30,500] data, labels[500,6], Phi_c[30,500] Phi_d[500,]
-datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Datasets"
-training_set_path = os.path.join(datasets_path, "Training Set ("+str(numEllipses)+" ellipses) updated contrast")
+datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Datasets\Updated Contrast Datasets"
+training_set_path = os.path.join(datasets_path, "Training Set ("+str(numEllipses)+" ellipses)")
 if not os.path.isdir(training_set_path): os.mkdir(training_set_path)
 
 # writing X data to csv file: 

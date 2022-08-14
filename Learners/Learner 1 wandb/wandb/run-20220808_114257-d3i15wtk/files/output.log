@@ -1,0 +1,10 @@
+
+EPOCH: 0  LOSS: 2.9516713948249818
+model weights saved to 3zia83np
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 2.9516713948249818 better than inf,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-3zia83np\weights_tensor.pt, & logging model weights to W&B.
+EPOCH: 1  LOSS: 2.9391701087355613
+wandb: Sorting runs by +summary_metrics.loss
+model weights saved to 3zia83np
+INFO:root:Current metric value 2.9391701087355613 better than 2.9516713948249818,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-3zia83np\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-3zia83np\\weights_tensor.pt', 'score': 2.9516713948249818}]

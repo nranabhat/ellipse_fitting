@@ -1,0 +1,27 @@
+EPOCH: 1  LOSS: 2.593704025030136
+optimizer lr: 0.03491303757366208
+scheduler lr: 0.03491303757366208
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 2.593704025030136 better than inf,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-1ryt11kr\weights_tensor.pt, & logging model weights to W&B.
+model weights saved to 1ryt11kr
+EPOCH: 2  LOSS: 1.6421152967214585
+optimizer lr: 0.020474302893266582
+scheduler lr: 0.020474302893266582
+model weights saved to 1ryt11kr
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 1.6421152967214585 better than 2.593704025030136,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-1ryt11kr\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-1ryt11kr\\weights_tensor.pt', 'score': 2.593704025030136}]
+EPOCH: 3  LOSS: 1.5237941077947617
+optimizer lr: 0.012006892212709126
+scheduler lr: 0.012006892212709126
+model weights saved to 1ryt11kr
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 1.5237941077947617 better than 1.6421152967214585,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-1ryt11kr\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-1ryt11kr\\weights_tensor.pt', 'score': 1.6421152967214585}]
+EPOCH: 4  LOSS: 1.490125459074974
+optimizer lr: 0.012006892212709126
+scheduler lr: 0.012006892212709126
+model weights saved to 1ryt11kr
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 1.490125459074974 better than 1.5237941077947617,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-1ryt11kr\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-1ryt11kr\\weights_tensor.pt', 'score': 1.5237941077947617}]

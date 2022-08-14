@@ -1,0 +1,12 @@
+EPOCH: 1  LOSS: 8.522619152069092
+optimizer lr: 0.2738997176263791
+scheduler lr: 0.2738997176263791
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 8.522619152069092 better than inf,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-hnq5fykb\weights_tensor.pt, & logging model weights to W&B.
+model weights saved to hnq5fykb
+EPOCH: 2  LOSS: 8.532066667079926
+optimizer lr: 0.2738997176263791
+scheduler lr: 0.2738997176263791
+wandb: Sorting runs by +summary_metrics.loss
+EPOCH: 3  LOSS: 8.532066622972488
+optimizer lr: 0.2738997176263791

@@ -1,0 +1,20 @@
+EPOCH: 5     LOSS: 2.910638701736927
+optimizer lr: 0.008675914594901402
+scheduler lr: 0.008675914594901402
+Model weights and state_dicts saved.
+Backend TkAgg is interactive backend. Turning interactive mode on.
+INFO:root:Current metric value 2.910638701736927 better than 2.914099155962467.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-hclpmq08\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-hclpmq08-10000-trainingEllipses.pt
+EPOCH: 6     LOSS: 2.9145966024100782
+optimizer lr: 0.008675914594901402
+scheduler lr: 0.008675914594901402
+EPOCH: 7     LOSS: 2.912802889801562
+optimizer lr: 0.0010552468303146444
+scheduler lr: 0.0010552468303146444
+EPOCH: 8     LOSS: 2.9060845699459312
+optimizer lr: 0.0010552468303146444
+scheduler lr: 0.0010552468303146444
+INFO:root:Current metric value 2.9060845699459312 better than 2.910638701736927.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-hclpmq08\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-hclpmq08-10000-trainingEllipses.pt

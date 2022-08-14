@@ -2,6 +2,7 @@
 
 from cmath import inf
 import logging
+import shutil
 import stat
 import time
 import torch
@@ -11,17 +12,20 @@ from ast import literal_eval
 import numpy as np
 from learner1_wandb_Sweep1 import CheckpointSaver,Dataset,build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,test_and_plot
 
-RUN_ID = 'vj2p751m'
-VERSION_NUM = '295'
+RUN_ID = '8z0jv5ch'
+VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '10000'
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run-'+RUN_ID+'.pt:v'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'test-run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingellipses.pt'
+#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/debug-run-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-'+RUN_ID+'.pt:'+str(VERSION_NUM)
+LOG_NEW_ARTIFACT_TO = f'debug-run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
 wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"   
 pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 
-EPOCHS = 3
+NUM_NEW_EPOCHS = 2
+
+SAVE_MODEL = True  # If True, save model perormance as wandb artifact. If just running to debug, set to False 
 
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -29,57 +33,68 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if __name__ == '__main__': 
     with wandb.init(project='ellipse_fitting') as run:
         
-        def log_artifact(filename, model_path, best_loss, config):
+        def log_artifact(artifact_location_path, model_path, best_loss, config, actual_epoch, current_lr, adjusted_milestones):
             config_string={k:str(v) for k,v in config.items()}
-            config_string['loss'] = best_loss
+            config_string['loss'] = str(best_loss)
+            config_string['epoch'] = str(actual_epoch)
+            config_string['current_lr'] = str(current_lr)
+            config_string['adjusted_milestones'] = adjusted_milestones
 
-            artifact = wandb.Artifact(filename, type='model', metadata=config_string)
+            artifact = wandb.Artifact(artifact_location_path, type='model', metadata=config_string)
             artifact.add_file(model_path)
             wandb.run.log_artifact(artifact)   
 
+        print("Loading artifact at: "+NAME_OF_ARTIFACT_TO_USE)
         artifact = run.use_artifact(NAME_OF_ARTIFACT_TO_USE, type='model')
         artifact_dir = artifact.download()
-        weights_path = os.path.join(artifact_dir, 'weights_tensor.pt')
-        #config = artifact.metadata
-        config = {'loss': 0.5, 
-        'gamma': '0.5454507300590375', 
-        'epochs': '35+', 
-        'optimizer': 'sgd', 
-        'batch_size': '15',
-        'milestones': '[10]', 
-        'starting_lr': '0.01402435040728651', 
-        'second_layer_size': '512'}
-        print('config:\n'+str(config))
+        state_dicts_path = os.path.join(artifact_dir, 'weights_tensor.pt')
+        config = artifact.metadata
+        # config = {'loss': 0.5, 
+        # 'gamma': '0.5454507300590375', 
+        # 'epochs': '35+', 
+        # 'optimizer': 'sgd', 
+        # 'batch_size': '15',
+        # 'milestones': '[10]', 
+        # 'starting_lr': '0.01402435040728651', 
+        # 'second_layer_size': '512'}
+        # print('config:\n'+str(config))
 
-        # instantiate CheckpointSaver object with run path
-        #checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=RUN_ID, decreasing=True, top_n=1)
         trainloader = build_dataset(int(config['batch_size']), True)
         network = build_network(int(config['second_layer_size']))
-        network.load_state_dict(torch.load(weights_path))
-        optimizer = build_optimizer(network, config['optimizer'], float(config['starting_lr']))
-        scheduler = build_scheduler(optimizer, np.array(literal_eval(config['milestones'])), float(config['gamma']))
+        network.load_state_dict(torch.load(state_dicts_path)['model_state_dict'])
+        optimizer = build_optimizer(network, config['optimizer'], float(config['current_lr']))
+        optimizer.load_state_dict(torch.load(state_dicts_path)['optimizer_state_dict'])
+        # adjusted milestones takes into account that the model has already been trained a bit during the sweep
+        if 'adjusted_milestones' in config:
+            adjusted_milestones = np.array(config['adjusted_milestones'])-int(config['epoch'])
+        else: adjusted_milestones = np.array(literal_eval(config['milestones']))-int(config['epoch'])-1
+        scheduler = build_scheduler(optimizer, adjusted_milestones, float(config['gamma']))
+        scheduler.load_state_dict(torch.load(state_dicts_path)['scheduler_state_dict'])
+        # not sure if this^ loads the lr correctly...
 
         best_loss = float(config['loss'])
 
-        for epoch in range(EPOCHS):
-            print('starting epoch '+str(epoch+1))
+        for epoch in range(NUM_NEW_EPOCHS):
+            actual_epoch_num = int(config['epoch']) + epoch + 1
+            
             avg_loss = train_epoch(network, trainloader, optimizer, scheduler)
 
             # after epoch log loss to wandb
             wandb.log({"avg loss over epoch": avg_loss, "epoch": epoch}, commit=True)
-            print('average loss for this epoch: '+str(avg_loss))
+            print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss))
+            print('optimizer lr: '+str(optimizer.param_groups[0]['lr']))
 
             # if it's the first or last epoch, wait 3 seconds for wandb to log the loss
-            if (epoch==0 or epoch==EPOCHS-1):
+            if (epoch==0 or epoch==NUM_NEW_EPOCHS-1):
                 time.sleep(3)
 
             # save weights of current best epoch (will save best model for whole network over training if top_n=1)
-            if avg_loss <= best_loss:
+            if SAVE_MODEL and (avg_loss <= best_loss):
                 #checkpoint_saver(network, avg_loss, epoch, optimizer, config)
 
                 # save network on local drive and as artifact on wandb
-                logging.info(f"Current metric value {avg_loss} better than {best_loss}, "+ \
-                "saving model at "+MODEL_PATH+' , & logging model weights to W&B.')
+                logging.info(f"Current metric value {avg_loss} better than {best_loss}.\n"+ \
+"Saving model at "+MODEL_PATH+'\nLogging model weights to W&B artifact '+LOG_NEW_ARTIFACT_TO)
                 best_loss = avg_loss
                 
                 if not os.path.exists(pathname): os.makedirs(pathname)
@@ -91,14 +106,37 @@ if __name__ == '__main__':
                     os.remove(MODEL_PATH)
                 
                 # save new better model weights
-                torch.save(network.state_dict(), MODEL_PATH)
+                #torch.save(network.state_dict(), MODEL_PATH)
+                torch.save({'epoch': actual_epoch_num,
+                        'model_state_dict': network.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict(),
+                        'scheduler_state_dict': scheduler.state_dict(),
+                        'loss': avg_loss}, 
+                        MODEL_PATH)
 
-                print('\nmodel weights saved to '+str(RUN_ID)+'\n')
+                print('Model weights and state_dicts saved.\n')
 
-                log_artifact(LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, config)     
-            
-        # test and plot
-        model_location = 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO+':latest'
-        test_and_plot(model_location, RUN_ID, NUM_TRAINING_ELLIPSES, False)
+                current_lr = optimizer.param_groups[0]['lr']
+                log_artifact(LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, config, actual_epoch_num, current_lr, adjusted_milestones)     
+        
+        #delete all artifact versions that arne't "latest"
+        time.sleep(3)
+        api = wandb.Api()
+        artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO # fill in the desired type + name
+        try:
+            for version in api.artifact_versions(artifact_type, artifact_name):
+                if len(version.aliases) == 0:
+                    version.delete()
+            print('\nOld wandb artifacts deleted')
+            # test and plot
+            model_location = 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO+':latest'
+            test_and_plot(model_location, RUN_ID, NUM_TRAINING_ELLIPSES, is_sweep=False)
+
+        except Exception:
+            print('\nNo better model was found in this run... No new models saved to wandb')
+
+        # delete any files saved to local machine
+        if os.path.isdir(pathname): shutil.rmtree(pathname)
+
 
         run.finish()

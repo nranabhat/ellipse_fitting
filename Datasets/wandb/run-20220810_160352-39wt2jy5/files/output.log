@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "c:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Datasets\Dataset_to_artifact.py", line 17, in <module>
+    artifact.add_file(os.path.join(testing_set_path, 'training1Labels.csv'))
+  File "C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\wandb_artifacts.py", line 381, in add_file
+    raise ValueError("Path is not a file: %s" % local_path)
+ValueError: Path is not a file: C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Datasets\Updated Contrast Datasets\Testing Set\training1Labels.csv

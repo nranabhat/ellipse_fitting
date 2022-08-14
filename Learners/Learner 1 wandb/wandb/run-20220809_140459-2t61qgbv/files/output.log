@@ -1,0 +1,17 @@
+
+Backend TkAgg is interactive backend. Turning interactive mode on.
+starting epoch 3
+Average LOSS for this epoch: 8.506004256010055
+optimizer lr: 0.07848516043076312
+scheduler lr: 0.07848516043076312
+starting epoch 4
+Average LOSS for this epoch: 8.506004222631454
+optimizer lr: 0.03006031530336905
+scheduler lr: 0.03006031530336905
+starting epoch 5
+Average LOSS for this epoch: 8.506004248857499
+optimizer lr: 0.03006031530336905
+scheduler lr: 0.03006031530336905
+starting epoch 6
+Average LOSS for this epoch: 8.50600426197052
+optimizer lr: 0.03006031530336905

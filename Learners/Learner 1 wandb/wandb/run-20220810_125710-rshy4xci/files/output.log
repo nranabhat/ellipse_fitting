@@ -1,0 +1,21 @@
+Loading artifact at: nicoranabhat/ellipse_fitting/best-mlp-sweep-x92o13ci.pt:latest
+Backend TkAgg is interactive backend. Turning interactive mode on.
+EPOCH: 3     LOSS: 3.8547122913599012
+optimizer lr: 0.005378007022841275
+INFO:root:Current metric value 3.8547122913599012 better than 3.9457393981814386.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-x92o13ci\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-x92o13ci-10000-trainingEllipses.pt
+Model weights and state_dicts saved.
+EPOCH: 4     LOSS: 3.855557132065296
+optimizer lr: 0.0011264766594894376
+EPOCH: 5     LOSS: 3.8515125826001166
+optimizer lr: 0.0011264766594894376
+Model weights and state_dicts saved.
+INFO:root:Current metric value 3.8515125826001166 better than 3.8547122913599012.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-x92o13ci\weights_tensor.pt
+Logging model weights to W&B artifact debug-run-x92o13ci-10000-trainingEllipses.pt
+EPOCH: 6     LOSS: 3.8509160885214806
+optimizer lr: 0.0011264766594894376
+Model weights and state_dicts saved.
+INFO:root:Current metric value 3.8509160885214806 better than 3.8515125826001166.
+Saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-10000-trainingellipses-run-for-sweep-x92o13ci\weights_tensor.pt
