@@ -61,7 +61,7 @@ if __name__ == '__main__':
         # print('config:\n'+str(config))
 
         trainloader = build_dataset(int(config['batch_size']), True)
-        network = build_network(int(config['second_layer_size']))
+        network = build_network(int(config['second_layer_size']),clamp_output=True)
         network.load_state_dict(torch.load(state_dicts_path)['model_state_dict'])
         optimizer = build_optimizer(network, config['optimizer'], float(config['current_lr']))
         optimizer.load_state_dict(torch.load(state_dicts_path)['optimizer_state_dict'])

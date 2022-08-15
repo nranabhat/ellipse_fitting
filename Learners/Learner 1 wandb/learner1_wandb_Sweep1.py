@@ -161,7 +161,7 @@ def train(checkpoint_saver, sweep_id, config=None):
         config = wandb.config
 
         trainloader = build_dataset(config.batch_size, True)
-        network = build_network(config.second_layer_size)
+        network = build_network(config.second_layer_size, clamp_output=False)
         optimizer = build_optimizer(network, config.optimizer, config.starting_lr)
         scheduler = build_scheduler(optimizer, config.milestones, config.gamma)
 
@@ -222,7 +222,7 @@ def build_dataset(batch_size, train):
     else: return testloader
 
 
-def build_network(second_layer_size):
+def build_network(second_layer_size, clamp_output):
     # simply define a custom activation function
     def clamp(input):
         '''
@@ -274,13 +274,21 @@ def build_network(second_layer_size):
             return clamp(input) # simply apply already implemented parameter_clamp
 
     clamp_activation_function = ParameterClamp()
-    network = nn.Sequential(  # fully-connected, single hidden layer
-        nn.Linear(60, second_layer_size),
-        nn.ReLU(),
-        nn.Linear(second_layer_size, 30),
-        nn.ReLU(),
-        nn.Linear(30, 6),
-        clamp_activation_function)
+    if clamp_output:
+        network = nn.Sequential(  # fully-connected, single hidden layer
+            nn.Linear(60, second_layer_size),
+            nn.ReLU(),
+            nn.Linear(second_layer_size, 30),
+            nn.ReLU(),
+            nn.Linear(30, 6),
+            clamp_activation_function)
+    else: 
+        network = nn.Sequential(  # fully-connected, single hidden layer
+            nn.Linear(60, second_layer_size),
+            nn.ReLU(),
+            nn.Linear(second_layer_size, 30),
+            nn.ReLU(),
+            nn.Linear(30, 6))
 
     return network.to(device)
         
