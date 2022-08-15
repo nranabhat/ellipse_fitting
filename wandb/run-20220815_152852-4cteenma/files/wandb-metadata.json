@@ -1,0 +1,24 @@
+{
+    "os": "Windows-10-10.0.19044-SP0",
+    "python": "3.10.6",
+    "heartbeatAt": "2022-08-15T20:28:52.693182",
+    "startedAt": "2022-08-15T20:28:52.327636",
+    "docker": null,
+    "gpu": "GeForce RTX 3090",
+    "gpu_count": 1,
+    "cpu_count": 24,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "d:\\Nico Ranabhat\\Ellipse Fitting\\ellipse_fitting\\Learners\\Learner 1 wandb\\learner1_wandb_Sweep1.py",
+    "codePath": "Learners\\Learner 1 wandb\\learner1_wandb_Sweep1.py",
+    "git": {
+        "remote": "https://github.com/nranabhat/ellipse_fitting",
+        "commit": "e86293b0fba3bcefd23c4eba6b4b17d2cf2546cf"
+    },
+    "email": "nicoranabhat@gmail.com",
+    "root": "D:/Nico Ranabhat/Ellipse Fitting/ellipse_fitting",
+    "host": "win10-ltsc2021",
+    "username": "Nico",
+    "executable": "C:\\Users\\Nico\\AppData\\Local\\Programs\\Python\\Python310\\python.exe"
+}

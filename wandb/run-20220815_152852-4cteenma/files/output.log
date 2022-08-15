@@ -1,0 +1,43 @@
+EPOCH: 1  LOSS: 3078.112449655533
+optimizer LR: 0.3997165444914091
+model weights saved to yafzfr0v
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 3078.112449655533 better than inf
+Saving model at D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb\sweep-yafzfr0v\weights_tensor.pt, & logging model weights to W&B.
+EPOCH: 2  LOSS: 49.51481927871704
+optimizer LR: 0.0956119032553563
+model weights saved to yafzfr0v
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 49.51481927871704 better than 3078.112449655533
+Saving model at D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb\sweep-yafzfr0v\weights_tensor.pt, & logging model weights to W&B.
+INFO:root:Removing extra models.. [{'path': 'D:\\Nico Ranabhat\\Ellipse Fitting\\Learners\\wandb\\sweep-yafzfr0v\\weights_tensor.pt', 'score': 3078.112449655533}]
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 47.498662338256835 better than 49.51481927871704
+Saving model at D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb\sweep-yafzfr0v\weights_tensor.pt, & logging model weights to W&B.
+EPOCH: 3  LOSS: 47.498662338256835
+optimizer LR: 0.0956119032553563
+model weights saved to yafzfr0v
+EPOCH: 4  LOSS: 47.57922393798828
+optimizer LR: 0.022870296889370038
+INFO:root:Removing extra models.. [{'path': 'D:\\Nico Ranabhat\\Ellipse Fitting\\Learners\\wandb\\sweep-yafzfr0v\\weights_tensor.pt', 'score': 49.51481927871704}]
+wandb: Sorting runs by +summary_metrics.loss
+wandb: Sorting runs by +summary_metrics.loss
+INFO:root:Current metric value 47.23390818595886 better than 47.498662338256835
+Saving model at D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb\sweep-yafzfr0v\weights_tensor.pt, & logging model weights to W&B.
+EPOCH: 5  LOSS: 47.23390818595886
+optimizer LR: 0.022870296889370038
+model weights saved to yafzfr0v
+INFO:root:Removing extra models.. [{'path': 'D:\\Nico Ranabhat\\Ellipse Fitting\\Learners\\wandb\\sweep-yafzfr0v\\weights_tensor.pt', 'score': 47.498662338256835}]
+wandb: Sorting runs by +summary_metrics.loss
+EPOCH: 6  LOSS: 47.33169693470001
+optimizer LR: 0.022870296889370038
+wandb: Sorting runs by +summary_metrics.loss
+EPOCH: 7  LOSS: 47.3008798122406
+optimizer LR: 0.022870296889370038
+EPOCH: 8  LOSS: 47.29511228084564
+optimizer LR: 0.022870296889370038
+wandb: Sorting runs by +summary_metrics.loss
+EPOCH: 9  LOSS: 47.321633348464964
+optimizer LR: 0.022870296889370038
+wandb: Sorting runs by +summary_metrics.loss
+EPOCH: 10  LOSS: 47.32130562782287

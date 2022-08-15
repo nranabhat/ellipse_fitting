@@ -41,7 +41,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [10]      # change this to >15 later
+          'values': [20]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -64,7 +64,7 @@ def config_params():
           'max': 0.4
         },
       'milestones' : {
-            'values': [[2,4]]
+            'values': [[10]]
           },
       }
 
@@ -426,7 +426,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 8
+    count = 10
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
