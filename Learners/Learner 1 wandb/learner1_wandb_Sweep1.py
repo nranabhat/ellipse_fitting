@@ -41,7 +41,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [2]      # change this to >15 later
+          'values': [10]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -409,7 +409,8 @@ def main():
 
     sweep_id = config_params()
     
-    WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
+    #WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
+    WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
     # sweep path
     pathname = os.path.join(WANDBPATH, 'sweep-'+sweep_id)
 
@@ -417,7 +418,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 2
+    count = 8
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
