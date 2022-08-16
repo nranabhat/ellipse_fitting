@@ -25,6 +25,8 @@ CLAMP_EPSILON = 0.0
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+#WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
+WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
 
 def config_params():
 
@@ -367,7 +369,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
         testloader = build_dataset(int(config['batch_size']), train=False)
         # previous network build: 
-        network = build_network(int(config['second_layer_size']))
+        network = build_network(int(config['second_layer_size']), clamp_output=True)
         # new network built:
         weights_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         network.load_state_dict(torch.load(weights_path)['model_state_dict'])
@@ -417,8 +419,6 @@ def main():
 
     sweep_id = config_params()
     
-    #WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
-    WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
     # sweep path
     pathname = os.path.join(WANDBPATH, 'sweep-'+sweep_id)
 
