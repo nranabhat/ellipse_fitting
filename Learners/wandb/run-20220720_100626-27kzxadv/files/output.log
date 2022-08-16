@@ -1,7 +1,0 @@
-config:
-{'loss': 99.8087927699089, 'gamma': '0.5409948202027501', 'epochs': '2', 'optimizer': 'adam', 'batch_size': '25', 'milestones': '[10]', 'starting_lr': '0.14038494421387393', 'second_layer_size': '128'}
-INFO:root:Current metric value 4.053276681900025 better than 99.8087927699089, saving model at {model_path}, & logging model weights to W&B.
-model weights saved to hosvxrvq
-model weights saved to hosvxrvq
-Backend TkAgg is interactive backend. Turning interactive mode on.
-INFO:root:Current metric value 3.0736133098602294 better than 4.053276681900025, saving model at {model_path}, & logging model weights to W&B.

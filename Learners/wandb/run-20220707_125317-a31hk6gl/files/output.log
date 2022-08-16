@@ -1,5 +1,0 @@
-
-model weights saved to nchrld93
-wandb: Sorting runs by +summary_metrics.loss
-INFO:root:Current metric value better than 5.034330119104946 better than best 546921.5240057216, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-nchrld93\weights_tensor.pt, & logging model weights to W&B.
-INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-nchrld93\\weights_tensor.pt', 'score': 546921.5240057216}]

@@ -1,5 +1,0 @@
-
-model weights saved to f7fjunw4
-wandb: Sorting runs by +summary_metrics.loss
-INFO:root:Current metric value better than 5.314024930000305 better than best 549.5836206245423, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-f7fjunw4\weights_tensor.pt, & logging model weights to W&B.
-INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-f7fjunw4\\weights_tensor.pt', 'score': 549.5836206245423}]

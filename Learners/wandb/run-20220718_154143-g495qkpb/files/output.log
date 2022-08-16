@@ -1,8 +1,0 @@
-
-model weights saved to 8hzqnma4
-wandb: Sorting runs by +summary_metrics.loss
-INFO:root:Current metric value 29651.80752518058 better than inf,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-8hzqnma4\weights_tensor.pt, & logging model weights to W&B.
-model weights saved to 8hzqnma4
-wandb: Sorting runs by +summary_metrics.loss
-INFO:root:Current metric value 25.32683238208294 better than 29651.80752518058,                             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-8hzqnma4\weights_tensor.pt, & logging model weights to W&B.
-INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-8hzqnma4\\weights_tensor.pt', 'score': 29651.80752518058}]
