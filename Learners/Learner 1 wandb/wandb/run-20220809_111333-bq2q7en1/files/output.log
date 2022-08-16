@@ -1,5 +1,0 @@
-EPOCH: 1  LOSS: 2.95395530551672
-optimizer lr: 0.16632619320646289
-scheduler lr: 0.16632619320646289
-model weights saved to ne0hgl46
-wandb: Sorting runs by +summary_metrics.loss

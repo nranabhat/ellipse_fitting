@@ -1,8 +1,0 @@
-
-Loading artifact at: nicoranabhat/ellipse_fitting/debug-run-x92o13ci-10000-trainingEllipses.pt:latest
-Backend TkAgg is interactive backend. Turning interactive mode on.
-EPOCH: 7     LOSS: 3.8550851038694383
-optimizer lr: 0.005378007022841275
-EPOCH: 8     LOSS: 3.8556287580132484
-optimizer lr: 0.005378007022841275
-Old wandb artifacts deleted
