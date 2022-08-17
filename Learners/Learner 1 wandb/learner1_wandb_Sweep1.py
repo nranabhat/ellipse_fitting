@@ -25,8 +25,8 @@ CLAMP_EPSILON = 0.0
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
-#WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
+#WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
+WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
 
 def config_params():
 
@@ -408,7 +408,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
         avg_loss_float = avg_loss.detach().numpy()
         if is_sweep: sweep_or_run = 'sweep'
         else: sweep_or_run = 'run'
-        image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+str(num_training_ellipses)+\
+        image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+'-'+str(num_training_ellipses)+'ellipses'+\
         '-avgtestloss-'+str(avg_loss_float), type='plot')
         image_artifact.add(obj=image, name='Fit (blue) vs. Truth (black) for 9 testing samples')
         wandb.run.log_artifact(image_artifact)
