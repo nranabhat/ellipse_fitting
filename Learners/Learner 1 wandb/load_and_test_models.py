@@ -19,7 +19,7 @@ NUM_TRAINING_ELLIPSES = '10000'
 NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-'+RUN_ID+'.pt:'+str(VERSION_NUM)
 LOG_NEW_ARTIFACT_TO = f'debug-run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
-wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"   
+wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
 #wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
 pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')

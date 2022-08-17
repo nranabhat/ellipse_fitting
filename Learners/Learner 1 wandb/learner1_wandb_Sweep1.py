@@ -25,7 +25,7 @@ CLAMP_EPSILON = 0.0
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
+WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
 #WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
 
 def config_params():
@@ -43,7 +43,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [20]      # change this to >15 later
+          'values': [4]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -66,7 +66,7 @@ def config_params():
           'max': 0.4
         },
       'milestones' : {
-            'values': [[10]]
+            'values': [[2,6]]
           },
       }
 
@@ -426,7 +426,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 10
+    count = 2
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
@@ -451,7 +451,7 @@ def main():
     # test best model, plot results from best model (sanity check)...
     # save plot as artifact
     model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-' + sweep_id + '.pt:latest'
-    test_and_plot(model_location, sweep_id, NUM_TRAINING_ELLIPSES, True)
+    test_and_plot(model_location, sweep_id, NUM_TRAINING_ELLIPSES, is_sweep=True)
 
     # delete any files saved to local machine
     if os.path.isdir(pathname): shutil.rmtree(pathname) 
