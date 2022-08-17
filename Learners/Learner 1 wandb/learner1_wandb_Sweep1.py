@@ -25,8 +25,8 @@ CLAMP_EPSILON = 0.0
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-#WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
-WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
+WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
+#WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
 
 def config_params():
 
