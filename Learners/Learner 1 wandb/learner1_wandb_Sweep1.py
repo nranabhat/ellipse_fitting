@@ -16,7 +16,7 @@ import logging
 import loadCSVdata
 from plot_nine import plot_nine
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
-
+# comment for commit
 NUM_TRAINING_ELLIPSES = 10000
 NUM_POINTS = 30
 CONTRAST = 0.65
