@@ -17,7 +17,7 @@ import loadCSVdata
 from plot_nine import plot_nine
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 # comment for commit
-NUM_TRAINING_ELLIPSES = 10000
+NUM_TRAINING_ELLIPSES = 100000
 NUM_POINTS = 30
 CONTRAST = 0.65
 CLAMP_EPSILON = 0.0
@@ -43,7 +43,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [4]      # change this to >15 later
+          'values': [3]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -62,11 +62,11 @@ def config_params():
       'starting_lr': {
           # a flat distribution between 0.01 and 1
           'distribution': 'uniform',
-          'min': 0.01,
-          'max': 0.4
+          'min': 0.01 * 10**-7,
+          'max': 0.4 * 10**-3
         },
       'milestones' : {
-            'values': [[2,6]]
+            'values': [[2,4,6]]
           },
       }
 
@@ -140,6 +140,7 @@ Saving model at {model_path}, & logging model weights to W&B.")
         config_string['loss'] = metric_val
         config_string['epoch'] = epoch + 1
         config_string['current_lr'] = current_lr
+        config_string['#ellipses (sweep)'] = NUM_TRAINING_ELLIPSES
 
         artifact = wandb.Artifact(filename, type='model', metadata=config_string)
         artifact.add_file(model_path)

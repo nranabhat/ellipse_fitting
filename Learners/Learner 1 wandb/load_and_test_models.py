@@ -40,6 +40,7 @@ if __name__ == '__main__':
             config_string['epoch'] = str(actual_epoch)
             config_string['current_lr'] = str(current_lr)
             config_string['adjusted_milestones'] = adjusted_milestones
+            config_string['#ellipses (training run)'] = str(NUM_TRAINING_ELLIPSES)
 
             artifact = wandb.Artifact(artifact_location_path, type='model', metadata=config_string)
             artifact.add_file(model_path)
