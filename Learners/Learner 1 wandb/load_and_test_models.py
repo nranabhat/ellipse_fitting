@@ -11,7 +11,7 @@ import os
 from ast import literal_eval
 import numpy as np
 from learner1_wandb_Sweep1 import CheckpointSaver,Dataset,build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,test_and_plot
-# comment lab comp.
+
 RUN_ID = '8z0jv5ch'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '10000'
