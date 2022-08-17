@@ -1,3 +1,0 @@
-
-Backend TkAgg is interactive backend. Turning interactive mode on.
-C:\Users\Nicor\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\optim\lr_scheduler.py:418: UserWarning: To get the last learning rate computed by the scheduler, please use `get_last_lr()`.

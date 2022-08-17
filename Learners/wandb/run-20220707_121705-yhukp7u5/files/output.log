@@ -1,4 +1,0 @@
-
-wandb: Sorting runs by +summary_metrics.loss
-model weights saved to hb8e2zxn
-INFO:root:Current metric value better than 4.889550230503082 better than best inf, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-hb8e2zxn\weights_tensor.pt, & logging model weights to W&B.

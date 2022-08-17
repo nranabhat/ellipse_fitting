@@ -1,7 +1,0 @@
-EPOCH: 1  LOSS: 3.029926720945195
-optimizer lr: 0.1056631199786266
-scheduler lr: 0.1056631199786266
-wandb: Sorting runs by +summary_metrics.loss
-EPOCH: 2  LOSS: 2.9366178839639208
-optimizer lr: 0.0049173890454253235
-scheduler lr: 0.0049173890454253235

@@ -1,8 +1,0 @@
-config:
-{'loss': 0.1, 'gamma': '0.5454507300590375', 'epochs': '15', 'optimizer': 'sgd', 'batch_size': '15', 'milestones': '[10]', 'starting_lr': '0.01402435040728651', 'second_layer_size': '512'}
-starting epoch 1
-average loss for this epoch: 0.12400719056735023
-starting epoch 2
-average loss for this epoch: 0.062125248317570436
-model weights saved to vj2p751m
-INFO:root:Current metric value 0.062125248317570436 better than 0.1, saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\best-50,000-trainingellipses-run-for-sweep-vj2p751m\weights_tensor.pt , & logging model weights to W&B.

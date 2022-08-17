@@ -1,6 +1,0 @@
-
-EPOCH: 0  LOSS: 3.365736141324043
-model weights saved to ce6bi60h
-wandb: Sorting runs by +summary_metrics.loss
-INFO:root:Current metric value 3.365736141324043 better than 8.998724585533141,             saving model at C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb\sweep-ce6bi60h\weights_tensor.pt, & logging model weights to W&B.
-INFO:root:Removing extra models.. [{'path': 'C:\\Users\\Nicor\\OneDrive\\Documents\\KolkowitzLab\\Ellipse fitting\\Learners\\wandb\\sweep-ce6bi60h\\weights_tensor.pt', 'score': 8.998724585533141}]

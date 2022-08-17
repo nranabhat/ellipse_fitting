@@ -1,2 +1,0 @@
-config:
-{'loss': 4.9470783555487284e-05, 'gamma': '0.5454507300590375', 'epochs': '700+', 'optimizer': 'adam', 'batch_size': '15', 'milestones': '[10]', 'starting_lr': '0.06402435040728651', 'second_layer_size': '128'}

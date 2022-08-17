@@ -16,7 +16,7 @@ import logging
 import loadCSVdata
 from plot_nine import plot_nine
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
-
+# comment for commit
 NUM_TRAINING_ELLIPSES = 10000
 NUM_POINTS = 30
 CONTRAST = 0.65
@@ -25,6 +25,8 @@ CLAMP_EPSILON = 0.0
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+#WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
+WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\Learners\wandb"
 
 def config_params():
 
@@ -41,7 +43,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [2]      # change this to >15 later
+          'values': [20]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -64,7 +66,7 @@ def config_params():
           'max': 0.4
         },
       'milestones' : {
-            'values': [[2,4]]
+            'values': [[10]]
           },
       }
 
@@ -161,7 +163,7 @@ def train(checkpoint_saver, sweep_id, config=None):
         config = wandb.config
 
         trainloader = build_dataset(config.batch_size, True)
-        network = build_network(config.second_layer_size)
+        network = build_network(config.second_layer_size, clamp_output=False)
         optimizer = build_optimizer(network, config.optimizer, config.starting_lr)
         scheduler = build_scheduler(optimizer, config.milestones, config.gamma)
 
@@ -222,7 +224,7 @@ def build_dataset(batch_size, train):
     else: return testloader
 
 
-def build_network(second_layer_size):
+def build_network(second_layer_size, clamp_output):
     # simply define a custom activation function
     def clamp(input):
         '''
@@ -274,13 +276,21 @@ def build_network(second_layer_size):
             return clamp(input) # simply apply already implemented parameter_clamp
 
     clamp_activation_function = ParameterClamp()
-    network = nn.Sequential(  # fully-connected, single hidden layer
-        nn.Linear(60, second_layer_size),
-        nn.ReLU(),
-        nn.Linear(second_layer_size, 30),
-        nn.ReLU(),
-        nn.Linear(30, 6),
-        clamp_activation_function)
+    if clamp_output:
+        network = nn.Sequential(  # fully-connected, single hidden layer
+            nn.Linear(60, second_layer_size),
+            nn.ReLU(),
+            nn.Linear(second_layer_size, 30),
+            nn.ReLU(),
+            nn.Linear(30, 6),
+            clamp_activation_function)
+    else: 
+        network = nn.Sequential(  # fully-connected, single hidden layer
+            nn.Linear(60, second_layer_size),
+            nn.ReLU(),
+            nn.Linear(second_layer_size, 30),
+            nn.ReLU(),
+            nn.Linear(30, 6))
 
     return network.to(device)
         
@@ -359,7 +369,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
         testloader = build_dataset(int(config['batch_size']), train=False)
         # previous network build: 
-        network = build_network(int(config['second_layer_size']))
+        network = build_network(int(config['second_layer_size']), clamp_output=True)
         # new network built:
         weights_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         network.load_state_dict(torch.load(weights_path)['model_state_dict'])
@@ -409,7 +419,6 @@ def main():
 
     sweep_id = config_params()
     
-    WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\Ellipse fitting\Learners\wandb"
     # sweep path
     pathname = os.path.join(WANDBPATH, 'sweep-'+sweep_id)
 
@@ -417,7 +426,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 2
+    count = 10
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
