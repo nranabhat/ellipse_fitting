@@ -2,3 +2,4 @@ wandb
 nicoranabhat
 /Learners/Learner 1 wandb/__pycache__/
 artifacts
+*.json
