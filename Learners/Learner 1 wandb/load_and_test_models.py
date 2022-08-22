@@ -15,16 +15,16 @@ from learner1_wandb_Sweep1 import CheckpointSaver,Dataset,build_dataset,build_ne
 RUN_ID = 'edrn3wn4'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
-#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-best-run-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-'+RUN_ID+'.pt:'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'best-run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run2-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
+#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-'+RUN_ID+'.pt:'+str(VERSION_NUM)
+LOG_NEW_ARTIFACT_TO = f'best-run2-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
 #wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
 wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
 pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 
-NUM_NEW_EPOCHS = 50
+NUM_NEW_EPOCHS = 1
 
 SAVE_MODEL = True  # If True, save model perormance as wandb artifact. If just running to debug, set to False 
 
@@ -68,7 +68,8 @@ if __name__ == '__main__':
         #optimizer.load_state_dict(torch.load(state_dicts_path)['optimizer_state_dict'])
         # adjusted milestones takes into account that the model has already been trained a bit during the sweep
         if 'adjusted_milestones' in config:
-            adjusted_milestones = np.array(config['adjusted_milestones'])-int(config['epoch'])
+            adjusted_milestones_str = '['+config['adjusted_milestones']+']'
+            adjusted_milestones = np.array(literal_eval(adjusted_milestones_str))-int(config['epoch'])
         else: adjusted_milestones = np.array(literal_eval(config['milestones']))-int(config['epoch'])-1
         scheduler = build_scheduler(optimizer, adjusted_milestones, float(config['gamma']))
         scheduler.load_state_dict(torch.load(state_dicts_path)['scheduler_state_dict'])
