@@ -12,10 +12,10 @@ from ast import literal_eval
 import numpy as np
 from learner1_wandb_Sweep1 import CheckpointSaver,Dataset,build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,test_and_plot
 
-RUN_ID = 'erekqxgv'
+RUN_ID = 'edrn3wn4'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
-#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/debug-run-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
+#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-best-run-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
 NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-'+RUN_ID+'.pt:'+str(VERSION_NUM)
 LOG_NEW_ARTIFACT_TO = f'best-run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
@@ -24,7 +24,7 @@ wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
 pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 
-NUM_NEW_EPOCHS = 25
+NUM_NEW_EPOCHS = 50
 
 SAVE_MODEL = True  # If True, save model perormance as wandb artifact. If just running to debug, set to False 
 
@@ -51,7 +51,6 @@ if __name__ == '__main__':
         artifact_dir = artifact.download()
         state_dicts_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         config = artifact.metadata
-        config['current_lr'] = '0.03'
         # config = {'loss': 0.5, 
         # 'gamma': '0.2454507300590375', 
         # 'epoch': '15', 

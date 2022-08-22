@@ -17,7 +17,7 @@ import loadCSVdata
 from plot_nine import plot_nine
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 # comment for commit
-NUM_TRAINING_ELLIPSES = 100000
+NUM_TRAINING_ELLIPSES = 10000
 NUM_POINTS = 30
 CONTRAST = 0.65
 CLAMP_EPSILON = 0.0
@@ -43,7 +43,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [10]      # change this to >15 later
+          'values': [15]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -60,13 +60,12 @@ def config_params():
           'values': [128, 256, 512]
           },
       'starting_lr': {
-          # a flat distribution between 0.01 and 1
           'distribution': 'uniform',
-          'min': 0.01 * 10**-7,
-          'max': 0.4 * 10**-3
+          'min': 10**-3,
+          'max': 0.0006
         },
       'milestones' : {
-            'values': [[2,5]]
+            'values': [[10]]
           },
       }
 
@@ -77,7 +76,7 @@ def config_params():
           # a flat distribution between 0.01 and 1
           'distribution': 'uniform',
           'min': 0.01,
-          'max': 0.7
+          'max': 0.7 
         }
       })
 
@@ -427,7 +426,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 20
+    count = 70
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
