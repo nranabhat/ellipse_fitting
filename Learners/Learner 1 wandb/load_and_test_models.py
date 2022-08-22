@@ -19,8 +19,8 @@ NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run2-'+RUN_ID+'-'+N
 #NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-'+RUN_ID+'.pt:'+str(VERSION_NUM)
 LOG_NEW_ARTIFACT_TO = f'best-run2-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
-#wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
-wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
+#wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
 pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         # 'second_layer_size': '512'}
         # print('config:\n'+str(config))
 
-        trainloader = build_dataset(int(config['batch_size']), True)
+        trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), True)
         network = build_network(int(config['second_layer_size']),clamp_output=True)
         network.load_state_dict(torch.load(state_dicts_path)['model_state_dict'])
         optimizer = build_optimizer(network, config['optimizer'], float(config['current_lr']))

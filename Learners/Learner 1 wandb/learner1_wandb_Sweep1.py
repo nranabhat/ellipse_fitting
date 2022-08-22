@@ -25,8 +25,8 @@ CLAMP_EPSILON = 0.0
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-#WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
-WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
+#WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
 
 def config_params():
 
@@ -162,7 +162,7 @@ def train(checkpoint_saver, sweep_id, config=None):
         # this config will be set by Sweep Controller
         config = wandb.config
 
-        trainloader = build_dataset(config.batch_size, True)
+        trainloader = build_dataset(config.batch_size, int(NUM_TRAINING_ELLIPSES), train=True)
         network = build_network(config.second_layer_size, clamp_output=False)
         optimizer = build_optimizer(network, config.optimizer, config.starting_lr)
         scheduler = build_scheduler(optimizer, config.milestones, config.gamma)
@@ -210,9 +210,9 @@ class Dataset(torch.utils.data.Dataset):
       return self.X[i], self.y[i]
       
 
-def build_dataset(batch_size, train):
+def build_dataset(batch_size, num_ellipses, train):
     # load train(or testing) data
-    loader = loadCSVdata.loadCSVdata(NUM_TRAINING_ELLIPSES, NUM_POINTS)
+    loader = loadCSVdata.loadCSVdata(num_ellipses, NUM_POINTS)
     if train: X,y = loader.get_train_data()
     else: X,y = loader.get_test_data()
 
@@ -367,7 +367,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
         #else: config = artifact.metadata
         config = artifact.metadata
 
-        testloader = build_dataset(int(config['batch_size']), train=False)
+        testloader = build_dataset(int(config['batch_size']), int(num_training_ellipses), train=False)
         # previous network build: 
         network = build_network(int(config['second_layer_size']), clamp_output=True)
         # new network built:
