@@ -12,12 +12,12 @@ from ast import literal_eval
 import numpy as np
 from learner1_wandb_Sweep1 import CheckpointSaver,Dataset,build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,test_and_plot
 
-RUN_ID = 'edrn3wn4'
+RUN_ID = 'j337r2wq'
 VERSION_NUM = 'latest'
-NUM_TRAINING_ELLIPSES = '100000'
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run2-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
-#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-'+RUN_ID+'.pt:'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'best-run2-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
+NUM_TRAINING_ELLIPSES = '10000'
+#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run2-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-'+RUN_ID+'.pt:'+str(VERSION_NUM)
+LOG_NEW_ARTIFACT_TO = f'best-run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
 wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
 #wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"

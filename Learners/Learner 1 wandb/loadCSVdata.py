@@ -11,9 +11,14 @@ def load_data(filePath, shape):
         reader = csv.reader(f)
         for row in reader:
             data = np.append(data, row)
-    if shape[1] == 6:
+    # loading ABCDEF labels...
+    if len(shape) == 2 and shape[1] == 6:
         data = np.reshape(data, shape, order = 'F')
-    else:
+    # loading Phi_d targets 
+    elif len(shape) ==1:
+        data = np.reshape(data,shape)
+    # loading X or Y coordinates
+    else:  
         data = np.reshape(data, shape)
     return data
 
@@ -31,24 +36,24 @@ class loadCSVdata:
         self._shape_training_phi_d = [NUM_TRAINING_ELLIPSES]
         self._shape_testing_phi_d = [numTestingEllipses]
 
-        self._datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Datasets\Updated Contrast Datasets"
+        self._datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Updated Contrast Datasets"
         #self._datasets_path = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Updated Contrast Datasets"
         self._training_set_path = os.path.join(self._datasets_path, "Training Set ("+str(NUM_TRAINING_ELLIPSES)+" ellipses)")
-        self._testing_set_path = os.path.join(self._datasets_path, 'Testing Set')
+        self._testing_set_path = os.path.join(self._datasets_path, "Testing Set ("+str(numTestingEllipses)+" ellipses)")
 
     def get_train_phi_d(self):
-        filepath = os.path.join(self._training_set_path, 'training1Phi_d.csv')
+        filepath = os.path.join(self._training_set_path, 'trainingPhi_d.csv')
         return load_data(filepath, self._shape_training_phi_d)
 
     def get_train_data(self):
         def get_x_train_coords():
-            filepath = os.path.join(self._training_set_path, 'training1X.csv')
+            filepath = os.path.join(self._training_set_path, 'trainingX.csv')
             return load_data(filepath, self._shape_training_data)
         def get_y_train_coords():
-            filepath = os.path.join(self._training_set_path, 'training1Y.csv')
+            filepath = os.path.join(self._training_set_path, 'trainingY.csv')
             return load_data(filepath, self._shape_training_data)
         def get_train_labels():
-            filepath = os.path.join(self._training_set_path, 'training1Labels.csv')
+            filepath = os.path.join(self._training_set_path, 'trainingL.csv')
             return load_data(filepath, self._shape_training_labels)
 
         X = get_x_train_coords().T # X [500,30]
@@ -58,20 +63,20 @@ class loadCSVdata:
 
     
     def get_test_phi_d(self):
-        filepath = os.path.join(self._testing_set_path, 'testing1Phi_d.csv')
+        filepath = os.path.join(self._testing_set_path, 'testingPhi_d.csv')
         return load_data(filepath, self._shape_testing_phi_d)
 
     def get_test_data(self):
         def get_x_test_coords():
-            filepath = os.path.join(self._testing_set_path, 'testing1X.csv')
+            filepath = os.path.join(self._testing_set_path, 'testingX.csv')
             return load_data(filepath, self._shape_testing_data)
 
         def get_y_test_coords():
-            filepath = os.path.join(self._testing_set_path, 'testing1Y.csv')
+            filepath = os.path.join(self._testing_set_path, 'testingY.csv')
             return load_data(filepath, self._shape_testing_data)
 
         def get_test_labels():
-            filepath = os.path.join(self._testing_set_path, 'testing1Labels.csv')
+            filepath = os.path.join(self._testing_set_path, 'testingL.csv')
             return load_data(filepath, self._shape_testing_labels)
 
         X = get_x_test_coords().T # X [100,30]

@@ -17,7 +17,7 @@ import loadCSVdata
 from plot_nine import plot_nine
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 # comment for commit
-NUM_TRAINING_ELLIPSES = 10000
+NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep
 NUM_POINTS = 30
 CONTRAST = 0.65
 CLAMP_EPSILON = 0.0
@@ -43,7 +43,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [15]      # change this to >15 later
+          'values': [2]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -61,7 +61,7 @@ def config_params():
           },
       'starting_lr': {
           'distribution': 'uniform',
-          'min': 10**-3,
+          'min': 0.0003,
           'max': 0.0006
         },
       'milestones' : {
@@ -395,7 +395,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
             # after epoch, log loss to wandb
             wandb.log({"test set average loss": avg_loss})
-            print('test set average loss: ' + str(avg_loss))
+            print('\ntest set average loss: ' + str(avg_loss))
             train_loss = str(config['loss'])
             print('train set average loss: ' + train_loss)
 
@@ -426,7 +426,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 70
+    count = 2
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
@@ -451,7 +451,7 @@ def main():
     # test best model, plot results from best model (sanity check)...
     # save plot as artifact
     model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-' + sweep_id + '.pt:latest'
-    test_and_plot(model_location, sweep_id, NUM_TRAINING_ELLIPSES, is_sweep=True)
+    test_and_plot(model_location, sweep_id, num_training_ellipses=NUM_TRAINING_ELLIPSES, is_sweep=True)
 
     # delete any files saved to local machine
     if os.path.isdir(pathname): shutil.rmtree(pathname) 
