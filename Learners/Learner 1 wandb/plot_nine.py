@@ -62,8 +62,8 @@ def plot_nine(input_coords, target_params, output_params, test_loss, train_loss,
             #y = np.linspace(-0.20, 1.2, 400)
             min = CENTER + CONTRAST/2
             max = CENTER - CONTRAST/2
-            x = np.linspace(min, max, 400)
-            y = np.linspace(min, max, 400)
+            x = np.linspace(min-0.2, max+0.2, 400)
+            y = np.linspace(min-0.2, max+0.2, 400)
             x, y = np.meshgrid(x, y)
 
             A,B,C,D,E,F = target_params[(k+1)*(h+1),:]

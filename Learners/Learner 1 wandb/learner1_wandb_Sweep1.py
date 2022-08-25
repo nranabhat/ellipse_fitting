@@ -306,17 +306,25 @@ def build_network(second_layer_size, clamp_output):
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(60, second_layer_size),
             nn.ReLU(),
-            nn.Linear(second_layer_size, 30),
+            nn.Linear(second_layer_size, 256),
             nn.ReLU(),
-            nn.Linear(30, 6),
+            nn.Linear(256, 128),
+            nn.ReLU(),
+            nn.Linear(128, 32),
+            nn.ReLU(),
+            nn.Linear(32, 6),
             clamp_activation_function)
     else: 
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(60, second_layer_size),
             nn.ReLU(),
-            nn.Linear(second_layer_size, 30),
+            nn.Linear(second_layer_size, 256),
             nn.ReLU(),
-            nn.Linear(30, 6))
+            nn.Linear(256, 128),
+            nn.ReLU(),
+            nn.Linear(128, 32),
+            nn.ReLU(),
+            nn.Linear(32, 6),)
 
     return network.to(device)
         
@@ -418,6 +426,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             # Compute loss
             total_loss = loss_function(outputs, targets)
             avg_loss = total_loss/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
+            #phi_d_loss =  #implement this later
 
             # after epoch, log loss to wandb
             wandb.log({"test set average loss": avg_loss})
