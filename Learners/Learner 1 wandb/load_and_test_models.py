@@ -1,5 +1,6 @@
 # loading trained models and plotting their fit estimations
 
+from audioop import avg
 from cmath import inf
 import logging
 import shutil
@@ -10,7 +11,8 @@ import wandb
 import os
 from ast import literal_eval
 import numpy as np
-from learner1_wandb_Sweep1 import CheckpointSaver,Dataset,build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,test_and_plot
+from learner1_wandb_Sweep1 import CheckpointSaver,Dataset,\
+build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
 RUN_ID = 'j337r2wq'
 VERSION_NUM = 'latest'
@@ -34,9 +36,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 if __name__ == '__main__': 
     with wandb.init(project='ellipse_fitting') as run:
         
-        def log_artifact(artifact_location_path, model_path, best_loss, config, actual_epoch, current_lr, adjusted_milestones):
+        def log_artifact(artifact_location_path, model_path, best_loss, test_loss, config, actual_epoch, current_lr, adjusted_milestones):
             config_string={k:str(v) for k,v in config.items()}
             config_string['loss'] = str(best_loss)
+            config_string['test loss'] = str(test_loss)
             config_string['epoch'] = str(actual_epoch)
             config_string['current_lr'] = str(current_lr)
             config_string['adjusted_milestones'] = adjusted_milestones
@@ -81,10 +84,11 @@ if __name__ == '__main__':
             actual_epoch_num = int(config['epoch']) + epoch + 1
             
             avg_loss = train_epoch(network, trainloader, optimizer, scheduler)
+            avg_test_loss = get_test_loss(config['batch_size'], network)
 
             # after epoch log loss to wandb
-            wandb.log({"avg loss over epoch": avg_loss, "epoch": epoch}, commit=True)
-            print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss))
+            wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "epoch": epoch}, commit=True)
+            print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss)+'     TEST LOSS: '+str(avg_test_loss))
             print('optimizer lr: '+str(optimizer.param_groups[0]['lr']))
 
             # if it's the first or last epoch, wait 3 seconds for wandb to log the loss
@@ -98,6 +102,7 @@ if __name__ == '__main__':
                 # save network on local drive and as artifact on wandb
                 logging.info(f"Current metric value {avg_loss} better than {best_loss}.\n"+ \
 "Saving model at "+MODEL_PATH+'\nLogging model weights to W&B artifact '+LOG_NEW_ARTIFACT_TO)
+
                 best_loss = avg_loss
                 
                 if not os.path.exists(pathname): os.makedirs(pathname)
@@ -120,15 +125,17 @@ if __name__ == '__main__':
                 print('Model weights and state_dicts saved.\n')
 
                 current_lr = optimizer.param_groups[0]['lr']
-                log_artifact(LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, config, actual_epoch_num, current_lr, adjusted_milestones)     
+                log_artifact(LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, avg_test_loss, config, actual_epoch_num, current_lr, adjusted_milestones)     
         
-        #delete all artifact versions that arne't "latest"
+        #delete all artifact versions that arne't top 5
         time.sleep(3)
         api = wandb.Api()
         artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO # fill in the desired type + name
         try:
             for version in api.artifact_versions(artifact_type, artifact_name):
-                if len(version.aliases) == 0:
+                if len(version.aliases) == 1: #has aliase 'latest'
+                    best_version_num = int(version.version[1])
+                if int(version.version[1]) < (best_version_num - 4):
                     version.delete()
             print('\nOld wandb artifacts deleted')
             # test and plot

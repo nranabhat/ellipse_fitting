@@ -16,8 +16,8 @@ import logging
 import loadCSVdata
 from plot_nine import plot_nine
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
-# comment for commit
-NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep
+
+NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep
 NUM_POINTS = 30
 CONTRAST = 0.65
 CLAMP_EPSILON = 0.0
@@ -31,7 +31,7 @@ WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Lea
 def config_params():
 
   sweep_config = {
-      'method': 'random'
+      'method': 'bayes'
       }
 
   metric = {
@@ -104,7 +104,7 @@ class CheckpointSaver:
         self.top_model_paths = []
         self.best_metric_val = np.Inf if decreasing else -np.Inf
         
-    def __call__(self, api, model, metric_val, config, epoch, optimizer, scheduler):
+    def __call__(self, api, model, metric_val, test_loss, config, epoch, optimizer, scheduler):
         model_path = os.path.join(self.dirpath, 'weights_tensor.pt')
         save = metric_val<=self.best_metric_val if self.decreasing else metric_val>=self.best_metric_val
         if save: 
@@ -116,7 +116,8 @@ Saving model at {model_path}, & logging model weights to W&B.")
                         'model_state_dict': model.state_dict(),
                         'optimizer_state_dict': optimizer.state_dict(),
                         'scheduler_state_dict': scheduler.state_dict(),
-                        'loss': metric_val}, 
+                        'loss': metric_val, 
+                        'test loss': test_loss},
                         model_path)
 
             print('\nmodel weights saved to '+str(self.sweep_id)+'\n')
@@ -127,16 +128,17 @@ Saving model at {model_path}, & logging model weights to W&B.")
 
             artifact_location_path = f'best-mlp-'+sweep_or_run+'-' +str(self.sweep_id)+'.pt'
             current_lr = optimizer.param_groups[0]['lr']
-            self.log_artifact(artifact_location_path, model_path, metric_val, epoch, config, current_lr)
+            self.log_artifact(artifact_location_path, model_path, metric_val, test_loss, epoch, config, current_lr)
             self.top_model_paths.append({'path': model_path, 'score': metric_val})
             self.top_model_paths = sorted(self.top_model_paths, key=lambda o: o['score'], reverse=not self.decreasing)
 
         if len(self.top_model_paths)>self.top_n:
             self.cleanupLocal()
     
-    def log_artifact(self, filename, model_path, metric_val, epoch, config, current_lr):
+    def log_artifact(self, filename, model_path, metric_val, test_loss, epoch, config, current_lr):
         config_string={k:str(v) for k,v in config.items()}
         config_string['loss'] = metric_val
+        config_string['test loss'] = test_loss
         config_string['epoch'] = epoch + 1
         config_string['current_lr'] = current_lr
         config_string['#ellipses (sweep)'] = NUM_TRAINING_ELLIPSES
@@ -153,6 +155,30 @@ Saving model at {model_path}, & logging model weights to W&B.")
             os.remove(o['path'])
         self.top_model_paths = self.top_model_paths[:self.top_n]
 
+
+def get_test_loss(batch_size, network):
+    # first two parameters of build_dataset don't rly matter if train=False.
+    testloader = build_dataset(int(batch_size), int(NUM_TRAINING_ELLIPSES), train=False)
+
+    # test once manually: 
+    loss_function = nn.MSELoss()
+    for i, data in enumerate(testloader, 0): # should just be one big batch of all the data (for testing)
+    
+        # Get and prepare inputs
+        inputs, targets = data
+        inputs, targets = inputs.float(), targets.float()
+        inputs, targets = inputs.to(device), targets.to(device)
+        targets = targets.reshape((targets.shape[0], 6))
+        
+        # Perform forward pass w/o training gradients 
+        with torch.no_grad():
+            outputs = network(inputs)
+        
+        # Compute loss
+        total_loss = loss_function(outputs, targets)
+        avg_loss = total_loss/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
+
+    return avg_loss
 
 def train(checkpoint_saver, sweep_id, config=None):
 
@@ -174,10 +200,10 @@ def train(checkpoint_saver, sweep_id, config=None):
         for epoch in range(config.sweep_epochs):
 
             avg_loss = train_epoch(network, trainloader, optimizer, scheduler)
-
+            avg_test_loss = get_test_loss(config.batch_size, network)
             # after epoch log loss to wandb
-            wandb.log({"loss": avg_loss, "epoch": epoch}, commit=True)
-            print('EPOCH: ' + str(epoch+1)+'  LOSS: '+str(avg_loss))
+            wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "epoch": epoch}, commit=True)
+            print('EPOCH: ' + str(epoch+1)+'  LOSS: '+str(avg_loss)+'  TEST LOSS: '+str(avg_test_loss))
             print('optimizer LR: '+str(optimizer.param_groups[0]['lr']))
 
             # if it's the first or last epoch, wait 3 seconds for wandb to log the loss
@@ -189,7 +215,7 @@ def train(checkpoint_saver, sweep_id, config=None):
 
             # save weights of current best epoch (will save best model for whole network over training if top_n=1)
             if avg_loss <= best_loss:
-              checkpoint_saver(api, network, avg_loss, config, epoch, optimizer, scheduler)
+                checkpoint_saver(api, network, avg_loss, avg_test_loss, config, epoch, optimizer, scheduler)
 
         run.finish()
 
@@ -433,15 +459,16 @@ def main():
 
     wandb.agent(sweep_id, function=wandb_train_func, count=count)
 
-    # delete all artifacts that aren't "latest"
+    # delete all artifacts that aren't top 5
     time.sleep(3)
     api = wandb.Api()
     artifact_location_path = f'best-mlp-sweep-' +str(sweep_id)+'.pt'
     artifact_type, artifact_name = 'model', artifact_location_path # fill in the desired type + name
     for version in api.artifact_versions(artifact_type, artifact_name):
-        if len(version.aliases) == 0:
+        if len(version.aliases) == 1: #has aliase 'latest'
+            best_version_num = int(version.version[1])
+        if int(version.version[1]) < (best_version_num - 4):
             version.delete()
-
     print('\nSweep finished!\n')
     print('Begining validation...')
     wandb.finish()
