@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 import wandb
 import os
 import logging
-import loadCSVdata
-from plot_nine import plot_nine
+import loadCSVdata_phi_d
+from plot_nine_phi_d import plot_nine
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
 NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep
@@ -43,7 +43,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [2]      # change this to >15 later
+          'values': [1]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -126,7 +126,7 @@ Saving model at {model_path}, & logging model weights to W&B.")
             if 'sweep-' in self.dirpath: sweep_or_run = 'sweep'
             else: sweep_or_run = 'run'
 
-            artifact_location_path = f'best-mlp-'+sweep_or_run+'-' +str(self.sweep_id)+'.pt'
+            artifact_location_path = f'best-mlp-'+sweep_or_run+'-phi-' +str(self.sweep_id)+'.pt'
             current_lr = optimizer.param_groups[0]['lr']
             self.log_artifact(artifact_location_path, model_path, metric_val, test_loss, epoch, config, current_lr)
             self.top_model_paths.append({'path': model_path, 'score': metric_val})
@@ -175,10 +175,11 @@ def get_test_loss(batch_size, network):
             outputs = network(inputs)
         
         # Compute loss
-        total_loss = loss_function(outputs, targets)
+        total_loss = loss_function(outputs[:,0], targets[:,1])
         avg_loss = total_loss/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
 
     return avg_loss
+
 
 def train(checkpoint_saver, sweep_id, config=None):
 
@@ -238,7 +239,7 @@ class Dataset(torch.utils.data.Dataset):
 
 def build_dataset(batch_size, num_ellipses, train):
     # load train(or testing) data
-    loader = loadCSVdata.loadCSVdata(num_ellipses, NUM_POINTS)
+    loader = loadCSVdata_phi_d.loadCSVdata(num_ellipses, NUM_POINTS)
     if train: X,y = loader.get_train_data()
     else: X,y = loader.get_test_data()
 
@@ -254,16 +255,9 @@ def build_network(second_layer_size, clamp_output):
     # simply define a custom activation function
     def clamp(input):
         '''
-        Applies a clamp function to constrian the 6 outputs based on a fixed contrast: 
+        Applies a clamp function to constrian the a2 output based on a fixed contrast: 
 
-        A = 1/((contrast/2)^2)
         B = [-2/((contrast/2)^2), 2/((contrast/2)^2)]
-        C = A
-        D = [-2/((contrast/2)^2), 0]
-        E = [-2/((contrast/2)^2), 0]
-        F = [0, 1/((contrast/2)^2]
-
-        Here, A and C are fixed while the other 4 params have a physical range of values 
         '''
 
         e = CLAMP_EPSILON # amount of error that can be allowed on constraints of parameters
@@ -271,13 +265,7 @@ def build_network(second_layer_size, clamp_output):
         fixedAB = 1/common_factor
 
         output = torch.clone(input) # should fix gradient modification RuntimeError message? 
-
-        output[:,0] = torch.clamp(output[:,0].clone(), min=fixedAB-e, max=fixedAB+e)
-        output[:,1] = torch.clamp(output[:,1].clone(), min=-2*fixedAB-e, max=2*fixedAB+e)
-        output[:,2] = torch.clamp(output[:,2].clone(), min=fixedAB-e, max=fixedAB+e)
-        output[:,3] = torch.clamp(output[:,3].clone(), min=-2*fixedAB-e, max=e)
-        output[:,4] = torch.clamp(output[:,4].clone(), min=-2*fixedAB-e, max=e)
-        output[:,5] = torch.clamp(output[:,5].clone(), min=-e, max=fixedAB+e)
+        output[:] = torch.clamp(output[:].clone(), min=-2*fixedAB-e, max=2*fixedAB+e)
 
         return output
 
@@ -312,7 +300,7 @@ def build_network(second_layer_size, clamp_output):
             nn.ReLU(),
             nn.Linear(128, 32),
             nn.ReLU(),
-            nn.Linear(32, 6),
+            nn.Linear(32, 1),
             clamp_activation_function)
     else: 
         network = nn.Sequential(  # fully-connected, single hidden layer
@@ -324,7 +312,7 @@ def build_network(second_layer_size, clamp_output):
             nn.ReLU(),
             nn.Linear(128, 32),
             nn.ReLU(),
-            nn.Linear(32, 6),)
+            nn.Linear(32, 1),)
 
     return network.to(device)
         
@@ -363,7 +351,7 @@ def train_epoch(network, trainloader, optimizer, scheduler):
         outputs = network(inputs)
         
         # Compute loss
-        loss = loss_function(outputs, targets)
+        loss = loss_function(outputs[:,0], targets[:,1]) 
         cumu_loss += loss.item()
         
         # Perform backward pass
@@ -397,8 +385,6 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
         artifact_dir = artifact.download()
 
         #now need to get config
-        #if is_sweep: config = best_run.config
-        #else: config = artifact.metadata
         config = artifact.metadata
 
         testloader = build_dataset(int(config['batch_size']), int(num_training_ellipses), train=False)
@@ -424,9 +410,9 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
                 outputs = network(inputs)
             
             # Compute loss
-            total_loss = loss_function(outputs, targets)
+            target_phase = targets[:,1]
+            total_loss = loss_function(outputs[:,0], target_phase)
             avg_loss = total_loss/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
-            #phi_d_loss =  #implement this later
 
             # after epoch, log loss to wandb
             wandb.log({"test set average loss": avg_loss})
@@ -461,7 +447,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 2
+    count = 1
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
@@ -471,7 +457,7 @@ def main():
     # delete all artifacts that aren't top 5
     time.sleep(3)
     api = wandb.Api()
-    artifact_location_path = f'best-mlp-sweep-' +str(sweep_id)+'.pt'
+    artifact_location_path = f'best-mlp-sweep-phi-' +str(sweep_id)+'.pt'
     artifact_type, artifact_name = 'model', artifact_location_path # fill in the desired type + name
     for version in api.artifact_versions(artifact_type, artifact_name):
         if len(version.aliases) == 1: #has aliase 'latest'
@@ -486,7 +472,7 @@ def main():
 
     # test best model, plot results from best model (sanity check)...
     # save plot as artifact
-    model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-' + sweep_id + '.pt:latest'
+    model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phi-' + sweep_id + '.pt:latest'
     test_and_plot(model_location, sweep_id, num_training_ellipses=NUM_TRAINING_ELLIPSES, is_sweep=True)
 
     # delete any files saved to local machine

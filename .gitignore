@@ -3,3 +3,8 @@ nicoranabhat
 /Learners/Learner 1 wandb/__pycache__/
 artifacts
 *.json
+/Learners/Learner 1 wandb/test_plot_nine.py
+/Learners/Learner 2 phase loss/__pycache__
+/Learners/Learner 2 phase loss/artifacts
+/Learners/Learner 2 phase loss/nicoranabhat
+/Learners/Learner 2 phase loss/wandb

@@ -1,4 +1,5 @@
 # PLOTTING fit for LAST 9 TESTING SAMPLES
+from cmath import acos, cos, sin
 import numpy as np
 import torch
 from torch import nn
@@ -8,6 +9,10 @@ from PIL import Image
 
 CONTRAST = 0.65
 CENTER = 0.5
+b_y = CENTER
+b_x = CENTER
+c_x = CONTRAST/2
+c_y = CONTRAST/2
 
 def fig2img(fig):
     """Convert a Matplotlib figure to a PIL Image and return it"""
@@ -19,28 +24,15 @@ def fig2img(fig):
     return img
 
 # in place to see if nn produces outputs in non-physical rangeS
-def print_output_range_warning(a,b,c,d,e,f,CLAMP_EPSILON):
+def print_output_range_warning(b,CLAMP_EPSILON):
     ep = CLAMP_EPSILON
     ep = 0.0001 # differnt from CLAMP_EPSILON because python truncates value of a through e here.
     theNum = (CONTRAST/2)**2
-    if ((a < 1/(theNum) - ep) or (a > 1/(theNum) + ep)):
-        print('warning, output parameter \'a\' ('+str(a)+') does not equal '+str(1/(theNum)))
-    if ((c < 1/(theNum) - ep) or (c > 1/(theNum) + ep)):
-        print('warning, output parameter \'c\' ('+str(c)+') does not equal '+str(1/(theNum)))
-    if ((b < -2/(theNum) - ep) or b > (2/(theNum) + ep)):
+    if ((b.real < -2/(theNum) - ep) or b.real > (2/(theNum) + ep)):
         print('warning, output parameter \'b\' ('+str(b)+') does not fit in range ['\
             +str(-2/(theNum) - ep)+', '+str((2/(theNum) + ep))+']')
-    if ((d < -2/(theNum) - ep) or d > (0 + ep)):
-        print('warning, output parameter \'d\' ('+str(d)+') does not fit in range ['\
-            +str(-2/(theNum) - ep)+', '+str(ep)+']')
-    if ((e < -2/(theNum) - ep) or e > (0 + ep)):
-        print('warning, output parameter \'e\' ('+str(e)+') does not fit in range ['\
-            +str(-2/(theNum) - ep)+', '+str(ep)+']')
-    if ((f < -ep) or f > (2/(theNum) + ep)):
-        print('warning, output parameter \'f\' ('+str(f)+') does not fit in range ['\
-            +str(2/(theNum) + ep)+', '+str(-ep)+']')
 
-def plot_nine(input_coords, target_params, output_params, test_loss, train_loss, CLAMP_EPSILON):
+def plot_nine(input_coords, target_params, output_phi_d, test_loss, train_loss, CLAMP_EPSILON):
 
     m,n = 3,3 # 3x3 subplot (9 total ellipse fits) 
     figure, axis = plt.subplots(m,n, sharex='all', sharey = 'all')
@@ -50,8 +42,8 @@ def plot_nine(input_coords, target_params, output_params, test_loss, train_loss,
         input_coords = input_coords.detach().numpy()
     if (type(target_params) == torch.Tensor):
         target_params = target_params.detach().numpy()
-    if (type(output_params) == torch.Tensor):
-        output_params = output_params.detach().numpy()
+    if (type(output_phi_d) == torch.Tensor):
+        output_phi_d = output_phi_d.detach().numpy()
 
 
     for k in range(m):
@@ -67,10 +59,28 @@ def plot_nine(input_coords, target_params, output_params, test_loss, train_loss,
             x, y = np.meshgrid(x, y)
 
             A,B,C,D,E,F = target_params[(k+1)*(h+1),:]
-            a,b,c,d,e,f = output_params[(k+1)*(h+1),:]
-            print('\nNeural Net output params: '+str([a,b,c,d,e,f]))
-            print('Target params:        '+str([A,B,C,D,E,F])+'\n')
-            print_output_range_warning(a,b,c,d,e,f,CLAMP_EPSILON)
+            b_output = output_phi_d[(k+1)*(h+1)]
+            # make sure phase angle is the same sign
+            if np.sign(b_output) != np.sign(B):
+                b_output = -b_output
+
+            a = 1 / ((c_x)**2)
+            c = 1 / ((c_y)**2)
+            phi_d = 0.5*acos(-b_output/(2*((a*c)**(1/2))))
+
+            b = -(2*cos(2*phi_d)) / (c_x*c_y)
+            d = (2*b_y*cos(2*phi_d)/(c_x*c_y)) - (2*b_x)/(c_x)**2
+            e = (2*b_x*cos(2*phi_d)/(c_x*c_y)) - (2*b_y)/(c_y)**2
+            f = ((b_x)**2/((c_x)**2) + (b_y)**2/((c_y)**2) - 
+            (2*b_x*b_y*cos(2*phi_d))/(c_x*c_y) - 
+            4*(cos(phi_d))**2*(sin(phi_d))**2)
+            
+            target_phase = 0.5*acos(-B/(2*((A*C)**(1/2))))
+            print('\nNeural Net output param b: '+str(b))
+            print('Target params b:        '+str(B))
+            print('\nNeural Net output phase: '+str(phi_d))
+            print('Target phase:        '+str(target_phase)+'\n')
+            print_output_range_warning(b,CLAMP_EPSILON)
             
             # assert b**2 - 4*a*c < 0
             # Scatter plot of ellipse points 
