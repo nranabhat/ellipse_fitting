@@ -78,8 +78,11 @@ def plot_nine(input_coords, target_params, output_phi_d, test_loss, train_loss, 
             target_phase = 0.5*acos(-B/(2*((A*C)**(1/2))))
             print('\nNeural Net output param b: '+str(b))
             print('Target params b:        '+str(B))
-            print('\nNeural Net output phase: '+str(phi_d))
-            print('Target phase:        '+str(target_phase)+'\n')
+            print('Neural Net output phase: '+str(phi_d))
+            print('Target phase:        '+str(target_phase))
+            loss_funct = nn.MSELoss()
+            phase_loss = loss_funct(target_phase, phi_d)
+            print('Total phase loss: '+str(phase_loss)+'\n')
             print_output_range_warning(b,CLAMP_EPSILON)
             
             # assert b**2 - 4*a*c < 0

@@ -20,7 +20,7 @@ logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep
 NUM_POINTS = 30
 CONTRAST = 0.65
-CLAMP_EPSILON = 0.0
+CLAMP_EPSILON = -0.0000001
 
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -410,8 +410,8 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
                 outputs = network(inputs)
             
             # Compute loss
-            target_phase = targets[:,1]
-            total_loss = loss_function(outputs[:,0], target_phase)
+            target_B = targets[:,1]
+            total_loss = loss_function(outputs[:,0], target_B)
             avg_loss = total_loss/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
 
             # after epoch, log loss to wandb
