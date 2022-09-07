@@ -44,8 +44,8 @@ b_y = 1/2
 # make numEllipses (100) plots with different phi_d:
 for j in range(numEllipses):
     # 0 < phi_d < pi/2 (gets full range of cos when phi_c = pi/2)
-    phi_d = random.uniform(0, math.pi/2)
-    Phi_d[j,0] = phi_d
+    phi_d = random.uniform(0, math.pi/2)    # lower-case phi_d = numerical values of angle
+    Phi_d[j,0] = phi_d                      # upper-case Phi_d = array holding all the phi_d angles
     for i in range(numPoints):
         phi_c = random.uniform(0, 2*math.pi)
         Phi_c[i,j] = phi_c

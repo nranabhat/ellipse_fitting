@@ -1,6 +1,7 @@
 # *** Adding wandb to github tutorial for experiment tracking *** 
 
 import functools
+import math
 import shutil
 import time
 import numpy as np
@@ -51,7 +52,7 @@ def config_params():
           'distribution': 'q_log_uniform_values',
           'q': 5,
           'min': 5,
-          'max': 30,
+          'max': 60,
         },
       'optimizer': {
           'values': ['adam', 'sgd']
@@ -61,8 +62,8 @@ def config_params():
           },
       'starting_lr': {
           'distribution': 'uniform',
-          'min': 0.0003,
-          'max': 0.006
+          'min': 0.00001,
+          'max': 0.01
         },
       'milestones' : {
             'values': [[10]]
@@ -126,7 +127,7 @@ Saving model at {model_path}, & logging model weights to W&B.")
             if 'sweep-' in self.dirpath: sweep_or_run = 'sweep'
             else: sweep_or_run = 'run'
 
-            artifact_location_path = f'best-mlp-'+sweep_or_run+'-phi-' +str(self.sweep_id)+'.pt'
+            artifact_location_path = f'best-mlp-'+sweep_or_run+'-phase-' +str(self.sweep_id)+'.pt'
             current_lr = optimizer.param_groups[0]['lr']
             self.log_artifact(artifact_location_path, model_path, metric_val, test_loss, epoch, config, current_lr)
             self.top_model_paths.append({'path': model_path, 'score': metric_val})
@@ -168,15 +169,15 @@ def get_test_loss(batch_size, network):
         inputs, targets = data
         inputs, targets = inputs.float(), targets.float()
         inputs, targets = inputs.to(device), targets.to(device)
-        targets = targets.reshape((targets.shape[0], 6))
+        targets = targets.reshape((targets.shape[0], 1))
         
         # Perform forward pass w/o training gradients 
         with torch.no_grad():
             outputs = network(inputs)
         
         # Compute loss
-        total_loss = loss_function(outputs[:,0], targets[:,1])
-        avg_loss = total_loss/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
+        total_loss = loss_function(outputs[:,0], targets[:,0])
+        avg_loss = torch.sqrt(total_loss)/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
 
     return avg_loss
 
@@ -240,10 +241,15 @@ class Dataset(torch.utils.data.Dataset):
 def build_dataset(batch_size, num_ellipses, train):
     # load train(or testing) data
     loader = loadCSVdata_phi_d.loadCSVdata(num_ellipses, NUM_POINTS)
-    if train: X,y = loader.get_train_data()
-    else: X,y = loader.get_test_data()
+    if train:
+        X,y = loader.get_train_data()
+        phi = loader.get_train_phi_d()
 
-    dataset = Dataset(X, y)
+    else:
+        X,y = loader.get_test_data()
+        phi = loader.get_test_phi_d()
+
+    dataset = Dataset(X, phi)
     trainloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=1)
     testloader = torch.utils.data.DataLoader(dataset, batch_size=X.shape[0], shuffle=False, num_workers=1)
     
@@ -255,17 +261,17 @@ def build_network(second_layer_size, clamp_output):
     # simply define a custom activation function
     def clamp(input):
         '''
-        Applies a clamp function to constrian the a2 output based on a fixed contrast: 
+        Applies a clamp function to constrian the phi_d output: 
 
-        B = [-2/((contrast/2)^2), 2/((contrast/2)^2)]
+        phi_d in [0, pi/2]
         '''
 
         e = CLAMP_EPSILON # amount of error that can be allowed on constraints of parameters
-        common_factor = (CONTRAST/2)**2
-        fixedAB = 1/common_factor
+        #common_factor = (CONTRAST/2)**2
+        #fixedAB = 1/common_factor
 
         output = torch.clone(input) # should fix gradient modification RuntimeError message? 
-        output[:] = torch.clamp(output[:].clone(), min=-2*fixedAB-e, max=2*fixedAB+e)
+        output[:] = torch.clamp(output[:].clone(), min=0-e, max=(math.pi/2+e))
 
         return output
 
@@ -342,7 +348,7 @@ def train_epoch(network, trainloader, optimizer, scheduler):
         inputs, targets = data
         inputs, targets = inputs.float(), targets.float()
         inputs, targets = inputs.to(device), targets.to(device)
-        targets = targets.reshape((targets.shape[0], 6))
+        targets = targets.reshape((targets.shape[0], 1))            # only one phase value for output
         
         # Zero the gradients
         optimizer.zero_grad()
@@ -351,7 +357,8 @@ def train_epoch(network, trainloader, optimizer, scheduler):
         outputs = network(inputs)
         
         # Compute loss
-        loss = loss_function(outputs[:,0], targets[:,1]) 
+        loss = loss_function(outputs[:,0], targets[:,0]) 
+        loss = torch.sqrt(loss)
         cumu_loss += loss.item()
         
         # Perform backward pass
@@ -403,16 +410,15 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             inputs, targets = data
             inputs, targets = inputs.float(), targets.float()
             inputs, targets = inputs.to(device), targets.to(device)
-            targets = targets.reshape((targets.shape[0], 6))
+            targets = targets.reshape((targets.shape[0], 1))
             
             # Perform forward pass w/o training gradients 
             with torch.no_grad():
                 outputs = network(inputs)
             
             # Compute loss
-            target_B = targets[:,1]
-            total_loss = loss_function(outputs[:,0], target_B)
-            avg_loss = total_loss/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
+            total_loss = loss_function(outputs[:,0], targets[:,0])
+            avg_loss = torch.sqrt(total_loss)/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
 
             # after epoch, log loss to wandb
             wandb.log({"test set average loss": avg_loss})
@@ -421,7 +427,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             print('train set average loss: ' + train_loss)
 
         # create subplot of 9 fits 
-        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, train_loss, CLAMP_EPSILON) # type PIL image
+        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, config['loss'], CLAMP_EPSILON) # type PIL image
         image = wandb.Image(nine_plot)
 
         # log the plots 
@@ -457,7 +463,7 @@ def main():
     # delete all artifacts that aren't top 5
     time.sleep(3)
     api = wandb.Api()
-    artifact_location_path = f'best-mlp-sweep-phi-' +str(sweep_id)+'.pt'
+    artifact_location_path = f'best-mlp-sweep-phase-' +str(sweep_id)+'.pt'
     artifact_type, artifact_name = 'model', artifact_location_path # fill in the desired type + name
     for version in api.artifact_versions(artifact_type, artifact_name):
         if len(version.aliases) == 1: #has aliase 'latest'
@@ -465,14 +471,14 @@ def main():
         if int(version.version[1]) < (best_version_num - 4):
             version.delete()
     print('\nSweep finished!\n')
-    print('Begining validation...')
+    print('Begining validation...\n')
     wandb.finish()
 
     # ________ sweep is complete __________ # 
 
     # test best model, plot results from best model (sanity check)...
     # save plot as artifact
-    model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phi-' + sweep_id + '.pt:latest'
+    model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phase-' + sweep_id + '.pt:latest'
     test_and_plot(model_location, sweep_id, num_training_ellipses=NUM_TRAINING_ELLIPSES, is_sweep=True)
 
     # delete any files saved to local machine
