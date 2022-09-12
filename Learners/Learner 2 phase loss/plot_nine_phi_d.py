@@ -91,8 +91,8 @@ def plot_nine(input_coords, target_phase, output_phi_d, test_loss, train_loss, C
     test_loss_str = str(test_loss*10**5)[0:5]+'e-05'
     #train_loss = train_loss.detach().numpy()
     train_loss_str = str(train_loss*10**5)[0:5]+'e-05'
-    LS_test_loss = 2.4615099563032698e-05
-    LS_test_loss_str = str(LS_test_loss*10**5)[0:5]+'e-05'
+    LS_test_loss = 6.0590312649801256e-12
+    LS_test_loss_str = str(LS_test_loss*10**12)[0:5]+'e-12'
     plot_title = 'Fit (blue) vs. Truth (black). Test Loss: '+test_loss_str+'\nLS Test Loss: '+LS_test_loss_str
     plt.suptitle(plot_title, fontsize=14)
     plt.sca(axis[0,2])

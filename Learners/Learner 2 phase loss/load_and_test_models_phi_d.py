@@ -14,9 +14,9 @@ import numpy as np
 from Sweep_phi_d import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
-RUN_ID = 'w18iax9t'
+RUN_ID = 'mmqn4qsi'
 VERSION_NUM = 'latest'
-NUM_TRAINING_ELLIPSES = '10000'
+NUM_TRAINING_ELLIPSES = '500'
 #NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run-phase-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
 #NUM_TRAINING_ELLIPSES = '1000000'
 NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phase-'+RUN_ID+'.pt:'+str(VERSION_NUM)
@@ -27,7 +27,7 @@ wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Lea
 pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 
-NUM_NEW_EPOCHS = 1
+NUM_NEW_EPOCHS = 5
 
 SAVE_MODEL = True  # If True, save model perormance as wandb artifact. If just running to debug, set to False 
 

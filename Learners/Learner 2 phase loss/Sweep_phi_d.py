@@ -27,7 +27,7 @@ wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
-#WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+#WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\el\Learners\wandb"
 
 def config_params():
 
@@ -63,10 +63,10 @@ def config_params():
       'starting_lr': {
           'distribution': 'uniform',
           'min': 0.00001,
-          'max': 0.01
+          'max': 0.005
         },
       'milestones' : {
-            'values': [[10]]
+            'values':  [[5,15], [10], [3,5,10,15]]
           },
       }
 
@@ -177,7 +177,7 @@ def get_test_loss(batch_size, network):
         
         # Compute loss
         total_loss = loss_function(outputs[:,0], targets[:,0])
-        avg_loss = torch.sqrt(total_loss)/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
+        avg_loss = total_loss
 
     return avg_loss
 
@@ -357,8 +357,7 @@ def train_epoch(network, trainloader, optimizer, scheduler):
         outputs = network(inputs)
         
         # Compute loss
-        loss = loss_function(outputs[:,0], targets[:,0]) 
-        loss = torch.sqrt(loss)
+        loss = loss_function(outputs[:,0], targets[:,0])
         cumu_loss += loss.item()
         
         # Perform backward pass
@@ -418,7 +417,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             
             # Compute loss
             total_loss = loss_function(outputs[:,0], targets[:,0])
-            avg_loss = torch.sqrt(total_loss)/len(testloader)   # double check exactly what this does (is it just one batch in the loop?)
+            avg_loss = total_loss
 
             # after epoch, log loss to wandb
             wandb.log({"test set average loss": avg_loss})
