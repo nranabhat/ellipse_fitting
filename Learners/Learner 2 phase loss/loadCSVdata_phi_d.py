@@ -36,7 +36,7 @@ class loadCSVdata:
         self._shape_training_phi_d = [NUM_TRAINING_ELLIPSES]
         self._shape_testing_phi_d = [numTestingEllipses]
 
-        self._datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Updated Contrast Datasets"
+        self._datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\QPN Datasets"
         #self._datasets_path = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Updated Contrast Datasets"
         self._training_set_path = os.path.join(self._datasets_path, "Training Set ("+str(NUM_TRAINING_ELLIPSES)+" ellipses)")
         self._testing_set_path = os.path.join(self._datasets_path, "Testing Set ("+str(numTestingEllipses)+" ellipses)")
