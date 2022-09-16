@@ -32,7 +32,7 @@ def print_output_range_warning(phi,CLAMP_EPSILON):
         print('warning, output phase ('+str(phi)+') does not fit in range ['\
             +str(-ep)+', '+str(math.pi/2+ep)+']')
 
-def plot_nine(input_coords, target_phase, output_phi_d, test_loss, train_loss, CLAMP_EPSILON):
+def plot_nine(input_coords, target_phase, output_phi_d, test_loss, train_loss, LS_test_loss, CLAMP_EPSILON):
 
     m,n = 3,3 # 3x3 subplot (9 total ellipse fits) 
     figure, axis = plt.subplots(m,n, sharex='all', sharey = 'all')
@@ -88,11 +88,10 @@ def plot_nine(input_coords, target_phase, output_phi_d, test_loss, train_loss, C
 
     # Make super plot title/label axes
     test_loss = test_loss.detach().numpy()
-    test_loss_str = str(test_loss*10**5)[0:5]+'e-05'
+    test_loss_str = str(test_loss*10**4)[0:5]+'e-4'
     #train_loss = train_loss.detach().numpy()
-    train_loss_str = str(train_loss*10**5)[0:5]+'e-05'
-    LS_test_loss = 6.0590312649801256e-12
-    LS_test_loss_str = str(LS_test_loss*10**12)[0:5]+'e-12'
+    train_loss_str = str(train_loss*10**4)[0:5]+'e-4'
+    LS_test_loss_str = str(LS_test_loss*10**4)[0:5]+'e-4'
     plot_title = 'Fit (blue) vs. Truth (black). Test Loss: '+test_loss_str+'\nLS Test Loss: '+LS_test_loss_str
     plt.suptitle(plot_title, fontsize=14)
     plt.sca(axis[0,2])

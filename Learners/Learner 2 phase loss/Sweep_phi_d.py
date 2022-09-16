@@ -16,6 +16,8 @@ import os
 import logging
 import loadCSVdata_phi_d
 from plot_nine_phi_d import plot_nine
+from matplotlib.patches import Ellipse
+from ellipse import LsqEllipse
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
 NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep
@@ -415,7 +417,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             with torch.no_grad():
                 outputs = network(inputs)
             
-            # Compute loss
+            # Compute neural net loss
             total_loss = loss_function(outputs[:,0], targets[:,0])
             avg_loss = total_loss
 
@@ -425,8 +427,11 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             train_loss = str(config['loss'])
             print('train set average loss: ' + train_loss)
 
+            # compute LS loss
+            LS_test_loss = get_LS_test_loss(inputs, targets)
+
         # create subplot of 9 fits 
-        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, config['loss'], CLAMP_EPSILON) # type PIL image
+        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, config['loss'], LS_test_loss, CLAMP_EPSILON) # type PIL image
         image = wandb.Image(nine_plot)
 
         # log the plots 
@@ -439,6 +444,60 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
         wandb.run.log_artifact(image_artifact)
 
         run.finish()
+
+def get_LS_test_loss(inputs, targets):
+    inputs = inputs.detach().numpy()
+    targets = targets.detach().numpy()
+
+    def make_test_ellipse(X,i):
+        """Generate Elliptical
+
+        Returns
+        -------
+        data:  list:list:float
+            list of two lists containing the x and y data of the ellipse.
+            of the form [[x1, x2, ..., xi],[y1, y2, ..., yi]]
+        """
+        x_y_arrays = np.split(X, 2, axis=1)
+        ellipse_x = x_y_arrays[0]
+        ellipse_y = x_y_arrays[1]
+        x_coords = np.asarray(ellipse_x[i,:], dtype=float)
+        y_coords = np.asarray(ellipse_y[i,:], dtype=float)
+        return [x_coords, y_coords]
+    
+    Phi_LS = np.empty(shape=len(targets))
+    for i in range(len(targets)):
+        X1, X2 = make_test_ellipse(inputs,i)
+        X_single_ellipse = np.array(list(zip(X1, X2)))
+        fitter = LsqEllipse()
+        reg = fitter.fit(X_single_ellipse)
+        center, width, height, phi = reg.as_parameters()
+        LS_output = fitter.coefficients
+
+        # finding target (a1-a6):
+        loader = loadCSVdata_phi_d.loadCSVdata(NUM_TRAINING_ELLIPSES, NUM_POINTS)
+        X_target, y_target = loader.get_test_data()
+
+        # finding LS (a1-a6) loss:
+        a = LS_output[0];       A = float(y_target[i,0])
+        b = LS_output[1];       B = float(y_target[i,1])
+        c = LS_output[2];       C = float(y_target[i,2])
+        # d = LS_output[3];       D = float(targets[i,3])
+        # e = LS_output[4];       E = float(targets[i,4])
+        # f = LS_output[5];       F = float(targets[i,5])
+
+        acos_arg_targets = -B/(2*math.sqrt(A*C))
+        acos_arg_model = -b/(2*math.sqrt(a*c))
+        if np.sign(acos_arg_targets) != np.sign(acos_arg_model):
+            acos_arg_model = -acos_arg_model
+        #target_phi_d = 0.5*acos(acos_arg_targets)
+        model_phi_d = 0.5*math.acos(acos_arg_model)
+        #Phi_targets[i] = target_phi_d
+        Phi_LS[i] = model_phi_d
+
+    Phi_LS = np.reshape(Phi_LS, (Phi_LS.shape[0], 1))
+    LS_test_loss = np.linalg.norm(targets-Phi_LS)**2 / len(targets)
+    return LS_test_loss
 
 
 def main():
