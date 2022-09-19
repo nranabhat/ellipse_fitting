@@ -428,10 +428,10 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             print('train set average loss: ' + train_loss)
 
             # compute LS loss
-            LS_test_loss = get_LS_test_loss(inputs, targets)
+            LS_test_loss, Phi_LS = get_LS_test_loss(inputs, targets)
 
         # create subplot of 9 fits 
-        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, config['loss'], LS_test_loss, CLAMP_EPSILON) # type PIL image
+        nine_plot = plot_nine(inputs, targets, outputs, avg_loss, config['loss'], LS_test_loss, Phi_LS, CLAMP_EPSILON) # type PIL image
         image = wandb.Image(nine_plot)
 
         # log the plots 
@@ -497,7 +497,7 @@ def get_LS_test_loss(inputs, targets):
 
     Phi_LS = np.reshape(Phi_LS, (Phi_LS.shape[0], 1))
     LS_test_loss = np.linalg.norm(targets-Phi_LS)**2 / len(targets)
-    return LS_test_loss
+    return LS_test_loss, Phi_LS
 
 
 def main():
