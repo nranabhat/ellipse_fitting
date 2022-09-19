@@ -68,7 +68,7 @@ def config_params():
           'max': 0.005
         },
       'milestones' : {
-            'values':  [[5,15], [10], [3,5,10,15]]
+            'values':  [[10]]
           },
       }
 
