@@ -7,14 +7,19 @@ import numpy as np
 import random as random
 from matplotlib import pyplot as plt
 
-CREATING_TRAINING_DATA = False
-CREATING_TESTING_DATA = True
+CREATING_TRAINING_DATA = True
+CREATING_TESTING_DATA = False
 
 NUMBER_ATOMS = 1000
-numPoints = 30 # points on each ellipse plot - number of shots measuring excitation fraction
-numEllipses = 100 # number of ellipses 
+numEllipses = 500 # number of ellipses 
+MAX_SHOTS = 500
+MIN_SHOTS = 5
 
-DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\QPN Datasets, phi near 0,pi"
+numPoints = np.empty(numEllipses) # points on each ellipse plot - number of shots measuring excitation fraction
+for k in range(numEllipses):
+    numPoints[k] = int(np.random.randint(MIN_SHOTS, MAX_SHOTS+1)) # number of shots is picked uniformly from [5,500]
+
+DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable input size"
 if not os.path.isdir(DATASET_FOLDER): os.mkdir(DATASET_FOLDER)
 
 if CREATING_TESTING_DATA:
@@ -28,9 +33,9 @@ if not os.path.isdir(dataset_path): os.mkdir(dataset_path)
     # y = c_y cos(phi_c - phi_d) + b_y
     # Note: here Estey has c_x, c_y as Ax, Ay but I think this is the same thing
 
-X = np.empty((numPoints, numEllipses)) # x-coordinates 
-Y = np.empty((numPoints, numEllipses)) # y-coordinates 
-Phi_c = np.empty((numPoints, numEllipses))
+X = np.empty((MAX_SHOTS, numEllipses)) # x-coordinates 
+Y = np.empty((MAX_SHOTS, numEllipses)) # y-coordinates 
+Phi_c = np.empty((MAX_SHOTS, numEllipses))
 Phi_d = np.empty((numEllipses, 1)) # each ellipse has a phi_d
 labels = np.empty((numEllipses, 6)) # 6 parameters for each ellipse
 
@@ -54,7 +59,7 @@ for j in range(numEllipses):
 
     #phi_d = random.uniform(0, math.pi/2)    # lower-case phi_d = numerical values of angle
     Phi_d[j,0] = phi_d                      # upper-case Phi_d = array holding all the phi_d angles
-    for i in range(numPoints):
+    for i in range(int(numPoints[j])):
         phi_c = random.uniform(0, 2*math.pi)
         Phi_c[i,j] = phi_c
         # x coordinate
@@ -83,7 +88,7 @@ for j in range(numEllipses):
     coefficients = np.array([A,B,C,D,E,F])
     labels[j] = coefficients
 
-# now we have X[30,100] and Y[30,100] data, labels[100,6], Phi_c[30,100] Phi_d[1,100]
+# now we have X[#,100] and Y[#,100] data, labels[100,6], Phi_c[#,100] Phi_d[1,100]
 
 # writing X data to csv file: 
 if CREATING_TESTING_DATA:
@@ -93,7 +98,7 @@ elif CREATING_TRAINING_DATA:
 with  open(Phi_d_path, "w+", newline="") as f:
     writer = csv.writer(f)
     #now write the data in X to the csv file
-    for j in range(numPoints):
+    for j in range(MAX_SHOTS):
         for k in range(numEllipses):
             #create row to add
             rowj = X[j,:]
@@ -108,7 +113,7 @@ elif CREATING_TRAINING_DATA:
 with open(Phi_d_path, 'w+', newline='') as f:
     writer = csv.writer(f)
     #now write the data in Y to the csv file
-    for j in range(numPoints):
+    for j in range(MAX_SHOTS):
         for k in range(numEllipses):
             #create row to add
             rowj = Y[j,:]
