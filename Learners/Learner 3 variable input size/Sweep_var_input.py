@@ -21,7 +21,7 @@ from ellipse import LsqEllipse
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
 NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep
-MAX_SHOTS = 30
+MAX_SHOTS = 500
 CONTRAST = 0.65
 CLAMP_EPSILON = -0.0000001
 
@@ -300,7 +300,7 @@ def build_network(second_layer_size, clamp_output):
     clamp_activation_function = ParameterClamp()
     if clamp_output:
         network = nn.Sequential(  # fully-connected, single hidden layer
-            nn.Linear(MAX_SHOTS, second_layer_size),
+            nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
             nn.Linear(second_layer_size, 1000),
             nn.ReLU(),
@@ -312,7 +312,7 @@ def build_network(second_layer_size, clamp_output):
             clamp_activation_function)
     else: 
         network = nn.Sequential(  # fully-connected, single hidden layer
-            nn.Linear(MAX_SHOTS, second_layer_size),
+            nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
             nn.Linear(second_layer_size, 1000),
             nn.ReLU(),
