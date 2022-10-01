@@ -12,9 +12,11 @@ CREATING_TESTING_DATA = True
 
 NUMBER_ATOMS = 1000
 numPoints = 30 # points on each ellipse plot - number of shots measuring excitation fraction
-numEllipses = 100 # number of ellipses 
+numEllipses = 1000000 # number of ellipses 
 
-DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\QPN Datasets, phi near 0,pi"
+#DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\QPN Datasets, phi near 0,pi"
+DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\QPN Datasets, phi near 0,pi"
+
 if not os.path.isdir(DATASET_FOLDER): os.mkdir(DATASET_FOLDER)
 
 if CREATING_TESTING_DATA:
