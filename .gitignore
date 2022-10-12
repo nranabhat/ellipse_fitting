@@ -12,3 +12,7 @@ investigate_datasets.py
 /Datasets/QPN Datasets
 /Datasets/Updated Contrast Datasets
 /Datasets/QPN Datasets, phi near 0,pi
+/Datasets/Variable input size
+/Datasets/Variable contrast
+*.csv
+*.pyc
