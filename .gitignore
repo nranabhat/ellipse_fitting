@@ -16,3 +16,4 @@ investigate_datasets.py
 /Datasets/Variable contrast
 *.csv
 *.pyc
+*.txt

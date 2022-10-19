@@ -28,6 +28,14 @@ MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001
 
+# Constants for calculating loss
+phase_range = 0.15
+c_x_range = MAX_CONTRAST-MIN_CONTRAST
+c_y_range = MAX_CONTRAST-MIN_CONTRAST
+K_PHI = (2/phase_range)**2
+K_CX = (2/c_x_range)**2
+K_CY =  (2/c_y_range)**2
+
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -169,7 +177,8 @@ def get_test_loss(batch_size, network):
     testloader = build_dataset(int(batch_size), int(NUM_TRAINING_ELLIPSES), train=False)
 
     # test once manually: 
-    loss_function = nn.MSELoss(reduction='mean')
+        # nn.MSELoss is the mean squared error (squared L2 norm) between each element in the input xx and target yy
+    MSE_loss = nn.MSELoss(reduction='mean')
     for i, data in enumerate(testloader, 0): # should just be one big batch of all the data (for testing)
     
         # Get and prepare inputs
@@ -183,12 +192,12 @@ def get_test_loss(batch_size, network):
             outputs = network(inputs)
         
         # Compute loss
-        total_loss = loss_function(outputs[:,0:3], targets[:,0:3])
-        phase_loss = loss_function(outputs[:,0], targets[:,0])
-        avg_tot_loss = total_loss
-        avg_phase_loss = phase_loss
+        phi_loss = K_PHI*MSE_loss(outputs[:,0], targets[:,0])
+        cx_loss = K_CX*MSE_loss(outputs[:,1], targets[:,1])
+        cy_loss = K_CY*MSE_loss(outputs[:,2], targets[:,2])
+        total_loss = phi_loss + cx_loss + cy_loss
 
-    return avg_tot_loss, avg_phase_loss
+    return total_loss, phi_loss
 
 
 def train(checkpoint_saver, sweep_id, config=None):
@@ -349,7 +358,7 @@ def build_scheduler(optimizer, milestones, gamma):
 
 def train_epoch(network, trainloader, optimizer, scheduler):
     cumu_loss = 0
-    loss_function = nn.MSELoss(reduction='mean')
+    MSE_loss = nn.MSELoss(reduction='mean')
 
     for i, data in enumerate(trainloader, 0):
         
@@ -366,7 +375,10 @@ def train_epoch(network, trainloader, optimizer, scheduler):
         outputs = network(inputs)
         
         # Compute loss
-        loss = loss_function(outputs[:,0:3], targets[:,0:3])
+        phi_loss = K_PHI*MSE_loss(outputs[:,0], targets[:,0])
+        cx_loss = K_CX*MSE_loss(outputs[:,1], targets[:,1])
+        cy_loss = K_CY*MSE_loss(outputs[:,2], targets[:,2])
+        loss = phi_loss + cx_loss + cy_loss
         cumu_loss += loss.item()
         
         # Perform backward pass
@@ -411,7 +423,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
         # don't need to load scheduler and optimizer because we only run through one ~non-training~ epoch for validation
 
         # test once manually: 
-        loss_function = nn.MSELoss(reduction='mean')
+        MSE_loss = nn.MSELoss(reduction='mean')
         for i, data in enumerate(testloader, 0): # should just be one big batch of all the data (for testing)
         
             # Get and prepare inputs
@@ -425,8 +437,11 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
                 outputs = network(inputs)
             
             # Compute neural net loss
-            avg_loss = loss_function(outputs[:,0:3], targets[:,0:3])
-            phase_loss = loss_function(outputs[:,0], targets[:,0])
+            phi_loss = K_PHI*MSE_loss(outputs[:,0], targets[:,0])
+            cx_loss = K_CX*MSE_loss(outputs[:,1], targets[:,1])
+            cy_loss = K_CY*MSE_loss(outputs[:,2], targets[:,2])
+            avg_loss = phi_loss + cx_loss + cy_loss
+            phase_loss = phi_loss
 
             # after epoch, log loss to wandb
             wandb.log({"test set average loss": avg_loss, "test phase loss":phase_loss})
@@ -518,7 +533,7 @@ def get_LS_test_loss(inputs, targets):
         Phi_LS[i] = model_phi_d
 
     Phi_LS = np.reshape(Phi_LS, (Phi_LS.shape[0],))
-    LS_test_loss = np.linalg.norm(targets-Phi_LS)**2 / len(targets)
+    LS_test_loss = K_PHI*np.linalg.norm(targets-Phi_LS)**2 / len(targets)
     return LS_test_loss, Phi_LS
 
 

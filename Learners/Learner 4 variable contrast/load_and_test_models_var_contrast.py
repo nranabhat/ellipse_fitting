@@ -11,7 +11,7 @@ import wandb
 import os
 from ast import literal_eval
 import numpy as np
-from Sweep_var_input import CheckpointSaver,Dataset,\
+from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
 RUN_ID = 'mmqn4qsi'
@@ -78,11 +78,12 @@ if __name__ == '__main__':
             actual_epoch_num = int(config['epoch']) + epoch + 1
             
             avg_loss = train_epoch(network, trainloader, optimizer, scheduler)
-            avg_test_loss = get_test_loss(config['batch_size'], network)
+            avg_test_loss, phase_loss = get_test_loss(config['batch_size'], network)
 
             # after epoch log loss to wandb
-            wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "epoch": epoch}, commit=True)
-            print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss)+'     TEST LOSS: '+str(avg_test_loss))
+            wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "phase loss": phase_loss, "epoch": epoch}, commit=True)
+            print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss)+'     TEST LOSS: '+str(avg_test_loss)\
++'      PHASE LOSS: '+str(phase_loss))
             print('optimizer lr: '+str(optimizer.param_groups[0]['lr']))
 
             # if it's the first or last epoch, wait 3 seconds for wandb to log the loss

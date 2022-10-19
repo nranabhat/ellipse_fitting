@@ -302,11 +302,11 @@ def build_network(second_layer_size, clamp_output):
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
-            nn.Linear(second_layer_size, 1000),
+            nn.Linear(second_layer_size, 512),
             nn.ReLU(),
-            nn.Linear(1000, 500),
+            nn.Linear(512, 128),
             nn.ReLU(),
-            nn.Linear(500, 32),
+            nn.Linear(128, 32),
             nn.ReLU(),
             nn.Linear(32, 1),
             clamp_activation_function)
@@ -314,11 +314,11 @@ def build_network(second_layer_size, clamp_output):
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
-            nn.Linear(second_layer_size, 1000),
+            nn.Linear(second_layer_size, 512),
             nn.ReLU(),
-            nn.Linear(1000, 500),
+            nn.Linear(512, 128),
             nn.ReLU(),
-            nn.Linear(500, 32),
+            nn.Linear(128, 32),
             nn.ReLU(),
             nn.Linear(32, 1),)
 
