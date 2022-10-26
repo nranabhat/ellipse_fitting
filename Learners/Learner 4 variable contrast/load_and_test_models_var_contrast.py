@@ -14,20 +14,20 @@ import numpy as np
 from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
-RUN_ID = 'mfco69ji'
+RUN_ID = 'm3wl2imp'
 VERSION_NUM = 'latest'
-NUM_TRAINING_ELLIPSES = '500000'
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run7-phase-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
-NUM_TRAINING_ELLIPSES = '650000'
+NUM_TRAINING_ELLIPSES = '100000'
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run3-phase-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
+NUM_TRAINING_ELLIPSES = '100000'
 #NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phase-'+RUN_ID+'.pt:'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'best-run8-phase-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
+LOG_NEW_ARTIFACT_TO = f'best-run4-phase-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
 #wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
 wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
 pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 
-NUM_NEW_EPOCHS = 50
+NUM_NEW_EPOCHS = 300
 
 SAVE_MODEL = True  # If True, save model perormance as wandb artifact. If just running to debug, set to False 
 
@@ -55,9 +55,9 @@ if __name__ == '__main__':
         artifact_dir = artifact.download()
         state_dicts_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         config = artifact.metadata
-        #config['loss'] = 1.5
-        config['current_lr'] = 0.00057429097296683
-        #config['batch_size'] = '5000'
+        config['loss'] = 10
+        #config['current_lr'] = 0.00001
+        config['batch_size'] = '5000'
 
         trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), True)
         network = build_network(int(config['second_layer_size']),clamp_output=True)

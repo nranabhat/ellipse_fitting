@@ -117,10 +117,10 @@ def plot_nine(input_coords, targets, outputs, Phi_LS, test_loss, test_phase_loss
 
     # Make super plot title/label axes
     test_loss = test_loss.detach().numpy()
-    test_loss_str = str(test_loss*10**4)[0:5]+'e-4'
+    test_loss_str = str(test_loss)[0:5]
     test_phase_loss = test_phase_loss.detach().numpy()
-    test_phase_loss_str = str(test_phase_loss*10**4)[0:5]+'e-4'
-    LS_test_loss_str = str(LS_test_loss*10**4)[0:5]+'e-4'
+    test_phase_loss_str = str(test_phase_loss)[0:5]
+    LS_test_loss_str = str(LS_test_loss)[0:5]
 
     txt="NN total Test Loss [phi_d,cx,cy]: "+test_loss_str+'\nNN Phase Loss: '+str(test_phase_loss_str)+\
 '\nLS Phase Loss: '+LS_test_loss_str

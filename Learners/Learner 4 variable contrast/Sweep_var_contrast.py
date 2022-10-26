@@ -22,7 +22,7 @@ from matplotlib.patches import Ellipse
 from ellipse import LsqEllipse
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
-NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep
+NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
@@ -39,8 +39,8 @@ K_CY =  (2/c_y_range)**2
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
-#WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+#WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
+WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
 
 def config_params():
 
@@ -57,7 +57,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [1]      # change this to >15 later
+          'values': [15]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -65,7 +65,7 @@ def config_params():
           'distribution': 'q_log_uniform_values',
           'q': 5,
           'min': 5,
-          'max': 60,
+          'max': 5000,
         },
       'optimizer': {
           'values': ['adam', 'sgd']
@@ -75,8 +75,8 @@ def config_params():
           },
       'starting_lr': {
           'distribution': 'uniform',
-          'min': 0.00001,
-          'max': 0.005
+          'min': 0.000001,
+          'max': 0.0005
         },
       'milestones' : {
             'values':  [[10]]
@@ -229,11 +229,12 @@ def train(checkpoint_saver, sweep_id, config=None):
 
             # if it's the first or last epoch, wait 3 seconds for wandb to log the loss
             if (epoch==0 or epoch==config.sweep_epochs-1):
+                print('sleeping for 3s...')
                 time.sleep(3)
 
             # update best_loss for next call to checkpoint_saver
             best_loss = sweep.best_run().summary_metrics['loss'] 
-
+            
             # save weights of current best epoch (will save best model for whole network over training if top_n=1)
             if avg_loss <= best_loss:
                 checkpoint_saver(api, network, avg_loss, avg_tot_test_loss, avg_phase_test_loss, 
@@ -318,10 +319,13 @@ def build_network(second_layer_size, clamp_output):
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.Linear(second_layer_size, 512),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.Linear(512, 128),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.Linear(128, 32),
             nn.ReLU(),
             nn.Linear(32, 3),
@@ -330,10 +334,13 @@ def build_network(second_layer_size, clamp_output):
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.Linear(second_layer_size, 512),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.Linear(512, 128),
             nn.ReLU(),
+            nn.Dropout(p=0.5),
             nn.Linear(128, 32),
             nn.ReLU(),
             nn.Linear(32, 3),)
@@ -476,6 +483,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
         run.finish()
 
+
 def get_LS_test_loss(inputs, targets):
     inputs = inputs.detach().numpy()
     targets = targets.detach().numpy()
@@ -548,7 +556,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 1
+    count = 20
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
