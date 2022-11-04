@@ -26,7 +26,7 @@ def load_data(filePath, shape):
     return data
 
 class loadCSVdata:
-    def __init__(self, NUM_TRAINING_ELLIPSES, MAX_SHOTS):
+    def __init__(self, NUM_TRAINING_ELLIPSES, MAX_SHOTS, FULL_PHI_RANGE):
 
         self._NUM_TRAINING_ELLIPSES = NUM_TRAINING_ELLIPSES
         self._numPoints = MAX_SHOTS
@@ -41,9 +41,12 @@ class loadCSVdata:
         self._shape_testing_phi_d = [numTestingEllipses]
         self._shape_training_contrast = [NUM_TRAINING_ELLIPSES, numContrasts]
         self._shape_testing_contrast = [numTestingEllipses, numContrasts]
-
-        self._datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast"
-        #self._datasets_path = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast"
+        if not FULL_PHI_RANGE:
+            self._datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast"
+            #self._datasets_path = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast"
+        else:
+            self._datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast all phi"
+            #self._datasets_path = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast all phi"
         self._training_set_path = os.path.join(self._datasets_path, "Training Set ("+str(NUM_TRAINING_ELLIPSES)+" ellipses)")
         self._testing_set_path = os.path.join(self._datasets_path, "Testing Set ("+str(numTestingEllipses)+" ellipses)")
 

@@ -27,9 +27,10 @@ MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001
+FULL_PHI_RANGE = True
 
 # Constants for calculating loss
-phase_range = 0.15
+phase_range = math.pi/2
 c_x_range = MAX_CONTRAST-MIN_CONTRAST
 c_y_range = MAX_CONTRAST-MIN_CONTRAST
 K_PHI = (2/phase_range)**2
@@ -57,7 +58,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [3]      # change this to >15 later
+          'values': [2]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -71,7 +72,7 @@ def config_params():
           'values': ['adam', 'sgd']
           },
       'second_layer_size': {
-          'values': [1000, 1500, 2000]
+          'values': [2048, 4096, 8192]
           },
       'starting_lr': {
           'distribution': 'uniform',
@@ -209,7 +210,7 @@ def train(checkpoint_saver, sweep_id, config=None):
         config = wandb.config
 
         trainloader = build_dataset(config.batch_size, int(NUM_TRAINING_ELLIPSES), train=True)
-        network = build_network(config.second_layer_size, clamp_output=False)
+        network = build_network(config.second_layer_size, train=True)
         optimizer = build_optimizer(network, config.optimizer, config.starting_lr)
         scheduler = build_scheduler(optimizer, config.milestones, config.gamma)
 
@@ -261,7 +262,7 @@ class Dataset(torch.utils.data.Dataset):
 
 def build_dataset(batch_size, num_ellipses, train):
     # load train(or testing) data
-    loader = loadCSVdata_var_contrast.loadCSVdata(num_ellipses, MAX_SHOTS)
+    loader = loadCSVdata_var_contrast.loadCSVdata(num_ellipses, MAX_SHOTS, FULL_PHI_RANGE)
     if train:
         X,y = loader.get_train_data()
 
@@ -276,7 +277,7 @@ def build_dataset(batch_size, num_ellipses, train):
     else: return testloader
 
 
-def build_network(second_layer_size, clamp_output):
+def build_network(second_layer_size, train):
     # simply define a custom activation function
     def clamp(input):
         '''
@@ -315,35 +316,35 @@ def build_network(second_layer_size, clamp_output):
             return clamp(input) # simply apply already implemented parameter_clamp
 
     clamp_activation_function = ParameterClamp()
-    if clamp_output:
+    if train:
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
             nn.Dropout(p=0.5),
-            nn.Linear(second_layer_size, 512),
+            nn.Linear(second_layer_size, 4096),
             nn.ReLU(),
             nn.Dropout(p=0.5),
-            nn.Linear(512, 128),
+            nn.Linear(4096, 2048),
             nn.ReLU(),
             nn.Dropout(p=0.5),
-            nn.Linear(128, 32),
+            nn.Linear(2048, 512),
             nn.ReLU(),
-            nn.Linear(32, 3),
+            nn.Linear(512, 3),
             clamp_activation_function)
     else: 
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
-            nn.Dropout(p=0.5),
-            nn.Linear(second_layer_size, 512),
+            nn.Dropout(p=0),
+            nn.Linear(second_layer_size, 4096),
             nn.ReLU(),
-            nn.Dropout(p=0.5),
-            nn.Linear(512, 128),
+            nn.Dropout(p=0),
+            nn.Linear(4096, 2048),
             nn.ReLU(),
-            nn.Dropout(p=0.5),
-            nn.Linear(128, 32),
+            nn.Dropout(p=0),
+            nn.Linear(2048, 512),
             nn.ReLU(),
-            nn.Linear(32, 3),)
+            nn.Linear(512, 3),)
 
     return network.to(device)
         
@@ -423,7 +424,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
         testloader = build_dataset(int(config['batch_size']), int(num_training_ellipses), train=False)
         # previous network build: 
-        network = build_network(int(config['second_layer_size']), clamp_output=True)
+        network = build_network(int(config['second_layer_size']), train=False)
         # new network built:
         weights_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         network.load_state_dict(torch.load(weights_path)['model_state_dict'])
@@ -520,16 +521,13 @@ def get_LS_test_loss(inputs, targets):
         LS_output = fitter.coefficients
 
         # finding target (a1-a6):
-        loader = loadCSVdata_var_contrast.loadCSVdata(NUM_TRAINING_ELLIPSES, MAX_SHOTS)
+        loader = loadCSVdata_var_contrast.loadCSVdata(NUM_TRAINING_ELLIPSES, MAX_SHOTS, FULL_PHI_RANGE)
         y_target = loader.get_test_labels()
 
         # finding LS (a1-a6) loss:
         a = LS_output[0];       A = float(y_target[i,0])
         b = LS_output[1];       B = float(y_target[i,1])
         c = LS_output[2];       C = float(y_target[i,2])
-        # d = LS_output[3];       D = float(targets[i,3])
-        # e = LS_output[4];       E = float(targets[i,4])
-        # f = LS_output[5];       F = float(targets[i,5])
 
         acos_arg_targets = -B/(2*math.sqrt(A*C))
         acos_arg_model = -b/(2*math.sqrt(a*c))
@@ -556,7 +554,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 2
+    count = 1
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)

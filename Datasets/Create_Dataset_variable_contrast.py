@@ -7,20 +7,26 @@ import numpy as np
 import random as random
 from matplotlib import pyplot as plt
 
-CREATING_TRAINING_DATA = True
-CREATING_TESTING_DATA = False
+CREATING_TRAINING_DATA = False
+CREATING_TESTING_DATA = True
 
 NUMBER_ATOMS = 1000
-numEllipses = 500 # number of ellipses 
+numEllipses = 100 # number of ellipses 
 MAX_SHOTS = 500
 MIN_SHOTS = 5
+FULL_PHI_RANGE = True
 
 numPoints = np.empty(numEllipses) # points on each ellipse plot - number of shots measuring excitation fraction
 for k in range(numEllipses):
     numPoints[k] = int(np.random.randint(MIN_SHOTS, MAX_SHOTS+1)) # number of shots is picked uniformly from [5,500]
 
-#DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast"
-DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast"
+if FULL_PHI_RANGE:
+    DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast all phi"
+    #DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast all phi"
+else:
+    DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast"
+    #DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast"
+
 if not os.path.isdir(DATASET_FOLDER): os.mkdir(DATASET_FOLDER)
 
 if CREATING_TESTING_DATA:
@@ -47,8 +53,8 @@ b_x = 1/2
 b_y = 1/2
 
 # make numEllipses (100) plots with different phi_d:
-# Define the intervals.  They should be disjoint.
-intervals=[[0, 0.15], [math.pi/2-0.15, math.pi/2]]
+# Define the intervals for FULL_PHI_RANGE = False.  They should be disjoint.
+intervals=[[0, 0.15], [math.pi/2-0.15, math.pi/2]]  
 
 for j in range(numEllipses):
 
@@ -62,10 +68,12 @@ for j in range(numEllipses):
     # ---- create phi_d value -----# 
     # 0 < phi_d < pi/2 (gets full range of cos when phi_c = pi/2)
     # Choose one number uniformly inside the set
-    phi_d = random.uniform(*random.choices(intervals,
-        weights=[r[1]-r[0] for r in intervals])[0])
+    if not FULL_PHI_RANGE:
+        phi_d = random.uniform(*random.choices(intervals,
+            weights=[r[1]-r[0] for r in intervals])[0])
+    else:
+        phi_d = random.uniform(0, math.pi/2)    # lower-case phi_d = numerical values of angle
 
-    #phi_d = random.uniform(0, math.pi/2)    # lower-case phi_d = numerical values of angle
     Phi_d[j,0] = phi_d                      # upper-case Phi_d = array holding all the phi_d angles
     for i in range(int(numPoints[j])):
         phi_c = random.uniform(0, 2*math.pi)
