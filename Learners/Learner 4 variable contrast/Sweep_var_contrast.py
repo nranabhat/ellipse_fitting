@@ -22,7 +22,7 @@ from matplotlib.patches import Ellipse
 from ellipse import LsqEllipse
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
-NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep
+NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
@@ -39,8 +39,8 @@ K_CY =  (2/c_y_range)**2
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-#WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
-WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
+#WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
 
 def config_params():
 
@@ -57,7 +57,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [15]      # change this to >15 later
+          'values': [3]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -556,7 +556,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 20
+    count = 2
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)

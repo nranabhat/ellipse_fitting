@@ -17,9 +17,11 @@ import numpy as np
 import loadCSVdata_var_input
 from matplotlib.patches import Ellipse
 from ellipse import LsqEllipse
-from Sweep_var_input import build_dataset,build_network, get_LS_test_loss
+from Sweep_var_input import build_dataset, build_network, get_LS_test_loss
 
 ### Wandb Artifact to load
+# - constant contrasts cx=cy=0.65/2
+# - input is 1000 neurons, output is phase estimate
 RUN_ID = '8trhbjq2'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '500000'
@@ -27,10 +29,10 @@ NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run8-phase-'+RUN_ID
 #NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phase-'+RUN_ID+'.pt:'+str(VERSION_NUM)
 #LOG_NEW_ARTIFACT_TO = f'test-run-phase-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
-wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
+#wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
 #wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
-pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
-MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
+#pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
+#MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 
 NUM_NEW_EPOCHS = 1
 MAX_SHOTS = 500
