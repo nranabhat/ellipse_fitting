@@ -22,12 +22,13 @@ from matplotlib.patches import Ellipse
 from ellipse import LsqEllipse
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
-NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep
+NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001
 FULL_PHI_RANGE = True
+LAB_COMP = True
 
 # Constants for calculating loss
 phase_range = math.pi/2
@@ -40,8 +41,10 @@ K_CY =  (2/c_y_range)**2
 wandb.login()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
-#WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+if LAB_COMP:
+    WANDBPATH = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+else: 
+    WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
 
 def config_params():
 
@@ -58,7 +61,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [2]      # change this to >15 later
+          'values': [20]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30
@@ -77,7 +80,7 @@ def config_params():
       'starting_lr': {
           'distribution': 'uniform',
           'min': 0.000001,
-          'max': 0.0005
+          'max': 0.005
         },
       'milestones' : {
             'values':  [[10]]
@@ -149,7 +152,7 @@ Saving model at {model_path}, & logging model weights to W&B.")
             self.top_model_paths = sorted(self.top_model_paths, key=lambda o: o['score'], reverse=not self.decreasing)
 
         if len(self.top_model_paths)>self.top_n:
-            self.cleanupLocal()
+            self.cleanupLocal(api, artifact_location_path)
     
     def log_artifact(self, filename, model_path, metric_val, test_loss, phase_loss, epoch, config, current_lr):
         config_string={k:str(v) for k,v in config.items()}
@@ -164,13 +167,20 @@ Saving model at {model_path}, & logging model weights to W&B.")
         artifact.add_file(model_path)
         wandb.run.log_artifact(artifact)        
     
-    def cleanupLocal(self):
+    def cleanupLocal(self, api, artifact_name):
         # cleaning up local disc
         to_remove = self.top_model_paths[self.top_n:]
         logging.info(f"Removing extra models.. {to_remove}")
         for o in to_remove:
             os.remove(o['path'])
         self.top_model_paths = self.top_model_paths[:self.top_n]
+
+        # cleaning up wandb model artifacts
+        for version in api.artifact_versions('model', artifact_name):
+        # Clean up all versions that don't have an alias such as 'latest'.
+            # NOTE: You can put whatever deletion logic you want here.
+            if len(version.aliases) == 0:
+                version.delete()
 
 
 def get_test_loss(batch_size, network):
@@ -262,7 +272,7 @@ class Dataset(torch.utils.data.Dataset):
 
 def build_dataset(batch_size, num_ellipses, train):
     # load train(or testing) data
-    loader = loadCSVdata_var_contrast.loadCSVdata(num_ellipses, MAX_SHOTS, FULL_PHI_RANGE)
+    loader = loadCSVdata_var_contrast.loadCSVdata(num_ellipses, MAX_SHOTS, FULL_PHI_RANGE, LAB_COMP)
     if train:
         X,y = loader.get_train_data()
 
@@ -521,7 +531,7 @@ def get_LS_test_loss(inputs, targets):
         LS_output = fitter.coefficients
 
         # finding target (a1-a6):
-        loader = loadCSVdata_var_contrast.loadCSVdata(NUM_TRAINING_ELLIPSES, MAX_SHOTS, FULL_PHI_RANGE)
+        loader = loadCSVdata_var_contrast.loadCSVdata(NUM_TRAINING_ELLIPSES, MAX_SHOTS, FULL_PHI_RANGE, LAB_COMP)
         y_target = loader.get_test_labels()
 
         # finding LS (a1-a6) loss:
@@ -554,7 +564,7 @@ def main():
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
     # COUNT = NUMBER OF RUNS!!
-    count = 1
+    count = 40
     print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
@@ -567,7 +577,7 @@ def main():
     artifact_location_path = f'best-mlp-sweep-phase-' +str(sweep_id)+'.pt'
     artifact_type, artifact_name = 'model', artifact_location_path # fill in the desired type + name
     for version in api.artifact_versions(artifact_type, artifact_name):
-        if len(version.aliases) == 1: #has aliase 'latest'
+        if len(version.aliases) == 1: # has aliase 'latest'
             best_version_num = int(version.version[1])
         if int(version.version[1]) < (best_version_num - 4):
             version.delete()
