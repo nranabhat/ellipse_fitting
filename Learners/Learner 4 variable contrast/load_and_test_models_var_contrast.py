@@ -14,20 +14,24 @@ import numpy as np
 from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
-RUN_ID = 'm3wl2imp'
+LAB_COMP = True
+RUN_ID = '1vkseeu8'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
 NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run3-phase-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
-NUM_TRAINING_ELLIPSES = '100000'
+NUM_TRAINING_ELLIPSES = '250000'
 #NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phase-'+RUN_ID+'.pt:'+str(VERSION_NUM)
 LOG_NEW_ARTIFACT_TO = f'best-run4-phase-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
 
-#wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"   
-wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+NUM_NEW_EPOCHS = 100
+
+if LAB_COMP:
+    wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
+else: 
+    wandbpath = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"  
+
 pathname = os.path.join(wandbpath, 'best-'+NUM_TRAINING_ELLIPSES+'-trainingellipses-run-for-sweep-'+RUN_ID)
 MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
-
-NUM_NEW_EPOCHS = 300
 
 SAVE_MODEL = True  # If True, save model perormance as wandb artifact. If just running to debug, set to False 
 
@@ -36,8 +40,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if __name__ == '__main__': 
     with wandb.init(project='ellipse_fitting') as run:
+        api = wandb.Api()
         
-        def log_artifact(artifact_location_path, model_path, best_loss, test_loss, config, actual_epoch, current_lr, adjusted_milestones):
+        def log_artifact(api, artifact_location_path, model_path, best_loss, test_loss, config, actual_epoch, current_lr, adjusted_milestones):
             config_string={k:str(v) for k,v in config.items()}
             config_string['loss'] = str(best_loss)
             config_string['test loss'] = str(test_loss)
@@ -48,7 +53,18 @@ if __name__ == '__main__':
 
             artifact = wandb.Artifact(artifact_location_path, type='model', metadata=config_string)
             artifact.add_file(model_path)
-            wandb.run.log_artifact(artifact)   
+            wandb.run.log_artifact(artifact)  
+
+            # cleaning up wandb model artifacts
+            artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO # fill in the desired type + name
+            try:
+                for version in api.artifact_versions(artifact_type, artifact_name):
+                # Clean up all versions that don't have an alias such as 'latest'.
+                    # NOTE: You can put whatever deletion logic you want here.
+                    if len(version.aliases) != 1:
+                        version.delete() 
+            except Exception:
+                print('\nNo wandb artifact to clean up')
 
         print("Loading artifact at: "+NAME_OF_ARTIFACT_TO_USE)
         artifact = run.use_artifact(NAME_OF_ARTIFACT_TO_USE, type='model')
@@ -57,10 +73,10 @@ if __name__ == '__main__':
         config = artifact.metadata
         config['loss'] = 10
         #config['current_lr'] = 0.00001
-        config['batch_size'] = '5000'
+        config['batch_size'] = '50000'
 
         trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), True)
-        network = build_network(int(config['second_layer_size']),clamp_output=True)
+        network = build_network(int(config['second_layer_size']),train=True)
         network.load_state_dict(torch.load(state_dicts_path)['model_state_dict'])
         optimizer = build_optimizer(network, config['optimizer'], float(config['current_lr']))
         #optimizer.load_state_dict(torch.load(state_dicts_path)['optimizer_state_dict'])
@@ -121,11 +137,11 @@ if __name__ == '__main__':
                 print('Model weights and state_dicts saved.\n')
 
                 current_lr = optimizer.param_groups[0]['lr']
-                log_artifact(LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, avg_test_loss, config, actual_epoch_num, current_lr, adjusted_milestones)     
+                log_artifact(api, LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, avg_test_loss, config, actual_epoch_num, current_lr, adjusted_milestones)     
         
         #delete all artifact versions that arne't top 5
         time.sleep(3)
-        api = wandb.Api()
+        
         artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO # fill in the desired type + name
         try:
             for version in api.artifact_versions(artifact_type, artifact_name):

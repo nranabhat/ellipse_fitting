@@ -7,25 +7,30 @@ import numpy as np
 import random as random
 from matplotlib import pyplot as plt
 
-CREATING_TRAINING_DATA = False
-CREATING_TESTING_DATA = True
+CREATING_TRAINING_DATA = True
+CREATING_TESTING_DATA = False
 
 NUMBER_ATOMS = 1000
-numEllipses = 100 # number of ellipses 
+numEllipses = 250000 # number of ellipses 
 MAX_SHOTS = 500
 MIN_SHOTS = 5
 FULL_PHI_RANGE = True
+LAB_COMP = True
 
 numPoints = np.empty(numEllipses) # points on each ellipse plot - number of shots measuring excitation fraction
 for k in range(numEllipses):
     numPoints[k] = int(np.random.randint(MIN_SHOTS, MAX_SHOTS+1)) # number of shots is picked uniformly from [5,500]
 
 if FULL_PHI_RANGE:
-    DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast all phi"
-    #DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast all phi"
+    if LAB_COMP:
+        DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast all phi"
+    else:
+        DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast all phi"
 else:
-    DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast"
-    #DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast"
+    if LAB_COMP:
+        DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast"
+    else: 
+        DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast"
 
 if not os.path.isdir(DATASET_FOLDER): os.mkdir(DATASET_FOLDER)
 
