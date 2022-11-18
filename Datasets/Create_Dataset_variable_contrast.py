@@ -11,7 +11,7 @@ CREATING_TRAINING_DATA = True
 CREATING_TESTING_DATA = False
 
 NUMBER_ATOMS = 1000
-numEllipses = 250000 # number of ellipses 
+numEllipses = 500000 # number of ellipses 
 MAX_SHOTS = 500
 MIN_SHOTS = 5
 FULL_PHI_RANGE = True

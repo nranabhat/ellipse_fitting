@@ -15,13 +15,13 @@ from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
 LAB_COMP = True
-RUN_ID = '1vkseeu8'
+RUN_ID = 'twat7cxb'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-run3-phase-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt:'+str(VERSION_NUM)
-NUM_TRAINING_ELLIPSES = '250000'
-#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phase-'+RUN_ID+'.pt:'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'best-run4-phase-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses.pt'
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/run2-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-1hl-1000n-fullphi-.pt:'+str(VERSION_NUM)
+NUM_TRAINING_ELLIPSES = '500000'
+#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+'-1hl-1000n-fullphi-.pt:'+str(VERSION_NUM)
+LOG_NEW_ARTIFACT_TO = f'run3-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-1hl-1000n-fullphi-.pt'
 
 NUM_NEW_EPOCHS = 100
 
@@ -94,8 +94,7 @@ if __name__ == '__main__':
         for epoch in range(NUM_NEW_EPOCHS):
             actual_epoch_num = int(config['epoch']) + epoch + 1
             
-            avg_loss = train_epoch(network, trainloader, optimizer, scheduler)
-            avg_test_loss, phase_loss = get_test_loss(config['batch_size'], network)
+            avg_loss, avg_test_loss, phase_loss = train_epoch(network, trainloader, optimizer, scheduler, config['batch_size'])
 
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "phase loss": phase_loss, "epoch": epoch}, commit=True)

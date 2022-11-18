@@ -1,4 +1,5 @@
-# *** Adding wandb to github tutorial for experiment tracking *** 
+""" Weights and Biases sweep for ANN
+@author: nranabhat  """
 
 from audioop import avg
 from distutils.log import error
@@ -22,13 +23,18 @@ from matplotlib.patches import Ellipse
 from ellipse import LsqEllipse
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
-NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep
-MAX_SHOTS = 500
-MAX_CONTRAST = 0.98
-MIN_CONTRAST = 0.1
-CLAMP_EPSILON = -0.0000001
-FULL_PHI_RANGE = True
-LAB_COMP = True
+#set constants
+
+BAYESIAN_SWEEP = True # bayesian or grid?
+NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep. Can change but make sure the dataset exists!
+MAX_SHOTS = 500 # don't change
+MAX_CONTRAST = 0.98 # don't change
+MIN_CONTRAST = 0.1 # don't change
+CLAMP_EPSILON = -0.0000001 
+DROPOUT_PROBABILITY = 0 # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped. range:[0,1]
+FULL_PHI_RANGE = True # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. Can change but make sure the dataset exists!
+LAB_COMP = True # change to False if running on Nico's machine 
+LOG_NEW_ARTIFACT_TO = '-1hl-1000n-fullphi-LRplateau-' # '1 hidden layer, 1000 neurons, full range of phi'
 
 # Constants for calculating loss
 phase_range = math.pi/2
@@ -46,6 +52,7 @@ if LAB_COMP:
 else: 
     WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
 
+# configureation of hyperparameters for bayesian sweep
 def config_params():
 
   sweep_config = {
@@ -61,10 +68,10 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [20]      # change this to >15 later
+          'values': [15]      # change this to >15 later
           },
       'batch_size': {
-          # integers between 5 and 30
+          # integers between min and max
           # with evenly-distributed logarithms 
           'distribution': 'q_log_uniform_values',
           'q': 5,
@@ -75,15 +82,20 @@ def config_params():
           'values': ['adam', 'sgd']
           },
       'second_layer_size': {
-          'values': [2048, 4096, 8192]
+          # integers between min and max
+          # with evenly-distributed logarithms 
+          'distribution': 'q_log_uniform_values',
+          'q': 5,
+          'min': 5,
+          'max': 1000,
           },
       'starting_lr': {
           'distribution': 'uniform',
-          'min': 0.000001,
-          'max': 0.005
+          'min': 0.0001,
+          'max': 0.05
         },
       'milestones' : {
-            'values':  [[10]]
+            'values':  [[0]]
           },
       }
 
@@ -105,8 +117,61 @@ def config_params():
 
   return sweep_id
 
+# configureation of hyperparameters for grid sweep
+def config_params_grid():
+  second_layer_size = []
+  for i in range(0,1000,20):
+    layer_size = i+1
+    second_layer_size.append(layer_size)
 
-# class from https://gist.github.com/amaarora/9b867f1868f319b3f2e6adb6bfe2373e\#file-how-to-save-all-your-trained-model-weights-locally-after-every-epoch-ipynb
+  sweep_config = {
+      'method': 'grid'
+      }
+
+  metric = {
+      'name': 'loss',
+      'goal': 'minimize'   
+      }
+
+  sweep_config['metric'] = metric
+
+  parameters_dict = {
+      'sweep_epochs': {
+          'values': [20]     
+          },
+      'batch_size': {
+          'values': [40]
+        },
+      'optimizer': {
+          'values': ['sgd']
+          },
+      'second_layer_size': {
+          'values': second_layer_size
+          },
+      'starting_lr': {
+          'values': [0.004672124070515444]
+        },
+      'milestones' : {
+            'values':  [[0]]
+          },
+      'gamma': {
+            'values':  [0.1]
+        }
+      }
+      
+  sweep_config['parameters'] = parameters_dict
+
+  import pprint
+  pprint.pprint(sweep_config)
+
+  sweep_id = wandb.sweep(sweep_config, project="ellipse_fitting")
+
+  return sweep_id
+
+# CheckpointSaver class class from https://gist.github.com/amaarora/9b867f1868f319b3f2e6adb6bfe2373e\#
+# file-how-to-save-all-your-trained-model-weights-locally-after-every-epoch-ipynb
+
+# ----*** only used in sweep...py! Not used in load_and_test...py ***----# 
 class CheckpointSaver:
     def __init__(self, dirpath, sweep_id, decreasing=True, top_n=1):
         """
@@ -145,7 +210,7 @@ Saving model at {model_path}, & logging model weights to W&B.")
             if 'sweep-' in self.dirpath: sweep_or_run = 'sweep'
             else: sweep_or_run = 'run'
 
-            artifact_location_path = f'best-mlp-'+sweep_or_run+'-phase-' +str(self.sweep_id)+'.pt'
+            artifact_location_path = f'mlp-'+sweep_or_run+'-'+str(self.sweep_id)+LOG_NEW_ARTIFACT_TO+'.pt'
             current_lr = optimizer.param_groups[0]['lr']
             self.log_artifact(artifact_location_path, model_path, metric_val, test_loss, phase_loss, epoch, config, current_lr)
             self.top_model_paths.append({'path': model_path, 'score': metric_val})
@@ -229,8 +294,9 @@ def train(checkpoint_saver, sweep_id, config=None):
         sweep = api.sweep(f"{'nicoranabhat'}/{'ellipse_fitting'}/{sweep_id}")
 
         for epoch in range(config.sweep_epochs):
-            avg_loss = train_epoch(network, trainloader, optimizer, scheduler)
-            avg_tot_test_loss, avg_phase_test_loss = get_test_loss(config.batch_size, network)
+            batch_size = config.batch_size
+            avg_loss, avg_tot_test_loss, avg_phase_test_loss = train_epoch(network, trainloader, optimizer, scheduler, batch_size)
+
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_tot_test_loss, "test phase loss": avg_phase_test_loss, 
                 "epoch": epoch}, commit=True)
@@ -326,35 +392,20 @@ def build_network(second_layer_size, train):
             return clamp(input) # simply apply already implemented parameter_clamp
 
     clamp_activation_function = ParameterClamp()
+    p = DROPOUT_PROBABILITY
     if train:
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
-            nn.Dropout(p=0.5),
-            nn.Linear(second_layer_size, 4096),
-            nn.ReLU(),
-            nn.Dropout(p=0.5),
-            nn.Linear(4096, 2048),
-            nn.ReLU(),
-            nn.Dropout(p=0.5),
-            nn.Linear(2048, 512),
-            nn.ReLU(),
-            nn.Linear(512, 3),
+            nn.Dropout(p),
+            nn.Linear(second_layer_size, 3),
             clamp_activation_function)
     else: 
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
-            nn.Dropout(p=0),
-            nn.Linear(second_layer_size, 4096),
-            nn.ReLU(),
-            nn.Dropout(p=0),
-            nn.Linear(4096, 2048),
-            nn.ReLU(),
-            nn.Dropout(p=0),
-            nn.Linear(2048, 512),
-            nn.ReLU(),
-            nn.Linear(512, 3),)
+            nn.Dropout(p),
+            nn.Linear(second_layer_size, 3),)
 
     return network.to(device)
         
@@ -369,12 +420,12 @@ def build_optimizer(network, optimizer, starting_lr):
 
 
 def build_scheduler(optimizer, milestones, gamma):
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=milestones, gamma=gamma)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.01, verbose=True)
 
     return scheduler
 
 
-def train_epoch(network, trainloader, optimizer, scheduler):
+def train_epoch(network, trainloader, optimizer, scheduler, batch_size):
     cumu_loss = 0
     MSE_loss = nn.MSELoss(reduction='mean')
 
@@ -407,9 +458,12 @@ def train_epoch(network, trainloader, optimizer, scheduler):
 
         # log loss 
         wandb.log({"batch loss": loss.item()})
+    
+    avg_tot_test_loss, avg_phase_test_loss = get_test_loss(batch_size, network)
 
-    scheduler.step()
-    return cumu_loss / len(trainloader)
+    scheduler.step(avg_tot_test_loss)
+    
+    return cumu_loss / len(trainloader), avg_tot_test_loss, avg_phase_test_loss 
 
 
 def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_sweep):
@@ -555,41 +609,29 @@ def get_LS_test_loss(inputs, targets):
 
 def main():
 
-    sweep_id = config_params()
-    
+    if BAYESIAN_SWEEP:
+        sweep_id = config_params()
+    else:
+        sweep_id = config_params_grid()
+        
     # sweep path
     pathname = os.path.join(WANDBPATH, 'sweep-'+sweep_id)
 
     # instantiate CheckpointSaver object with sweep path
     checkpoint_saver = CheckpointSaver(dirpath=pathname, sweep_id=sweep_id, decreasing=True, top_n=1)
     
-    # COUNT = NUMBER OF RUNS!!
-    count = 40
-    print('\nStarting '+str(count)+' runs(s)...\n')
+    if BAYESIAN_SWEEP:
+        # COUNT = NUMBER OF RUNS!!
+        count = 25
+        print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
 
-    wandb.agent(sweep_id, function=wandb_train_func, count=count)
-
-    # delete all artifacts that aren't top 5
-    time.sleep(3)
-    api = wandb.Api()
-    artifact_location_path = f'best-mlp-sweep-phase-' +str(sweep_id)+'.pt'
-    artifact_type, artifact_name = 'model', artifact_location_path # fill in the desired type + name
-    for version in api.artifact_versions(artifact_type, artifact_name):
-        if len(version.aliases) == 1: # has aliase 'latest'
-            best_version_num = int(version.version[1])
-        if int(version.version[1]) < (best_version_num - 4):
-            version.delete()
-    print('\nSweep finished!\n')
-    print('Begining validation...\n')
-    wandb.finish()
-
-    # ________ sweep is complete __________ # 
-
-    # test best model, plot results from best model (sanity check)...
-    # save plot as artifact
-    model_location = 'nicoranabhat/ellipse_fitting/best-mlp-sweep-phase-' + sweep_id + '.pt:latest'
+    if BAYESIAN_SWEEP:
+        wandb.agent(sweep_id, function=wandb_train_func, count=count)
+    else:  wandb.agent(sweep_id, function=wandb_train_func)
+    
+    model_location = f'mlp-sweep-'+str(sweep_id)+LOG_NEW_ARTIFACT_TO+'.pt:latest'
     test_and_plot(model_location, sweep_id, num_training_ellipses=NUM_TRAINING_ELLIPSES, is_sweep=True)
 
     # delete any files saved to local machine
