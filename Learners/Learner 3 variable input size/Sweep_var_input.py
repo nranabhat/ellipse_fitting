@@ -46,7 +46,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [1]      # change this to >15 later
+          'values': [3]      # change this to >15 later
           },
       'batch_size': {
           # integers between 5 and 30

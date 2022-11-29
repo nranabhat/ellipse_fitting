@@ -17,3 +17,4 @@ investigate_datasets.py
 *.csv
 *.pyc
 *.txt
+/.gitignore

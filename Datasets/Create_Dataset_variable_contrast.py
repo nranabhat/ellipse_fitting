@@ -1,3 +1,20 @@
+""" 
+Creates a dataset of ellipses and saves the dataset to csv files in a given path.
+The datasets consist of the following csv files:
+
+    Contrasts.csv:          contrasts for atom population 1 (x-axis) and atom population 2 (y-axis)
+    L.csv:                  a1...a6 conic parameters 
+    Phi_d.csv:              phi values 
+    X.csv:                  x-coordinates 
+    Y.csb:                  y-coordinates
+
+Specify the number of ellipses you want to create with the variable 'numEllipses'
+Specify if this data is training or testing data using the first two variables in the sript.
+Custimize the range of phi, the path location, and if you want randomly chosen contrast or constant contrast
+
+@author: nranabhat
+ """
+
 import math
 import csv
 import os
@@ -11,27 +28,29 @@ CREATING_TRAINING_DATA = True
 CREATING_TESTING_DATA = False
 
 NUMBER_ATOMS = 1000
-numEllipses = 500000 # number of ellipses 
+numEllipses = 500 # number of ellipses 
 MAX_SHOTS = 500
 MIN_SHOTS = 5
+
+# determines file path ~
 FULL_PHI_RANGE = True
-LAB_COMP = True
+LAB_COMP = False
+VARIABLE_CONTRAST = False # if True, contrast will be differnt for each ellipse. If False, contrast = 0.65
 
-numPoints = np.empty(numEllipses) # points on each ellipse plot - number of shots measuring excitation fraction
-for k in range(numEllipses):
-    numPoints[k] = int(np.random.randint(MIN_SHOTS, MAX_SHOTS+1)) # number of shots is picked uniformly from [5,500]
-
-if FULL_PHI_RANGE:
-    if LAB_COMP:
-        DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast all phi"
-    else:
-        DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast all phi"
+# create folder for new data. Folder name indicates:
+# -  variable                    vs. constant contrast
+# -  full 0 to pi/2 range of phi vs. small [0,0.15] & [0.98-0.15, 0.15]
+# -  lab compuer path            vs. Nico's local machine path
+if VARIABLE_CONTRAST: var_cons = "Variable"
+else: var_cons = 'Constant'
+if FULL_PHI_RANGE: all_phi = " all phi"
+else: all_phi = " small phi interval"
+if LAB_COMP:
+    datasets_path = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets"
 else:
-    if LAB_COMP:
-        DATASET_FOLDER = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets\Variable contrast"
-    else: 
-        DATASET_FOLDER = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets\Variable contrast"
-
+    datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets"
+if not os.path.isdir(datasets_path): os.mkdir(datasets_path)
+DATASET_FOLDER = os.path.join(datasets_path, var_cons+" contrast"+all_phi)
 if not os.path.isdir(DATASET_FOLDER): os.mkdir(DATASET_FOLDER)
 
 if CREATING_TESTING_DATA:
@@ -45,12 +64,16 @@ if not os.path.isdir(dataset_path): os.mkdir(dataset_path)
     # y = c_y cos(phi_c - phi_d) + b_y
     # Note: here Estey has c_x, c_y as Ax, Ay but I think this is the same thing
 
-X = np.empty((MAX_SHOTS, numEllipses)) # x-coordinates 
-Y = np.empty((MAX_SHOTS, numEllipses)) # y-coordinates 
-Phi_c = np.empty((MAX_SHOTS, numEllipses))
-Phi_d = np.empty((numEllipses, 1)) # each ellipse has a phi_d
-labels = np.empty((numEllipses, 6)) # 6 parameters for each ellipse
-Contrasts = np.empty((numEllipses, 2)) # each ellipse has 2 contrast values: c_x and c_y 
+numPoints = np.zeros(numEllipses) # points on each ellipse plot - number of shots measuring excitation fraction
+for k in range(numEllipses):
+    numPoints[k] = int(np.random.randint(MIN_SHOTS, MAX_SHOTS+1)) # number of shots is picked uniformly from [5,500]
+
+X = np.zeros((MAX_SHOTS, numEllipses)) # x-coordinates 
+Y = np.zeros((MAX_SHOTS, numEllipses)) # y-coordinates 
+Phi_c = np.zeros((MAX_SHOTS, numEllipses))
+Phi_d = np.zeros((numEllipses, 1)) # each ellipse has a phi_d
+labels = np.zeros((numEllipses, 6)) # 6 parameters for each ellipse
+Contrasts = np.zeros((numEllipses, 2)) # each ellipse has 2 contrast values: c_x and c_y 
 
 
 # center at (0.5, 0.5)
@@ -64,7 +87,9 @@ intervals=[[0, 0.15], [math.pi/2-0.15, math.pi/2]]
 for j in range(numEllipses):
 
     # --- Set Contrast --- # 
-    contrast = random.uniform(0.1, 0.98)
+    if VARIABLE_CONTRAST:
+        contrast = random.uniform(0.1, 0.98)
+    else: contrast = 0.65
     c_x = contrast/2
     c_y = contrast/2
     Contrasts[j,0] = c_x

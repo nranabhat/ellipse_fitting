@@ -26,15 +26,21 @@ logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 #set constants
 
 BAYESIAN_SWEEP = True # bayesian or grid?
-NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep. Can change but make sure the dataset exists!
-MAX_SHOTS = 500 # don't change
-MAX_CONTRAST = 0.98 # don't change
-MIN_CONTRAST = 0.1 # don't change
+NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep. Can change but make sure the dataset exists!
+MAX_SHOTS = 500
+MAX_CONTRAST = 0.98
+MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001 
 DROPOUT_PROBABILITY = 0 # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped. range:[0,1]
 FULL_PHI_RANGE = True # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. Can change but make sure the dataset exists!
-LAB_COMP = True # change to False if running on Nico's machine 
-LOG_NEW_ARTIFACT_TO = '-1hl-1000n-fullphi-LRplateau-' # '1 hidden layer, 1000 neurons, full range of phi'
+LAB_COMP = False # change to False if running on Nico's machine. Specifies local file paths 
+VARIABLE_CONTRAST = False # constant vs. variable contrast dataset
+
+if VARIABLE_CONTRAST: var_cons = 'Var'
+else: var_cons = 'Constant'
+if FULL_PHI_RANGE: all_phi = 'allPhi'
+else: all_phi = 'fewPhi'
+LOG_NEW_ARTIFACT_TO = '-1hl-1000n-'+all_phi+'-'+var_cons+'Contrast-LRplateau-' # '1 hidden layer, 1000 neurons, phi range, contrast range, LR'
 
 # Constants for calculating loss
 phase_range = math.pi/2
@@ -68,7 +74,7 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [15]      # change this to >15 later
+          'values': [1]      # change this to >15 later
           },
       'batch_size': {
           # integers between min and max
@@ -264,6 +270,8 @@ def get_test_loss(batch_size, network):
         targets = targets.reshape((targets.shape[0], 3))
         
         # Perform forward pass w/o training gradients 
+        # **** HERE WE USE THE SAME NETWORK WE USED FOR TRAINING (NO CLAMPING) 
+        # **** BECAUSE OF UNKNOWN BEHAVIOR OF CREATING NEW WANDB RUN FOR TESTING
         with torch.no_grad():
             outputs = network(inputs)
         
@@ -338,7 +346,7 @@ class Dataset(torch.utils.data.Dataset):
 
 def build_dataset(batch_size, num_ellipses, train):
     # load train(or testing) data
-    loader = loadCSVdata_var_contrast.loadCSVdata(num_ellipses, MAX_SHOTS, FULL_PHI_RANGE, LAB_COMP)
+    loader = loadCSVdata_var_contrast.loadCSVdata(num_ellipses, MAX_SHOTS, FULL_PHI_RANGE, LAB_COMP, VARIABLE_CONTRAST)
     if train:
         X,y = loader.get_train_data()
 
@@ -398,14 +406,16 @@ def build_network(second_layer_size, train):
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
             nn.Dropout(p),
-            nn.Linear(second_layer_size, 3),
-            clamp_activation_function)
+            nn.Linear(second_layer_size, 3))
+
+    # clamp the output to physical ranges for testing
     else: 
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
             nn.Dropout(p),
-            nn.Linear(second_layer_size, 3),)
+            nn.Linear(second_layer_size, 3),
+            clamp_activation_function)
 
     return network.to(device)
         
@@ -585,7 +595,7 @@ def get_LS_test_loss(inputs, targets):
         LS_output = fitter.coefficients
 
         # finding target (a1-a6):
-        loader = loadCSVdata_var_contrast.loadCSVdata(NUM_TRAINING_ELLIPSES, MAX_SHOTS, FULL_PHI_RANGE, LAB_COMP)
+        loader = loadCSVdata_var_contrast.loadCSVdata(NUM_TRAINING_ELLIPSES, MAX_SHOTS, FULL_PHI_RANGE, LAB_COMP, VARIABLE_CONTRAST)
         y_target = loader.get_test_labels()
 
         # finding LS (a1-a6) loss:
@@ -622,7 +632,7 @@ def main():
     
     if BAYESIAN_SWEEP:
         # COUNT = NUMBER OF RUNS!!
-        count = 25
+        count = 2
         print('\nStarting '+str(count)+' runs(s)...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
