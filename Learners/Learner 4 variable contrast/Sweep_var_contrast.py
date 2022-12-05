@@ -1,6 +1,7 @@
 """ Weights and Biases sweep for ANN
 @author: nranabhat  """
 
+#imports 
 from audioop import avg
 from distutils.log import error
 import functools
@@ -21,18 +22,21 @@ import loadCSVdata_var_contrast
 from plot_nine_var_contrast import plot_nine, plot_errors
 from matplotlib.patches import Ellipse
 from ellipse import LsqEllipse
+import ellipse_fitting_api
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
 #set constants
-
 BAYESIAN_SWEEP = True # bayesian or grid?
-NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep. Can change but make sure the dataset exists!
+PLOT_MLE = True
+NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep.   
+                            # Can change but make sure the dataset exists!
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001 
 DROPOUT_PROBABILITY = 0 # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped. range:[0,1]
-FULL_PHI_RANGE = True # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. Can change but make sure the dataset exists!
+FULL_PHI_RANGE = True # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
+                      # Can change but make sure the dataset exists!
 LAB_COMP = False # change to False if running on Nico's machine. Specifies local file paths 
 VARIABLE_CONTRAST = False # constant vs. variable contrast dataset
 
@@ -40,7 +44,8 @@ if VARIABLE_CONTRAST: var_cons = 'Var'
 else: var_cons = 'Constant'
 if FULL_PHI_RANGE: all_phi = 'allPhi'
 else: all_phi = 'fewPhi'
-LOG_NEW_ARTIFACT_TO = '-1hl-1000n-'+all_phi+'-'+var_cons+'Contrast-LRplateau-' # '1 hidden layer, 1000 neurons, phi range, contrast range, LR'
+LOG_NEW_ARTIFACT_TO = '-1hl-1000n-'+all_phi+'-'+var_cons+'Contrast-LRplateau-' 
+# 1hl-1000n... => '1 hidden layer, 1000 neurons, phi range, contrast range, LR'
 
 # Constants for calculating loss
 phase_range = math.pi/2
@@ -58,8 +63,9 @@ if LAB_COMP:
 else: 
     WANDBPATH = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting\Learners\wandb"
 
-# configureation of hyperparameters for bayesian sweep
+
 def config_params():
+  # configureation of hyperparameters for bayesian sweep
 
   sweep_config = {
       'method': 'bayes'
@@ -123,8 +129,10 @@ def config_params():
 
   return sweep_id
 
-# configureation of hyperparameters for grid sweep
+
 def config_params_grid():
+  # configureation of hyperparameters for grid sweep
+
   second_layer_size = []
   for i in range(0,1000,20):
     layer_size = i+1
@@ -174,11 +182,17 @@ def config_params_grid():
 
   return sweep_id
 
-# CheckpointSaver class class from https://gist.github.com/amaarora/9b867f1868f319b3f2e6adb6bfe2373e\#
-# file-how-to-save-all-your-trained-model-weights-locally-after-every-epoch-ipynb
 
-# ----*** only used in sweep...py! Not used in load_and_test...py ***----# 
 class CheckpointSaver:
+    """     CheckpointSaver class class from https://gist.github.com/amaarora/9b867f1868f319b3f2e6adb6bfe2373e\#
+    file-how-to-save-all-your-trained-model-weights-locally-after-every-epoch-ipynb
+
+    ----*** only used in sweep...py! Not used in load_and_test...py ***----#  
+    
+    Saves model weights, architecture, and status to wandb 
+
+    """
+
     def __init__(self, dirpath, sweep_id, decreasing=True, top_n=1):
         """
         dirpath: Directory path where to store all model weights 
@@ -508,7 +522,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
         MSE_loss = nn.MSELoss(reduction='mean')
         for i, data in enumerate(testloader, 0): # should just be one big batch of all the data (for testing)
         
-            # Get and prepare inputs
+            # Get and prepare inputs (X array containing 500 x-coords and 500 y-coords)
             inputs, targets = data
             inputs, targets = inputs.float(), targets.float()
             inputs, targets = inputs.to(device), targets.to(device)
@@ -532,16 +546,25 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
             print('train set average loss: ' + train_loss)
             print('\ntest set average phase loss: '+str(phase_loss))
 
-            # compute LS loss
+            # compute LS and MLE loss
             LS_test_loss, Phi_LS = get_LS_test_loss(inputs, targets[:,0])
+            if PLOT_MLE:
+                MLE_test_loss, Phi_MLE = get_MLE_testloss_and_phi(inputs, targets)
+            else: 
+                MLE_test_loss = None
+                Phi_MLE = None
 
         # create subplot of 9 fits 
-        nine_plot = plot_nine(inputs, targets, outputs, Phi_LS, avg_loss, phase_loss, config['loss'], LS_test_loss,
-         CLAMP_EPSILON) # type PIL image
+        nine_plot = plot_nine(PLOT_MLE, inputs, targets, 
+                              outputs, Phi_LS, 
+                              avg_loss, phase_loss, config['loss'], LS_test_loss, MLE_test_loss,
+                              CLAMP_EPSILON) 
+                              # returns type PIL image
+        
         image = wandb.Image(nine_plot)
 
         # create plot of errors
-        error_plot = plot_errors(targets, outputs, Phi_LS)
+        error_plot = plot_errors(targets, outputs, Phi_LS, Phi_MLE, PLOT_MLE)
         image_errors = wandb.Image(error_plot)
 
         # log the plots 
@@ -550,7 +573,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
         else: sweep_or_run = 'run'
         # log 9 plot
         image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+'-'+str(num_training_ellipses)+'ellipses'+\
-        '-avgtestloss-'+str(avg_loss_float), type='plot')
+                                        '-avgtestloss-'+str(avg_loss_float), type='plot')
         image_artifact.add(obj=image, name='Fit (blue) vs. Truth (black) for 9 testing samples')
         image_artifact.add(obj=image_errors, name='Errors')
         wandb.run.log_artifact(image_artifact)
@@ -560,6 +583,21 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
 
 def get_LS_test_loss(inputs, targets):
+    """     
+    Parameters
+    ----------
+    inputs : pytorch tensor
+        [100, 1000] tensor of coordinates of experimental data points. First 500: x-coords. Next 500: y-coords
+    targets : tensor
+        [100] target phi values for 100 test ellipses 
+
+    Returns
+    -------
+    LS_test_loss: float
+        phi loss (cost)
+    Phi_LS: numpy array
+        [100] Least-squares phi estimate
+     """
     inputs = inputs.detach().numpy()
     targets = targets.detach().numpy()
 
@@ -585,36 +623,88 @@ def get_LS_test_loss(inputs, targets):
         y_coords = np.delete(y_coords, slice(end_index,MAX_SHOTS))
         return [x_coords, y_coords]
     
-    Phi_LS = np.empty(shape=len(targets))
-    for i in range(len(targets)):
-        X1, X2 = make_test_ellipse(inputs,i)
-        X_single_ellipse = np.array(list(zip(X1, X2)))
-        fitter = LsqEllipse()
-        reg = fitter.fit(X_single_ellipse)
-        center, width, height, phi = reg.as_parameters()
-        LS_output = fitter.coefficients
+    def get_LS_testloss_and_phi():
+        Phi_LS = np.empty(shape=len(targets))
+        for i in range(len(targets)):
+            X1, X2 = make_test_ellipse(inputs,i)
+            X_single_ellipse = np.array(list(zip(X1, X2)))
+            fitter = LsqEllipse()
+            reg = fitter.fit(X_single_ellipse)
+            center, width, height, phi = reg.as_parameters()
+            LS_output = fitter.coefficients
 
-        # finding target (a1-a6):
-        loader = loadCSVdata_var_contrast.loadCSVdata(NUM_TRAINING_ELLIPSES, MAX_SHOTS, FULL_PHI_RANGE, LAB_COMP, VARIABLE_CONTRAST)
-        y_target = loader.get_test_labels()
+            # finding target (a1-a6):
+            loader = loadCSVdata_var_contrast.loadCSVdata(NUM_TRAINING_ELLIPSES, MAX_SHOTS, FULL_PHI_RANGE, LAB_COMP, VARIABLE_CONTRAST)
+            y_target = loader.get_test_labels()
 
-        # finding LS (a1-a6) loss:
-        a = LS_output[0];       A = float(y_target[i,0])
-        b = LS_output[1];       B = float(y_target[i,1])
-        c = LS_output[2];       C = float(y_target[i,2])
+            # finding LS (a1-a6) loss:
+            a = LS_output[0];       A = float(y_target[i,0])
+            b = LS_output[1];       B = float(y_target[i,1])
+            c = LS_output[2];       C = float(y_target[i,2])
 
-        acos_arg_targets = -B/(2*math.sqrt(A*C))
-        acos_arg_model = -b/(2*math.sqrt(a*c))
-        if np.sign(acos_arg_targets) != np.sign(acos_arg_model):
-            acos_arg_model = -acos_arg_model
-        #target_phi_d = 0.5*acos(acos_arg_targets)
-        model_phi_d = 0.5*math.acos(acos_arg_model)
-        #Phi_targets[i] = target_phi_d
-        Phi_LS[i] = model_phi_d
+            acos_arg_targets = -B/(2*math.sqrt(A*C))
+            acos_arg_model = -b/(2*math.sqrt(a*c))
+            if np.sign(acos_arg_targets) != np.sign(acos_arg_model):
+                acos_arg_model = -acos_arg_model
+            #target_phi_d = 0.5*acos(acos_arg_targets)
+            model_phi_d = 0.5*math.acos(acos_arg_model)
+            #Phi_targets[i] = target_phi_d
+            Phi_LS[i] = model_phi_d
 
-    Phi_LS = np.reshape(Phi_LS, (Phi_LS.shape[0],))
-    LS_test_loss = K_PHI*np.linalg.norm(targets-Phi_LS)**2 / len(targets)
+        Phi_LS = np.reshape(Phi_LS, (Phi_LS.shape[0],))
+        LS_test_loss = K_PHI*np.linalg.norm(targets-Phi_LS)**2 / len(targets)
+        return LS_test_loss, Phi_LS
+
+    LS_test_loss, Phi_LS = get_LS_testloss_and_phi()
+
     return LS_test_loss, Phi_LS
+
+
+def get_MLE_testloss_and_phi(X, targets):
+    """ Obtain test loss and phi estimates for MLE algo.
+        Note: MLE requires contrast inputs. 
+    Parameters
+    ----------
+    X : pytorch tensor
+        [100, 1000] tensor of coordinates of experimental data points. First 500: x-coords. Next 500: y-coords
+    targets : tensor
+        [100,3] target phi, C_x, C_y values for 100 test ellipses 
+
+    Returns
+    -------
+    MLE_test_loss : float
+        phi loss (cost)
+    Phi_MLE : numpy array
+        [100] MLE phi estimate
+     """
+
+    X = X.detach().numpy()
+    targets = targets.detach().numpy()
+    #contrast = 0.65
+    num_atoms = 1000
+    Phi_MLE = np.zeros(targets.shape[0])
+    num_shots = 0
+    # loop through 100 ellipses in testing set
+    for i in range(targets.shape[0]):
+        # loop through 500 x-points in X
+        for j in range(MAX_SHOTS):
+            # find the number of non-zero entries (how many points the ellipse has)
+            if X[i,j] == 0: 
+                num_shots = j+1
+                break
+        points_x = X[i, 0:num_shots-1]
+        points_y = X[i, MAX_SHOTS:MAX_SHOTS+num_shots-1]
+        points = [points_x, points_y] # need the transpose of this
+        points = [list(k) for k in zip(*points)]
+        
+        contrast = 2 * targets[i,1]
+        phi_estimate = ellipse_fitting_api.main(points, contrast, num_atoms)
+        Phi_MLE[i] = phi_estimate
+    
+    Phi_MLE = np.reshape(Phi_MLE, (Phi_MLE.shape[0],))
+    MLE_test_loss = K_PHI*np.linalg.norm(targets[:,0]-Phi_MLE)**2 / len(targets[:,0])
+
+    return MLE_test_loss, Phi_MLE
 
 
 def main():
@@ -633,7 +723,7 @@ def main():
     if BAYESIAN_SWEEP:
         # COUNT = NUMBER OF RUNS!!
         count = 2
-        print('\nStarting '+str(count)+' runs(s)...\n')
+        print('\nTraining '+str(count)+' models...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
 

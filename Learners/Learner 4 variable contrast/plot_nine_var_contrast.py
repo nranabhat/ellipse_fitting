@@ -38,7 +38,10 @@ def print_output_range_warning(phi,CLAMP_EPSILON):
         print('warning, output phase ('+str(phi)+') does not fit in range ['\
             +str(-ep)+', '+str(math.pi/2+ep)+']')
 
-def plot_nine(input_coords, targets, outputs, Phi_LS, test_loss, test_phase_loss, train_loss, LS_test_loss, CLAMP_EPSILON):
+def plot_nine(PLOT_MLE, input_coords, targets, 
+              outputs, Phi_LS,
+              test_loss, test_phase_loss, train_loss, LS_test_loss, MLE_test_Loss,
+              CLAMP_EPSILON):
 
     m,n = 3,3 # 3x3 subplot (9 total ellipse fits) 
     figure, axis = plt.subplots(m,n, sharex='all', sharey = 'all')
@@ -53,7 +56,7 @@ def plot_nine(input_coords, targets, outputs, Phi_LS, test_loss, test_phase_loss
     if (type(Phi_LS) == torch.Tensor):
         Phi_LS = Phi_LS.detach().numpy()
 
-
+    # range 3, range 3
     for k in range(m):
         for h in range(n):
 
@@ -117,19 +120,26 @@ def plot_nine(input_coords, targets, outputs, Phi_LS, test_loss, test_phase_loss
 
     # Make super plot title/label axes
     test_loss = test_loss.detach().numpy()
-    test_loss_str = str(test_loss)[0:5]
-    test_phase_loss = test_phase_loss.detach().numpy()
-    test_phase_loss_str = str(test_phase_loss)[0:5]
-    LS_test_loss_str = str(LS_test_loss)[0:5]
+    test_loss = float(test_loss)
+    test_loss_str = '{:.2e}'.format(test_loss)
+    test_phase_loss = float(test_phase_loss.detach().numpy())
+    test_phase_loss_str = '{:.2e}'.format(test_phase_loss)
+    LS_test_loss_str = '{:.2e}'.format(LS_test_loss)
+    if PLOT_MLE: MLE_test_Loss_str = '{:.2e}'.format(MLE_test_Loss)
+    else: MLE_test_Loss_str = '-'
 
-    txt="NN total Test Loss [phi_d,cx,cy]: "+test_loss_str+'\nNN Phase Loss: '+str(test_phase_loss_str)+\
-'\nLS Phase Loss: '+LS_test_loss_str
-    #plt.figtext(0.5, -0.5, txt, wrap=True, horizontalalignment='center', fontsize=12)
+    results_txt = \
+      "NN  total Test Loss [phi_d,cx,cy]: "+test_loss_str+\
+    '\nNN  Phase Loss: '+str(test_phase_loss_str)+\
+    '\nLS  Phase Loss: '+LS_test_loss_str+\
+    '\nMLE Phase Loss: '+MLE_test_Loss_str
+
+    #plt.figtext(0.5, -0.5, results_txt, wrap=True, horizontalalignment='center', fontsize=12)
     plt.subplots_adjust(bottom=0.2)
-    plt.figtext(0.05,0.00, txt, fontsize=10, va="bottom", ha="left")
+    plt.figtext(0.05,0.00, results_txt, fontsize=7, va="bottom", ha="left")
 
     plot_title = 'NN(red) vs. LS(yellow) vs. Truth(black)'
-    plt.suptitle(plot_title, fontsize=14)
+    plt.suptitle(plot_title, fontsize=11)
     plt.sca(axis[0,2])
     plt.xticks([0, 0.5, 1])
     plt.yticks([0, 0.5, 1])
@@ -147,8 +157,8 @@ def plot_nine(input_coords, targets, outputs, Phi_LS, test_loss, test_phase_loss
     #plt.show()
     return img
 
-def plot_errors(targets, outputs, Phi_LS):
-    # plotting errors from the NN and the LS algorithm: 
+def plot_errors(targets, outputs, Phi_LS, Phi_MLE, PLOT_MLE):
+    # plotting errors from the NN, LS, and MLE algos
 
     # convert input coords to arrays
     if (type(targets) == torch.Tensor):
@@ -157,10 +167,16 @@ def plot_errors(targets, outputs, Phi_LS):
         outputs = outputs.detach().numpy()
     if (type(Phi_LS) == torch.Tensor):
         Phi_LS = Phi_LS.detach().numpy()
+    if PLOT_MLE:
+        if (type(Phi_MLE) == torch.Tensor):
+            Phi_LS = Phi_MLE.detach().numpy()
 
     true_phis = targets[:,0]
     phi_nn = outputs[:,0]
     phi_ls = np.reshape(Phi_LS, 100,)
+    if PLOT_MLE:
+        phi_mle = np.reshape(Phi_MLE, 100,)
+        mle_errs = phi_mle-true_phis
 
     nn_errs = phi_nn-true_phis
     ls_errs = phi_ls-true_phis
@@ -168,8 +184,10 @@ def plot_errors(targets, outputs, Phi_LS):
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
 
-    ax1.scatter(true_phis, ls_errs, s=10, marker="s", label='LS')
-    ax1.scatter(true_phis, nn_errs, s=10, marker="o", label='NN')
+    ax1.scatter(true_phis, nn_errs, s=10, facecolors='none', edgecolors='deepskyblue', marker="o", label='NN')
+    ax1.scatter(true_phis, ls_errs, s=10, facecolors='none', edgecolors='orange', marker="o", label='LS')
+    if PLOT_MLE:
+         ax1.scatter(true_phis, mle_errs, s=10, facecolors='none', edgecolors='seagreen', marker="o", label='MLE')
     ax1.set_xlabel('True Phase')
     ax1.set_ylabel('Error')
     plt.legend(loc='upper center')

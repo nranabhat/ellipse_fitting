@@ -43,14 +43,14 @@ VARIABLE_CONTRAST = False # if True, contrast will be differnt for each ellipse.
 # -  lab compuer path            vs. Nico's local machine path
 if VARIABLE_CONTRAST: var_cons = "Variable"
 else: var_cons = 'Constant'
-if FULL_PHI_RANGE: all_phi = " all phi"
-else: all_phi = " small phi interval"
+if FULL_PHI_RANGE: all_phi = "all phi"
+else: all_phi = "small phi interval"
 if LAB_COMP:
     datasets_path = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Datasets"
 else:
     datasets_path = r"C:\Users\Nicor\OneDrive\Documents\KolkowitzLab\ellipse_fitting_git_tracking\Datasets"
 if not os.path.isdir(datasets_path): os.mkdir(datasets_path)
-DATASET_FOLDER = os.path.join(datasets_path, var_cons+" contrast"+all_phi)
+DATASET_FOLDER = os.path.join(datasets_path, var_cons+" contrast "+all_phi)
 if not os.path.isdir(DATASET_FOLDER): os.mkdir(DATASET_FOLDER)
 
 if CREATING_TESTING_DATA:
