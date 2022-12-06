@@ -15,13 +15,15 @@ from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
 LAB_COMP = True
-RUN_ID = 'twat7cxb'
+RUN_ID = 'l3er18u7'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/run2-'+RUN_ID+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-1hl-1000n-fullphi-.pt:'+str(VERSION_NUM)
-NUM_TRAINING_ELLIPSES = '500000'
-#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+'-1hl-1000n-fullphi-.pt:'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'run3-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-1hl-1000n-fullphi-.pt'
+#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/run-'+RUN_ID+\
+#                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-1hl-1000n-fullphi-.pt:'+str(VERSION_NUM)
+NUM_TRAINING_ELLIPSES = '200000'
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
+                          '-1hl-1000n-allPhi-ConstantContrast-LRplateau-.pt:'+str(VERSION_NUM)
+LOG_NEW_ARTIFACT_TO = f'run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-1hl-1000n-allPhi-ConstantContrast-LRplateau-.pt'
 
 NUM_NEW_EPOCHS = 100
 
@@ -42,7 +44,8 @@ if __name__ == '__main__':
     with wandb.init(project='ellipse_fitting') as run:
         api = wandb.Api()
         
-        def log_artifact(api, artifact_location_path, model_path, best_loss, test_loss, config, actual_epoch, current_lr, adjusted_milestones):
+        def log_artifact(api, artifact_location_path, model_path, 
+                         best_loss, test_loss, config, actual_epoch, current_lr, adjusted_milestones):
             config_string={k:str(v) for k,v in config.items()}
             config_string['loss'] = str(best_loss)
             config_string['test loss'] = str(test_loss)
@@ -56,7 +59,8 @@ if __name__ == '__main__':
             wandb.run.log_artifact(artifact)  
 
             # cleaning up wandb model artifacts
-            artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO # fill in the desired type + name
+            # fill in the desired type + name
+            artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO 
             try:
                 for version in api.artifact_versions(artifact_type, artifact_name):
                 # Clean up all versions that don't have an alias such as 'latest'.
@@ -99,7 +103,7 @@ if __name__ == '__main__':
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "phase loss": phase_loss, "epoch": epoch}, commit=True)
             print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss)+'     TEST LOSS: '+str(avg_test_loss)\
-+'      PHASE LOSS: '+str(phase_loss))
+            +'      PHASE LOSS: '+str(phase_loss))
             print('optimizer lr: '+str(optimizer.param_groups[0]['lr']))
 
             # if it's the first or last epoch, wait 3 seconds for wandb to log the loss
@@ -111,8 +115,8 @@ if __name__ == '__main__':
                 #checkpoint_saver(network, avg_loss, epoch, optimizer, config)
 
                 # save network on local drive and as artifact on wandb
-                logging.info(f"Current metric value {avg_loss} better than {best_loss}.\n"+ \
-"Saving model at "+MODEL_PATH+'\nLogging model weights to W&B artifact '+LOG_NEW_ARTIFACT_TO)
+                logging.info(f"Current metric value {avg_loss} better than {best_loss}.\n"+\
+                              "Saving model at "+MODEL_PATH+'\nLogging model weights to W&B artifact '+LOG_NEW_ARTIFACT_TO)
 
                 best_loss = avg_loss
                 
@@ -136,12 +140,14 @@ if __name__ == '__main__':
                 print('Model weights and state_dicts saved.\n')
 
                 current_lr = optimizer.param_groups[0]['lr']
-                log_artifact(api, LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, avg_test_loss, config, actual_epoch_num, current_lr, adjusted_milestones)     
+                log_artifact(api, LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, avg_test_loss, 
+                             config, actual_epoch_num, current_lr, adjusted_milestones)     
         
         #delete all artifact versions that arne't top 5
         time.sleep(3)
-        
-        artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO # fill in the desired type + name
+
+        # fill in the desired type + name
+        artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO 
         try:
             for version in api.artifact_versions(artifact_type, artifact_name):
                 if len(version.aliases) == 1: #has aliase 'latest'

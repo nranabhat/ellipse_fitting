@@ -28,7 +28,7 @@ logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 #set constants
 BAYESIAN_SWEEP = True # bayesian or grid?
 PLOT_MLE = True
-NUM_TRAINING_ELLIPSES = 500 # number of ellipses used for training in each run of sweep.   
+NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep.   
                             # Can change but make sure the dataset exists!
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
@@ -37,7 +37,7 @@ CLAMP_EPSILON = -0.0000001
 DROPOUT_PROBABILITY = 0 # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped. range:[0,1]
 FULL_PHI_RANGE = True # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
                       # Can change but make sure the dataset exists!
-LAB_COMP = False # change to False if running on Nico's machine. Specifies local file paths 
+LAB_COMP = True # change to False if running on Nico's machine. Specifies local file paths 
 VARIABLE_CONTRAST = False # constant vs. variable contrast dataset
 
 if VARIABLE_CONTRAST: var_cons = 'Var'
@@ -80,31 +80,21 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [1]      # change this to >15 later
+          'values': [20]      # change this to >15 later
           },
       'batch_size': {
-          # integers between min and max
-          # with evenly-distributed logarithms 
-          'distribution': 'q_log_uniform_values',
-          'q': 5,
-          'min': 5,
-          'max': 5000,
-        },
+          'values': [100, 2500, 5000]
+          },
       'optimizer': {
           'values': ['adam', 'sgd']
           },
       'second_layer_size': {
-          # integers between min and max
-          # with evenly-distributed logarithms 
-          'distribution': 'q_log_uniform_values',
-          'q': 5,
-          'min': 5,
-          'max': 1000,
+          'values': [512, 1024, 2048]
           },
       'starting_lr': {
           'distribution': 'uniform',
           'min': 0.0001,
-          'max': 0.05
+          'max': 0.5
         },
       'milestones' : {
             'values':  [[0]]
@@ -420,7 +410,13 @@ def build_network(second_layer_size, train):
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
             nn.Dropout(p),
-            nn.Linear(second_layer_size, 3))
+            nn.Linear(second_layer_size, second_layer_size*2),
+            nn.ReLU(),
+            nn.Dropout(p),
+            nn.Linear(second_layer_size*2, 128),
+            nn.ReLU(),
+            nn.Dropout(p),
+            nn.Linear(128, 3))
 
     # clamp the output to physical ranges for testing
     else: 
@@ -428,7 +424,13 @@ def build_network(second_layer_size, train):
             nn.Linear(MAX_SHOTS*2, second_layer_size),
             nn.ReLU(),
             nn.Dropout(p),
-            nn.Linear(second_layer_size, 3),
+            nn.Linear(second_layer_size, second_layer_size*2),
+            nn.ReLU(),
+            nn.Dropout(p),
+            nn.Linear(second_layer_size*2, 128),
+            nn.ReLU(),
+            nn.Dropout(p),
+            nn.Linear(128, 3),
             clamp_activation_function)
 
     return network.to(device)
@@ -444,7 +446,7 @@ def build_optimizer(network, optimizer, starting_lr):
 
 
 def build_scheduler(optimizer, milestones, gamma):
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.01, verbose=True)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0001, patience=5, verbose=True)
 
     return scheduler
 
@@ -722,7 +724,7 @@ def main():
     
     if BAYESIAN_SWEEP:
         # COUNT = NUMBER OF RUNS!!
-        count = 2
+        count = 25
         print('\nTraining '+str(count)+' models...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
