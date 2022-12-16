@@ -39,7 +39,7 @@ CLAMP_EPSILON = -0.0000001
 DROPOUT_PROBABILITY = 0 # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped. range:[0,1]
 FULL_PHI_RANGE = True # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
                       # Can change but make sure the dataset exists!
-LAB_COMP = False # change to False if running on Nico's machine. Specifies local file paths 
+LAB_COMP = True # change to False if running on Nico's machine. Specifies local file paths 
 VARIABLE_CONTRAST = False # constant vs. variable contrast dataset
 SCHEDULER_TYPE = 'LRPlateau' # can be 'LRPlateau' or 'CosineAnnealing'
 
