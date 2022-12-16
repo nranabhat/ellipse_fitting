@@ -7,7 +7,7 @@ import shutil
 import stat
 import time
 import torch
-from torch.optim.lr_scheduler import StepLR, ExponentialLR, ReduceLROnPlateau, CosineAnnealingLR
+from torch.optim.lr_scheduler import StepLR, ExponentialLR, ReduceLROnPlateau, CosineAnnealingLR, CosineAnnealingWarmRestarts
 import wandb
 import os
 from ast import literal_eval
@@ -15,21 +15,21 @@ import numpy as np
 from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
-LAB_COMP = False
+LAB_COMP = True
 RUN_ID = 'akq00zng'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
-SCHEDULER_TYPE = 'CosineAnnealing' # can either be 'CosineAnnealing' or 'LRPlateau'
+SCHEDULER_TYPE = 'CosineAnnealingWarmRestarts' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
 #NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/run-'+RUN_ID+\
 #                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-1hl-1000n-allPhi-ConstantContrast-'+\
 #                           SCHEDULER_TYPE+'.pt:'+str(VERSION_NUM)
-NUM_TRAINING_ELLIPSES = '500'
+NUM_TRAINING_ELLIPSES = '100000'
 NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
                           '-1hl-1000n-allPhi-ConstantContrast-LRplateau-.pt:'+str(VERSION_NUM)
 LOG_NEW_ARTIFACT_TO = f'run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+\
                        '-trainingEllipses-1hl-1000n-allPhi-ConstantContrast-'+SCHEDULER_TYPE+'-.pt'
 
-NUM_NEW_EPOCHS = 55
+NUM_NEW_EPOCHS = 100
 
 if LAB_COMP:
     wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
@@ -86,7 +86,7 @@ if __name__ == '__main__':
         #     config['epoch'] = 0
         #     config['current_lr'] = 0 # THIS LINE MAY BE PROBLEMATIC!
 
-        trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), True)
+        trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), train=True)
         network = build_network(int(config['second_layer_size']),train=True)
         network.load_state_dict(torch.load(state_dicts_path)['model_state_dict'])
         optimizer = build_optimizer(network, config['optimizer'], float(config['current_lr']))
