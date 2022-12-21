@@ -1,7 +1,7 @@
 """ Weights and Biases sweep for ANN
 @author: nranabhat  """
 
-#imports 
+# Imports 
 from audioop import avg
 from distutils.log import error
 import functools
@@ -10,7 +10,8 @@ import shutil
 import time
 import numpy as np
 import torch
-from torch.optim.lr_scheduler import StepLR, ExponentialLR, ReduceLROnPlateau, SequentialLR, CosineAnnealingLR
+from torch.optim.lr_scheduler import StepLR, ExponentialLR, ReduceLROnPlateau,\
+                                     SequentialLR, CosineAnnealingLR, CosineAnnealingWarmRestarts
 from warmup_scheduler import GradualWarmupScheduler
 from torch import avg_pool1d, nn
 from torch.utils.data import DataLoader
@@ -27,27 +28,27 @@ from ellipse import LsqEllipse
 import ellipse_fitting_api
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
-#set constants
-BAYESIAN_SWEEP = True # bayesian or grid?
+# Set constants
+BAYESIAN_SWEEP = True           # True: bayesian search, False: grid search
 PLOT_MLE = True
-NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep.   
-                            # Can change but make sure the dataset exists!
+NUM_TRAINING_ELLIPSES = 500     # number of ellipses used for training in each run of sweep.   
+                                # Can change but make sure the dataset exists!
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001 
-DROPOUT_PROBABILITY = 0 # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped. range:[0,1]
-FULL_PHI_RANGE = True # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
-                      # Can change but make sure the dataset exists!
-LAB_COMP = True # change to False if running on Nico's machine. Specifies local file paths 
-VARIABLE_CONTRAST = False # constant vs. variable contrast dataset
-SCHEDULER_TYPE = 'LRPlateau' # can be 'LRPlateau' or 'CosineAnnealing'
+DROPOUT_PROBABILITY = 0         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
+FULL_PHI_RANGE = False          # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
+                                # Can change but make sure the dataset exists!
+LAB_COMP = False                # change to False if running on Nico's machine. Specifies local file paths 
+VARIABLE_CONTRAST = False       # constant vs. variable contrast dataset
+SCHEDULER_TYPE = 'LRPlateau'    # can be 'LRPlateau' or 'CosineAnnealing' or 'CosineAnnealingWarmRestarts'
 
 if VARIABLE_CONTRAST: var_cons = 'Var'
 else: var_cons = 'Constant'
 if FULL_PHI_RANGE: all_phi = 'allPhi'
 else: all_phi = 'fewPhi'
-LOG_NEW_ARTIFACT_TO = '-1hl-1000n-'+all_phi+'-'+var_cons+'Contrast-'+SCHEDULER_TYPE+'-' 
+LOG_NEW_ARTIFACT_TO = '-2hl-'+all_phi+'-'+var_cons+'Contrast-'+SCHEDULER_TYPE+'-'+str(NUM_TRAINING_ELLIPSES)+'ellps-'
 # 1hl-1000n... => '1 hidden layer, 1000 neurons, phi range, contrast range, LR'
 
 # Constants for calculating loss
@@ -83,10 +84,10 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [20]      # change this to >15 later
+          'values': [2]
           },
       'batch_size': {
-          'values': [100, 2500, 5000]
+          'values': [10, 50, 100]
           },
       'optimizer': {
           'values': ['adam', 'sgd']
@@ -453,6 +454,9 @@ def build_scheduler(optimizer, milestones, gamma, scheduler_type):
         scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0001, patience=5, verbose=True)
     elif scheduler_type == 'CosineAnnealing':
         scheduler = CosineAnnealingLR(optimizer, T_max=4, verbose=True)
+    elif scheduler_type == 'CosineAnnealingWarmRestarts':
+        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=15, T_mult=2, verbose=True)
+    
     return scheduler
 
 
@@ -732,7 +736,7 @@ def main():
     
     if BAYESIAN_SWEEP:
         # COUNT = NUMBER OF RUNS!!
-        count = 25
+        count = 2
         print('\nTraining '+str(count)+' models...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
