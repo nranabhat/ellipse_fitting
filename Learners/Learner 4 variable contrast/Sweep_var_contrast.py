@@ -29,9 +29,10 @@ import ellipse_fitting_api
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
 # Set constants
+LAB_COMP = True                 # change to False if running on Nico's machine. Specifies local file paths 
 BAYESIAN_SWEEP = True           # True: bayesian search, False: grid search
 PLOT_MLE = True
-NUM_TRAINING_ELLIPSES = 500     # number of ellipses used for training in each run of sweep.   
+NUM_TRAINING_ELLIPSES = 10000     # number of ellipses used for training in each run of sweep.   
                                 # Can change but make sure the dataset exists!
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
@@ -40,7 +41,6 @@ CLAMP_EPSILON = -0.0000001
 DROPOUT_PROBABILITY = 0         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
 FULL_PHI_RANGE = False          # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
                                 # Can change but make sure the dataset exists!
-LAB_COMP = False                # change to False if running on Nico's machine. Specifies local file paths 
 VARIABLE_CONTRAST = False       # constant vs. variable contrast dataset
 SCHEDULER_TYPE = 'LRPlateau'    # can be 'LRPlateau' or 'CosineAnnealing' or 'CosineAnnealingWarmRestarts'
 
@@ -48,7 +48,7 @@ if VARIABLE_CONTRAST: var_cons = 'Var'
 else: var_cons = 'Constant'
 if FULL_PHI_RANGE: all_phi = 'allPhi'
 else: all_phi = 'fewPhi'
-LOG_NEW_ARTIFACT_TO = '-2hl-'+all_phi+'-'+var_cons+'Contrast-'+SCHEDULER_TYPE+'-'+str(NUM_TRAINING_ELLIPSES)+'ellps-'
+LOG_NEW_ARTIFACT_TO = '-2hl-'+all_phi+'-'+var_cons+'Contrast-'+str(NUM_TRAINING_ELLIPSES)+'ellps-'
 # 1hl-1000n... => '1 hidden layer, 1000 neurons, phi range, contrast range, LR'
 
 # Constants for calculating loss
@@ -84,21 +84,24 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [2]
+          'values': [20]
           },
       'batch_size': {
-          'values': [10, 50, 100]
+          'values': [30, 50, 100, 1000]
           },
       'optimizer': {
           'values': ['adam', 'sgd']
           },
       'second_layer_size': {
-          'values': [512, 1024, 2048]
+          'values': [256, 512, 1024]
+          },
+      'scheduler_type': {
+          'values': ['LRPlateau', 'CosineAnnealing', 'CosineAnnealingWarmRestarts']
           },
       'starting_lr': {
           'distribution': 'uniform',
           'min': 0.0001,
-          'max': 0.5
+          'max': 0.3
         },
       'milestones' : {
             'values':  [[0]]
@@ -303,7 +306,7 @@ def train(checkpoint_saver, sweep_id, config=None):
         trainloader = build_dataset(config.batch_size, int(NUM_TRAINING_ELLIPSES), train=True)
         network = build_network(config.second_layer_size, train=True)
         optimizer = build_optimizer(network, config.optimizer, config.starting_lr)
-        scheduler = build_scheduler(optimizer, config.milestones, config.gamma, scheduler_type=SCHEDULER_TYPE)
+        scheduler = build_scheduler(optimizer, config.milestones, config.gamma, config.scheduler_type)
 
         # find particular sweep in wandb 
         api = wandb.Api()
@@ -311,7 +314,7 @@ def train(checkpoint_saver, sweep_id, config=None):
 
         for epoch in range(config.sweep_epochs):
             batch_size = config.batch_size
-            avg_loss, avg_tot_test_loss, avg_phase_test_loss = train_epoch(network, trainloader, optimizer, scheduler, batch_size)
+            avg_loss, avg_tot_test_loss, avg_phase_test_loss = train_epoch(network, trainloader, optimizer, scheduler, batch_size, epoch)
 
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_tot_test_loss, "test phase loss": avg_phase_test_loss, 
@@ -451,18 +454,19 @@ def build_optimizer(network, optimizer, starting_lr):
 
 def build_scheduler(optimizer, milestones, gamma, scheduler_type):
     if scheduler_type == 'LRPlateau':
-        scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0001, patience=5, verbose=True)
+        scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0005, patience=5, verbose=True)
     elif scheduler_type == 'CosineAnnealing':
-        scheduler = CosineAnnealingLR(optimizer, T_max=4, verbose=True)
+        scheduler = CosineAnnealingLR(optimizer, T_max=4, verbose=False)
     elif scheduler_type == 'CosineAnnealingWarmRestarts':
-        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=15, T_mult=2, verbose=True)
+        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2, verbose=False)
     
     return scheduler
 
 
-def train_epoch(network, trainloader, optimizer, scheduler, batch_size):
+def train_epoch(network, trainloader, optimizer, scheduler, batch_size, epoch):
     cumu_loss = 0
     MSE_loss = nn.MSELoss(reduction='mean')
+    iters = len(trainloader)
 
     for i, data in enumerate(trainloader, 0):
         
@@ -491,17 +495,24 @@ def train_epoch(network, trainloader, optimizer, scheduler, batch_size):
         # Perform optimization
         optimizer.step()
 
+        # scheduler step during batch if using CosineAnnealingWarmRestarts
+        if str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.CosineAnnealingWarmRestarts'>":
+            scheduler.step(epoch + i / iters)
+
         # log loss 
         wandb.log({"batch loss": loss.item()})
     
+    avg_loss = cumu_loss / iters
     avg_tot_test_loss, avg_phase_test_loss = get_test_loss(batch_size, network)
 
     if str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.SequentialLR'>":
         scheduler.step()
+    elif str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.ReduceLROnPlateau'>":
+        scheduler.step(avg_tot_test_loss)
     elif str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.CosineAnnealingLR'>":
         scheduler.step()
     
-    return cumu_loss / len(trainloader), avg_tot_test_loss, avg_phase_test_loss 
+    return avg_loss, avg_tot_test_loss, avg_phase_test_loss 
 
 
 def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_sweep):
@@ -736,7 +747,7 @@ def main():
     
     if BAYESIAN_SWEEP:
         # COUNT = NUMBER OF RUNS!!
-        count = 2
+        count = 20
         print('\nTraining '+str(count)+' models...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)

@@ -17,20 +17,20 @@ from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
 LAB_COMP = True
-RUN_ID = 'akq00zng'
+RUN_ID = 'q1evlj9a'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
-SCHEDULER_TYPE = 'CosineAnnealingWarmRestarts' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
-#NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/run-'+RUN_ID+\
-#                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-1hl-1000n-allPhi-ConstantContrast-'+\
-#                           SCHEDULER_TYPE+'.pt:'+str(VERSION_NUM)
-NUM_TRAINING_ELLIPSES = '100000'
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
-                          '-1hl-1000n-allPhi-ConstantContrast-LRplateau-.pt:'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+\
-                       '-trainingEllipses-1hl-1000n-allPhi-ConstantContrast-'+SCHEDULER_TYPE+'-.pt'
+SCHEDULER_TYPE = 'LRPlateau' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/run-'+RUN_ID+\
+                          '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-2hl-fewPhi-ConstantContrast-'+\
+                          'CosineAnnealingWarmRestarts'+'-.pt:'+str(VERSION_NUM)
+#NUM_TRAINING_ELLIPSES = '100000'
+# NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
+#                           '-2hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
+LOG_NEW_ARTIFACT_TO = f'3run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+\
+                       '-trainingEllipses-2hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'-.pt'
 
-NUM_NEW_EPOCHS = 100
+NUM_NEW_EPOCHS = 500
 
 if LAB_COMP:
     wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
@@ -81,8 +81,8 @@ if __name__ == '__main__':
         state_dicts_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         config = artifact.metadata
         config['loss'] = 10
-        #config['current_lr'] = 0.00001
-        config['batch_size'] = '50000'
+        #config['current_lr'] = 2*float(config['current_lr'])
+        config['batch_size'] = '10000'
         # if SCHEDULER_TYPE == 'sequential' and config['epoch'] <= 30:
         #     config['epoch'] = 0
         #     config['current_lr'] = 0 # THIS LINE MAY BE PROBLEMATIC!
@@ -111,7 +111,7 @@ if __name__ == '__main__':
         for epoch in range(NUM_NEW_EPOCHS):
             actual_epoch_num = int(config['epoch']) + epoch + 1
             
-            avg_loss, avg_test_loss, phase_loss = train_epoch(network, trainloader, optimizer, scheduler, config['batch_size'])
+            avg_loss, avg_test_loss, phase_loss = train_epoch(network, trainloader, optimizer, scheduler, config['batch_size'], epoch)
 
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "phase loss": phase_loss,\
