@@ -20,17 +20,17 @@ LAB_COMP = True
 RUN_ID = 'q1evlj9a'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
-SCHEDULER_TYPE = 'LRPlateau' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/run-'+RUN_ID+\
+SCHEDULER_TYPE = 'CosineAnnealingWarmRestarts' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/4.dropout.run-'+RUN_ID+\
                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-2hl-fewPhi-ConstantContrast-'+\
                           'CosineAnnealingWarmRestarts'+'-.pt:'+str(VERSION_NUM)
 #NUM_TRAINING_ELLIPSES = '100000'
 # NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
 #                           '-2hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'3run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+\
+LOG_NEW_ARTIFACT_TO = f'5.2run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+\
                        '-trainingEllipses-2hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'-.pt'
 
-NUM_NEW_EPOCHS = 500
+NUM_NEW_EPOCHS = 100
 
 if LAB_COMP:
     wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
@@ -43,6 +43,7 @@ MODEL_PATH = os.path.join(pathname, 'weights_tensor.pt')
 SAVE_MODEL = True  # If True, save model perormance as wandb artifact. If just running to debug, set to False 
 
 wandb.login()
+WANDB_CONSOLE='off'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if __name__ == '__main__': 
@@ -81,7 +82,7 @@ if __name__ == '__main__':
         state_dicts_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         config = artifact.metadata
         config['loss'] = 10
-        #config['current_lr'] = 2*float(config['current_lr'])
+        config['current_lr'] = 50*float(config['current_lr'])
         config['batch_size'] = '10000'
         # if SCHEDULER_TYPE == 'sequential' and config['epoch'] <= 30:
         #     config['epoch'] = 0
@@ -116,9 +117,8 @@ if __name__ == '__main__':
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "phase loss": phase_loss,\
                        "epoch": epoch, "learning rate":optimizer.param_groups[0]['lr']}, commit=True)
-            print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss)+'     TEST LOSS: '+str(avg_test_loss)\
-            +'      PHASE LOSS: '+str(phase_loss))
-            print('optimizer lr: '+str(optimizer.param_groups[0]['lr']))
+            print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss)[0:7]+'     TEST LOSS: '+str(avg_test_loss.item())[0:7]\
+            +'      PHASE LOSS: '+str(phase_loss.item())[0:7]+'     LR: '+str(optimizer.param_groups[0]['lr'])[0:7])
 
             # if it's the first or last epoch, wait 3 seconds for wandb to log the loss
             if (epoch==0 or epoch==NUM_NEW_EPOCHS-1):
@@ -129,8 +129,7 @@ if __name__ == '__main__':
                 #checkpoint_saver(network, avg_loss, epoch, optimizer, config)
 
                 # save network on local drive and as artifact on wandb
-                logging.info(f"Current metric value {avg_loss} better than {best_loss}.\n"+\
-                              "Saving model at "+MODEL_PATH+'\nLogging model weights to W&B artifact '+LOG_NEW_ARTIFACT_TO)
+                logging.info(f"Current metric value {avg_loss} better than {best_loss}\n")
 
                 best_loss = avg_loss
                 
@@ -150,8 +149,6 @@ if __name__ == '__main__':
                         'scheduler_state_dict': scheduler.state_dict(),
                         'loss': avg_loss}, 
                         MODEL_PATH)
-
-                print('Model weights and state_dicts saved.\n')
 
                 current_lr = optimizer.param_groups[0]['lr']
                 log_artifact(api, LOG_NEW_ARTIFACT_TO, MODEL_PATH, best_loss, avg_test_loss, 

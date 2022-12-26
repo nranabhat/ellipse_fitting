@@ -60,13 +60,6 @@ def plot_nine(PLOT_MLE, input_coords, targets,
     for k in range(m):
         for h in range(n):
 
-            # Contour plot of known and fit
-            # min = CENTER + CONTRAST/2
-            # max = CENTER - CONTRAST/2
-            # x = np.linspace(min, max, 400)
-            # y = np.linspace(min, max, 400)
-            # x, y = np.meshgrid(x, y)
-
             phi_d_target = targets[(k+1)*(h+1),0]
             phi_d_output = outputs[(k+1)*(h+1),0]
             phi_d_LS = Phi_LS[(k+1)*(h+1)]
@@ -134,7 +127,6 @@ def plot_nine(PLOT_MLE, input_coords, targets,
     '\nLS  Phase Loss: '+LS_test_loss_str+\
     '\nMLE Phase Loss: '+MLE_test_Loss_str
 
-    #plt.figtext(0.5, -0.5, results_txt, wrap=True, horizontalalignment='center', fontsize=12)
     plt.subplots_adjust(bottom=0.2)
     plt.figtext(0.05,0.00, results_txt, fontsize=7, va="bottom", ha="left")
 
@@ -146,11 +138,6 @@ def plot_nine(PLOT_MLE, input_coords, targets,
     
     figure.text(0.5, 0.11, 'P1', ha='center')
     figure.text(0.02, 0.5, 'P2', va='center', rotation='vertical')
-
-    # Make legend
-    #plt.figlegend([h1[0], h2[0]], ['Known Ellipse', 'Neural Net. Fit'],bbox_to_anchor=(1.0,1), loc="upper left")
-    #handles, labels = axis.get_legend_handles_labels()
-    #figure.legend(handles, labels, loc='upper center')
 
     img = fig2img(figure)
 

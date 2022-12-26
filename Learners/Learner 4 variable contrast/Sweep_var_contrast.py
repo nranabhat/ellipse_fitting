@@ -38,7 +38,7 @@ MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001 
-DROPOUT_PROBABILITY = 0         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
+DROPOUT_PROBABILITY = 0.1         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
 FULL_PHI_RANGE = False          # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
                                 # Can change but make sure the dataset exists!
 VARIABLE_CONTRAST = False       # constant vs. variable contrast dataset
@@ -60,6 +60,7 @@ K_CX = (2/c_x_range)**2
 K_CY =  (2/c_y_range)**2
 
 wandb.login()
+WANDB_CONSOLE='off'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if LAB_COMP:
@@ -208,8 +209,7 @@ class CheckpointSaver:
         model_path = os.path.join(self.dirpath, 'weights_tensor.pt')
         save = metric_val<=self.best_metric_val if self.decreasing else metric_val>=self.best_metric_val
         if save: 
-            logging.info(f"Current metric value {metric_val} better than {self.best_metric_val} \n\
-Saving model at {model_path}, & logging model weights to W&B.")
+            logging.info(f"Current metric value {metric_val} better than {self.best_metric_val}")
             self.best_metric_val = metric_val
             #torch.save(model.state_dict(), model_path)
             torch.save({'epoch': epoch,
@@ -220,8 +220,6 @@ Saving model at {model_path}, & logging model weights to W&B.")
                         'test loss': test_loss,
                         'phase loss': phase_loss},
                         model_path)
-
-            print('\nmodel weights saved to '+str(self.sweep_id)+'\n')
 
             sweep_or_run = ''
             if 'sweep-' in self.dirpath: sweep_or_run = 'sweep'
@@ -252,7 +250,7 @@ Saving model at {model_path}, & logging model weights to W&B.")
     def cleanupLocal(self, api, artifact_name):
         # cleaning up local disc
         to_remove = self.top_model_paths[self.top_n:]
-        logging.info(f"Removing extra models.. {to_remove}")
+        #logging.info(f"Removing extra models.. {to_remove}")
         for o in to_remove:
             os.remove(o['path'])
         self.top_model_paths = self.top_model_paths[:self.top_n]
@@ -454,11 +452,11 @@ def build_optimizer(network, optimizer, starting_lr):
 
 def build_scheduler(optimizer, milestones, gamma, scheduler_type):
     if scheduler_type == 'LRPlateau':
-        scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0005, patience=5, verbose=True)
+        scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0005, patience=10, verbose=True)
     elif scheduler_type == 'CosineAnnealing':
         scheduler = CosineAnnealingLR(optimizer, T_max=4, verbose=False)
     elif scheduler_type == 'CosineAnnealingWarmRestarts':
-        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2, verbose=False)
+        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=1, verbose=False)
     
     return scheduler
 
