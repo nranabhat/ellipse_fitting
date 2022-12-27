@@ -21,14 +21,14 @@ RUN_ID = 'q1evlj9a'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '200000'
 SCHEDULER_TYPE = 'CosineAnnealingWarmRestarts' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
-OLD_RUN_NAME = '6run-'+RUN_ID
+OLD_RUN_NAME = '7run-'+RUN_ID
 NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/'+OLD_RUN_NAME+\
                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-2hl-fewPhi-ConstantContrast-'+\
                           'CosineAnnealingWarmRestarts'+'.pt:'+str(VERSION_NUM)
 NUM_TRAINING_ELLIPSES = '200000'
 # NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
 #                           '-2hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
-NEW_RUN_NAME = '7run-'+RUN_ID
+NEW_RUN_NAME = '8run-'+RUN_ID
 LOG_NEW_ARTIFACT_TO = f''+NEW_RUN_NAME+'-'+NUM_TRAINING_ELLIPSES+\
                        '-trainingEllipses-2hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'.pt'
 
@@ -86,8 +86,9 @@ if __name__ == '__main__':
 
         # Can manually adjust parameters (loss: to make sure new model with loss better than 10 will save.)
         config['loss'] = 10
-        config['current_lr'] = 10*float(config['current_lr'])
-        config['batch_size'] = '100'
+        #config['current_lr'] = 10*float(config['current_lr'])
+        #config['starting_lr'] = 10*float(config['starting_lr'])
+        config['batch_size'] = '1000'
 
         trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), train=True)
         network = build_network(int(config['second_layer_size']),train=True)
