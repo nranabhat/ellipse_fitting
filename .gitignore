@@ -1,0 +1,20 @@
+wandb
+nicoranabhat
+/Learners/Learner 1 wandb/__pycache__/
+artifacts
+*.json
+/Learners/Learner 1 wandb/test_plot_nine.py
+/Learners/Learner 2 phase loss/__pycache__
+/Learners/Learner 2 phase loss/artifacts
+/Learners/Learner 2 phase loss/nicoranabhat
+/Learners/Learner 2 phase loss/wandb
+investigate_datasets.py
+/Datasets/QPN Datasets
+/Datasets/Updated Contrast Datasets
+/Datasets/QPN Datasets, phi near 0,pi
+/Datasets/Variable input size
+/Datasets/Variable contrast
+*.csv
+*.pyc
+*.txt
+/.gitignore
