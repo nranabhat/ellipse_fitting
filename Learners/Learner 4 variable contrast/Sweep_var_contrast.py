@@ -38,7 +38,7 @@ MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001 
-DROPOUT_PROBABILITY = 0.1         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
+DROPOUT_PROBABILITY = 0         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
 FULL_PHI_RANGE = False          # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
                                 # Can change but make sure the dataset exists!
 VARIABLE_CONTRAST = False       # constant vs. variable contrast dataset
@@ -513,7 +513,7 @@ def train_epoch(network, trainloader, optimizer, scheduler, batch_size, epoch):
     return avg_loss, avg_tot_test_loss, avg_phase_test_loss 
 
 
-def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_sweep):
+def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, artifact_name, is_sweep):
 
   api = wandb.Api()
 
@@ -592,12 +592,14 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
         # log the plots 
         avg_loss_float = avg_loss.detach().numpy()
-        if is_sweep: sweep_or_run = 'sweep'
-        else: sweep_or_run = 'run'
+        if is_sweep: 
+            sweep_or_run = 'sweep-'
+            artifact_name = sweep_or_run_id
+        else: sweep_or_run = ''
         # log 9 plot
-        image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+'-'+str(num_training_ellipses)+'ellipses'+\
+        image_artifact = wandb.Artifact(f''+sweep_or_run+artifact_name+'-'+str(num_training_ellipses)+'ellipses'+\
                                         '-avgtestloss-'+str(avg_loss_float), type='plot')
-        image_artifact.add(obj=image, name='Fit (blue) vs. Truth (black) for 9 testing samples')
+        image_artifact.add(obj=image, name='Fit vs. Truth for 9 testing samples')
         image_artifact.add(obj=image_errors, name='Errors')
         wandb.run.log_artifact(image_artifact)
         # log error plot

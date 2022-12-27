@@ -19,16 +19,18 @@ build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test
 LAB_COMP = True
 RUN_ID = 'q1evlj9a'
 VERSION_NUM = 'latest'
-NUM_TRAINING_ELLIPSES = '100000'
+NUM_TRAINING_ELLIPSES = '200000'
 SCHEDULER_TYPE = 'CosineAnnealingWarmRestarts' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/4.dropout.run-'+RUN_ID+\
+OLD_RUN_NAME = '6run-'+RUN_ID
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/'+OLD_RUN_NAME+\
                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-2hl-fewPhi-ConstantContrast-'+\
-                          'CosineAnnealingWarmRestarts'+'-.pt:'+str(VERSION_NUM)
-#NUM_TRAINING_ELLIPSES = '100000'
+                          'CosineAnnealingWarmRestarts'+'.pt:'+str(VERSION_NUM)
+NUM_TRAINING_ELLIPSES = '200000'
 # NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
 #                           '-2hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
-LOG_NEW_ARTIFACT_TO = f'5.2run-'+str(RUN_ID)+'-'+NUM_TRAINING_ELLIPSES+\
-                       '-trainingEllipses-2hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'-.pt'
+NEW_RUN_NAME = '7run-'+RUN_ID
+LOG_NEW_ARTIFACT_TO = f''+NEW_RUN_NAME+'-'+NUM_TRAINING_ELLIPSES+\
+                       '-trainingEllipses-2hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'.pt'
 
 NUM_NEW_EPOCHS = 100
 
@@ -81,12 +83,11 @@ if __name__ == '__main__':
         artifact_dir = artifact.download()
         state_dicts_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         config = artifact.metadata
+
+        # Can manually adjust parameters (loss: to make sure new model with loss better than 10 will save.)
         config['loss'] = 10
-        config['current_lr'] = 50*float(config['current_lr'])
-        config['batch_size'] = '10000'
-        # if SCHEDULER_TYPE == 'sequential' and config['epoch'] <= 30:
-        #     config['epoch'] = 0
-        #     config['current_lr'] = 0 # THIS LINE MAY BE PROBLEMATIC!
+        config['current_lr'] = 10*float(config['current_lr'])
+        config['batch_size'] = '100'
 
         trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), train=True)
         network = build_network(int(config['second_layer_size']),train=True)
@@ -102,11 +103,7 @@ if __name__ == '__main__':
         
         scheduler = build_scheduler(optimizer, adjusted_milestones, float(config['gamma']), SCHEDULER_TYPE)
         scheduler.load_state_dict(torch.load(state_dicts_path)['scheduler_state_dict'])
-        # change schedulers epoch to 0 if using warmup/sequential and running from sweep (low epoch)
-        # if SCHEDULER_TYPE == 'sequential' and config['epoch'] <= 30:
-        #     scheduler.last_epoch = 0
-        # not sure if this^ loads the lr correctly...
-
+        scheduler._last_lr[0] = config['current_lr']
         best_loss = float(config['loss'])
 
         for epoch in range(NUM_NEW_EPOCHS):
@@ -124,9 +121,8 @@ if __name__ == '__main__':
             if (epoch==0 or epoch==NUM_NEW_EPOCHS-1):
                 time.sleep(3)
 
-            # save weights of current best epoch (will save best model for whole network over training if top_n=1)
+            # save weights of current best epoch 
             if SAVE_MODEL and (avg_loss <= best_loss):
-                #checkpoint_saver(network, avg_loss, epoch, optimizer, config)
 
                 # save network on local drive and as artifact on wandb
                 logging.info(f"Current metric value {avg_loss} better than {best_loss}\n")
@@ -142,7 +138,6 @@ if __name__ == '__main__':
                     os.remove(MODEL_PATH)
                 
                 # save new better model weights
-                #torch.save(network.state_dict(), MODEL_PATH)
                 torch.save({'epoch': actual_epoch_num,
                         'model_state_dict': network.state_dict(),
                         'optimizer_state_dict': optimizer.state_dict(),
@@ -168,7 +163,7 @@ if __name__ == '__main__':
             print('\nOld wandb artifacts deleted')
             # test and plot
             model_location = 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO+':latest'
-            test_and_plot(model_location, RUN_ID, NUM_TRAINING_ELLIPSES, is_sweep=False)
+            test_and_plot(model_location, RUN_ID, NUM_TRAINING_ELLIPSES, NEW_RUN_NAME, is_sweep=False)
 
         except Exception:
             print('\nNo better model was found in this run... No new models saved to wandb')
