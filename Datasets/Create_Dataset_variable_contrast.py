@@ -24,18 +24,18 @@ import numpy as np
 import random as random
 from matplotlib import pyplot as plt
 
+LAB_COMP = True
 CREATING_TRAINING_DATA = True
 CREATING_TESTING_DATA = False
 
 NUMBER_ATOMS = 1000
-numEllipses = 500 # number of ellipses 
+numEllipses = 200000 # number of ellipses 
 MAX_SHOTS = 500
 MIN_SHOTS = 5
 
 # determines file path ~
-FULL_PHI_RANGE = True
-LAB_COMP = False
-VARIABLE_CONTRAST = False # if True, contrast will be differnt for each ellipse. If False, contrast = 0.65
+FULL_PHI_RANGE = False
+VARIABLE_CONTRAST = False # if True, contrast will be differnt for each ellipse (in [0.1, 0.98]). If False, contrast = 0.65
 
 # create folder for new data. Folder name indicates:
 # -  variable                    vs. constant contrast

@@ -1,7 +1,7 @@
 """ Weights and Biases sweep for ANN
 @author: nranabhat  """
 
-#imports 
+# Imports 
 from audioop import avg
 from distutils.log import error
 import functools
@@ -10,8 +10,8 @@ import shutil
 import time
 import numpy as np
 import torch
-from torch.optim.lr_scheduler import StepLR, ExponentialLR, ReduceLROnPlateau, SequentialLR,\
-                                     CosineAnnealingLR, CosineAnnealingWarmRestarts
+from torch.optim.lr_scheduler import StepLR, ExponentialLR, ReduceLROnPlateau,\
+                                     SequentialLR, CosineAnnealingLR, CosineAnnealingWarmRestarts
 from warmup_scheduler import GradualWarmupScheduler
 from torch import avg_pool1d, nn
 from torch.utils.data import DataLoader
@@ -28,27 +28,27 @@ from ellipse import LsqEllipse
 import ellipse_fitting_api
 logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 
-#set constants
-LAB_COMP = True # change to False if running on Nico's machine. Specifies local file paths
-BAYESIAN_SWEEP = True # bayesian or grid?
+# Set constants
+LAB_COMP = True                 # change to False if running on Nico's machine. Specifies local file paths 
+BAYESIAN_SWEEP = True           # True: bayesian search, False: grid search
 PLOT_MLE = True
-NUM_TRAINING_ELLIPSES = 10000 # number of ellipses used for training in each run of sweep.   
-                            # Can change but make sure the dataset exists!
+NUM_TRAINING_ELLIPSES = 10000     # number of ellipses used for training in each run of sweep.   
+                                # Can change but make sure the dataset exists!
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001 
-DROPOUT_PROBABILITY = 0 # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped. range:[0,1]
-FULL_PHI_RANGE = True # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
-                      # Can change but make sure the dataset exists! 
-VARIABLE_CONTRAST = False # constant vs. variable contrast dataset
-#SCHEDULER_TYPE = 'LRPlateau' # can be 'LRPlateau' or 'CosineAnnealing' or 'CosineAnnealingWarmRestarts'
+DROPOUT_PROBABILITY = 0         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
+FULL_PHI_RANGE = False          # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
+                                # Can change but make sure the dataset exists!
+VARIABLE_CONTRAST = False       # constant vs. variable contrast dataset
+SCHEDULER_TYPE = 'LRPlateau'    # can be 'LRPlateau' or 'CosineAnnealing' or 'CosineAnnealingWarmRestarts'
 
 if VARIABLE_CONTRAST: var_cons = 'Var'
 else: var_cons = 'Constant'
 if FULL_PHI_RANGE: all_phi = 'allPhi'
 else: all_phi = 'fewPhi'
-LOG_NEW_ARTIFACT_TO = '-1hl-1000n-'+all_phi+'-'+var_cons+'Contrast' 
+LOG_NEW_ARTIFACT_TO = '-2hl-'+all_phi+'-'+var_cons+'Contrast-'+str(NUM_TRAINING_ELLIPSES)+'ellps-'
 # 1hl-1000n... => '1 hidden layer, 1000 neurons, phi range, contrast range, LR'
 
 # Constants for calculating loss
@@ -60,6 +60,7 @@ K_CX = (2/c_x_range)**2
 K_CY =  (2/c_y_range)**2
 
 wandb.login()
+WANDB_CONSOLE='off'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if LAB_COMP:
@@ -84,27 +85,27 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [20]      # change this to >15 later
+          'values': [20]
           },
       'batch_size': {
-          'values': [100, 2500, 5000]
+          'values': [30, 50, 100, 1000]
           },
       'optimizer': {
           'values': ['adam', 'sgd']
           },
       'second_layer_size': {
-          'values': [512, 1024, 2048]
+          'values': [256, 512, 1024]
+          },
+      'scheduler_type': {
+          'values': ['LRPlateau', 'CosineAnnealing', 'CosineAnnealingWarmRestarts']
           },
       'starting_lr': {
           'distribution': 'uniform',
           'min': 0.0001,
-          'max': 0.5
+          'max': 0.3
         },
       'milestones' : {
             'values':  [[0]]
-          },
-      'scheduler_type' : {
-            'values':  ['LRPlateau', 'CosineAnnealing']
           },
       }
 
@@ -208,8 +209,7 @@ class CheckpointSaver:
         model_path = os.path.join(self.dirpath, 'weights_tensor.pt')
         save = metric_val<=self.best_metric_val if self.decreasing else metric_val>=self.best_metric_val
         if save: 
-            logging.info(f"Current metric value {metric_val} better than {self.best_metric_val} \n\
-Saving model at {model_path}, & logging model weights to W&B.")
+            logging.info(f"Current metric value {metric_val} better than {self.best_metric_val}")
             self.best_metric_val = metric_val
             #torch.save(model.state_dict(), model_path)
             torch.save({'epoch': epoch,
@@ -220,8 +220,6 @@ Saving model at {model_path}, & logging model weights to W&B.")
                         'test loss': test_loss,
                         'phase loss': phase_loss},
                         model_path)
-
-            print('\nmodel weights saved to '+str(self.sweep_id)+'\n')
 
             sweep_or_run = ''
             if 'sweep-' in self.dirpath: sweep_or_run = 'sweep'
@@ -252,7 +250,7 @@ Saving model at {model_path}, & logging model weights to W&B.")
     def cleanupLocal(self, api, artifact_name):
         # cleaning up local disc
         to_remove = self.top_model_paths[self.top_n:]
-        logging.info(f"Removing extra models.. {to_remove}")
+        #logging.info(f"Removing extra models.. {to_remove}")
         for o in to_remove:
             os.remove(o['path'])
         self.top_model_paths = self.top_model_paths[:self.top_n]
@@ -314,7 +312,7 @@ def train(checkpoint_saver, sweep_id, config=None):
 
         for epoch in range(config.sweep_epochs):
             batch_size = config.batch_size
-            avg_loss, avg_tot_test_loss, avg_phase_test_loss = train_epoch(network, trainloader, optimizer, scheduler, batch_size)
+            avg_loss, avg_tot_test_loss, avg_phase_test_loss = train_epoch(network, trainloader, optimizer, scheduler, batch_size, epoch)
 
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_tot_test_loss, "test phase loss": avg_phase_test_loss, 
@@ -454,17 +452,19 @@ def build_optimizer(network, optimizer, starting_lr):
 
 def build_scheduler(optimizer, milestones, gamma, scheduler_type):
     if scheduler_type == 'LRPlateau':
-        scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0001, patience=5, verbose=True)
+        scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0005, patience=10, verbose=True)
     elif scheduler_type == 'CosineAnnealing':
-        scheduler = CosineAnnealingLR(optimizer, T_max=4, verbose=True)
+        scheduler = CosineAnnealingLR(optimizer, T_max=4, verbose=False)
     elif scheduler_type == 'CosineAnnealingWarmRestarts':
-        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=15, T_mult=2, verbose=True)
+        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=1, verbose=False)
+    
     return scheduler
 
 
-def train_epoch(network, trainloader, optimizer, scheduler, batch_size):
+def train_epoch(network, trainloader, optimizer, scheduler, batch_size, epoch):
     cumu_loss = 0
     MSE_loss = nn.MSELoss(reduction='mean')
+    iters = len(trainloader)
 
     for i, data in enumerate(trainloader, 0):
         
@@ -493,19 +493,27 @@ def train_epoch(network, trainloader, optimizer, scheduler, batch_size):
         # Perform optimization
         optimizer.step()
 
+        # scheduler step during batch if using CosineAnnealingWarmRestarts
+        if str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.CosineAnnealingWarmRestarts'>":
+            scheduler.step(epoch + i / iters)
+
         # log loss 
         wandb.log({"batch loss": loss.item()})
     
+    avg_loss = cumu_loss / iters
     avg_tot_test_loss, avg_phase_test_loss = get_test_loss(batch_size, network)
-    if str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.ReduceLROnPlateau'>":
-        scheduler.step(avg_phase_test_loss)
-    else:
+
+    if str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.SequentialLR'>":
+        scheduler.step()
+    elif str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.ReduceLROnPlateau'>":
+        scheduler.step(avg_tot_test_loss)
+    elif str(scheduler.__class__) == "<class 'torch.optim.lr_scheduler.CosineAnnealingLR'>":
         scheduler.step()
     
-    return cumu_loss / len(trainloader), avg_tot_test_loss, avg_phase_test_loss 
+    return avg_loss, avg_tot_test_loss, avg_phase_test_loss 
 
 
-def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_sweep):
+def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, artifact_name, is_sweep):
 
   api = wandb.Api()
 
@@ -584,12 +592,14 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, is_swe
 
         # log the plots 
         avg_loss_float = avg_loss.detach().numpy()
-        if is_sweep: sweep_or_run = 'sweep'
-        else: sweep_or_run = 'run'
+        if is_sweep: 
+            sweep_or_run = 'sweep-'
+            artifact_name = sweep_or_run_id
+        else: sweep_or_run = ''
         # log 9 plot
-        image_artifact = wandb.Artifact(f''+sweep_or_run+'-'+str(sweep_or_run_id)+'-'+str(num_training_ellipses)+'ellipses'+\
+        image_artifact = wandb.Artifact(f''+sweep_or_run+artifact_name+'-'+str(num_training_ellipses)+'ellipses'+\
                                         '-avgtestloss-'+str(avg_loss_float), type='plot')
-        image_artifact.add(obj=image, name='Fit (blue) vs. Truth (black) for 9 testing samples')
+        image_artifact.add(obj=image, name='Fit vs. Truth for 9 testing samples')
         image_artifact.add(obj=image_errors, name='Errors')
         wandb.run.log_artifact(image_artifact)
         # log error plot
