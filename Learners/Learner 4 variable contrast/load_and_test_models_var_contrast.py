@@ -21,16 +21,20 @@ RUN_ID = 'q1evlj9a'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '200000'
 SCHEDULER_TYPE = 'CosineAnnealingWarmRestarts' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
+DROPOUT_PROBABILITY = 0.1
 OLD_RUN_NAME = '7run-'+RUN_ID
+# NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/'+OLD_RUN_NAME+\
+#                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-2hl-fewPhi-ConstantContrast-'+\
+#                           'CosineAnnealingWarmRestarts-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt:'+str(VERSION_NUM)
 NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/'+OLD_RUN_NAME+\
-                          '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-2hl-fewPhi-ConstantContrast-'+\
-                          'CosineAnnealingWarmRestarts'+'.pt:'+str(VERSION_NUM)
-NUM_TRAINING_ELLIPSES = '200000'
+                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-2hl-fewPhi-ConstantContrast-'+\
+                           'CosineAnnealingWarmRestarts.pt:'+str(VERSION_NUM)
+NUM_TRAINING_ELLIPSES = '100000'
 # NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
 #                           '-2hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
-NEW_RUN_NAME = '8run-'+RUN_ID
+NEW_RUN_NAME = '8.4run-'+RUN_ID
 LOG_NEW_ARTIFACT_TO = f''+NEW_RUN_NAME+'-'+NUM_TRAINING_ELLIPSES+\
-                       '-trainingEllipses-2hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'.pt'
+                       '-trainingEllipses-2hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt'
 
 NUM_NEW_EPOCHS = 100
 
@@ -86,15 +90,16 @@ if __name__ == '__main__':
 
         # Can manually adjust parameters (loss: to make sure new model with loss better than 10 will save.)
         config['loss'] = 10
-        #config['current_lr'] = 10*float(config['current_lr'])
-        #config['starting_lr'] = 10*float(config['starting_lr'])
-        config['batch_size'] = '1000'
+        config['current_lr'] = str(10*float(config['current_lr']))
+        config['starting_lr'] = str(10*float(config['starting_lr']))
+        config['batch_size'] = '500'
 
         trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), train=True)
-        network = build_network(int(config['second_layer_size']),train=True)
+        network = build_network(int(config['second_layer_size']), DROPOUT_PROBABILITY, train=True)
         network.load_state_dict(torch.load(state_dicts_path)['model_state_dict'])
+
         optimizer = build_optimizer(network, config['optimizer'], float(config['current_lr']))
-        #optimizer.load_state_dict(torch.load(state_dicts_path)['optimizer_state_dict'])
+        optimizer.param_groups[0]['lr'] = float(config['current_lr'])
 
         # adjusted milestones takes into account that the model has already been trained a bit during the sweep
         if 'adjusted_milestones' in config:
@@ -104,17 +109,19 @@ if __name__ == '__main__':
         
         scheduler = build_scheduler(optimizer, adjusted_milestones, float(config['gamma']), SCHEDULER_TYPE)
         scheduler.load_state_dict(torch.load(state_dicts_path)['scheduler_state_dict'])
-        scheduler._last_lr[0] = config['current_lr']
+        scheduler._last_lr[0] = float(config['current_lr'])
         best_loss = float(config['loss'])
 
         for epoch in range(NUM_NEW_EPOCHS):
             actual_epoch_num = int(config['epoch']) + epoch + 1
             
-            avg_loss, avg_test_loss, phase_loss = train_epoch(network, trainloader, optimizer, scheduler, config['batch_size'], epoch)
+            avg_loss, avg_test_loss, phase_loss = train_epoch(network, trainloader, optimizer, scheduler,
+                                                              config['batch_size'], epoch)
 
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_test_loss, "phase loss": phase_loss,\
                        "epoch": epoch, "learning rate":optimizer.param_groups[0]['lr']}, commit=True)
+
             print('EPOCH: '+str(actual_epoch_num)+'     LOSS: '+str(avg_loss)[0:7]+'     TEST LOSS: '+str(avg_test_loss.item())[0:7]\
             +'      PHASE LOSS: '+str(phase_loss.item())[0:7]+'     LR: '+str(optimizer.param_groups[0]['lr'])[0:7])
 
@@ -157,9 +164,9 @@ if __name__ == '__main__':
         artifact_type, artifact_name = 'model', 'nicoranabhat/ellipse_fitting/'+LOG_NEW_ARTIFACT_TO 
         try:
             for version in api.artifact_versions(artifact_type, artifact_name):
-                if len(version.aliases) == 1: #has aliase 'latest'
-                    best_version_num = int(version.version[1])
-                if int(version.version[1]) < (best_version_num - 4):
+                if len(version.aliases) == 1: #version with aliase 'latest'
+                    best_version_num = version._version_index
+                if (int(version.version[1:]) < (best_version_num - 4)):
                     version.delete()
             print('\nOld wandb artifacts deleted')
             # test and plot

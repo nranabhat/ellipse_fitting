@@ -302,7 +302,7 @@ def train(checkpoint_saver, sweep_id, config=None):
         config = wandb.config
 
         trainloader = build_dataset(config.batch_size, int(NUM_TRAINING_ELLIPSES), train=True)
-        network = build_network(config.second_layer_size, train=True)
+        network = build_network(config.second_layer_size, DROPOUT_PROBABILITY, train=True)
         optimizer = build_optimizer(network, config.optimizer, config.starting_lr)
         scheduler = build_scheduler(optimizer, config.milestones, config.gamma, config.scheduler_type)
 
@@ -317,6 +317,7 @@ def train(checkpoint_saver, sweep_id, config=None):
             # after epoch log loss to wandb
             wandb.log({"loss": avg_loss, "test loss": avg_tot_test_loss, "test phase loss": avg_phase_test_loss, 
                 "epoch": epoch, "learning rate": optimizer.param_groups[0]['lr']}, commit=True)
+
             print('EPOCH: ' + str(epoch+1)+'  LOSS: '+str(avg_loss)+'  TEST LOSS: '+str(avg_tot_test_loss)+
                 '   TEST PHASE LOSS: '+str(avg_phase_test_loss))
             print('optimizer LR: '+str(optimizer.param_groups[0]['lr']))
@@ -370,7 +371,7 @@ def build_dataset(batch_size, num_ellipses, train):
     else: return testloader
 
 
-def build_network(second_layer_size, train):
+def build_network(second_layer_size, dropout_probability, train):
     # simply define a custom activation function
     def clamp(input):
         '''
@@ -409,7 +410,8 @@ def build_network(second_layer_size, train):
             return clamp(input) # simply apply already implemented parameter_clamp
 
     clamp_activation_function = ParameterClamp()
-    p = DROPOUT_PROBABILITY
+    if not train: dropout_probability=0 # no dropout for testing
+    p = dropout_probability
     if train:
         network = nn.Sequential(  # fully-connected, single hidden layer
             nn.Linear(MAX_SHOTS*2, second_layer_size),
@@ -535,7 +537,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, artifa
 
         testloader = build_dataset(int(config['batch_size']), int(num_training_ellipses), train=False)
         # previous network build: 
-        network = build_network(int(config['second_layer_size']), train=False)
+        network = build_network(int(config['second_layer_size']), dropout_probability=0, train=False)
         # new network built:
         weights_path = os.path.join(artifact_dir, 'weights_tensor.pt')
         network.load_state_dict(torch.load(weights_path)['model_state_dict'])
@@ -567,7 +569,7 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, artifa
             print('\ntest set average loss: ' + str(avg_loss))
             train_loss = str(config['loss'])
             print('train set average loss: ' + train_loss)
-            print('\ntest set average phase loss: '+str(phase_loss))
+            print('test set average phase loss: '+str(phase_loss))
 
             # compute LS and MLE loss
             LS_test_loss, Phi_LS = get_LS_test_loss(inputs, targets[:,0])
@@ -597,10 +599,10 @@ def test_and_plot(model_locaiton, sweep_or_run_id, num_training_ellipses, artifa
             artifact_name = sweep_or_run_id
         else: sweep_or_run = ''
         # log 9 plot
-        image_artifact = wandb.Artifact(f''+sweep_or_run+artifact_name+'-'+str(num_training_ellipses)+'ellipses'+\
-                                        '-avgtestloss-'+str(avg_loss_float), type='plot')
-        image_artifact.add(obj=image, name='Fit vs. Truth for 9 testing samples')
-        image_artifact.add(obj=image_errors, name='Errors')
+        image_artifact = wandb.Artifact(f''+sweep_or_run+artifact_name+\
+                                        '-test_loss-'+str(avg_loss_float), type='plot')
+        image_artifact.add(obj=image, name='Fits vs. Truth for 9 test samples')
+        image_artifact.add(obj=image_errors, name='Phi errors')
         wandb.run.log_artifact(image_artifact)
         # log error plot
 
@@ -640,9 +642,11 @@ def get_LS_test_loss(inputs, targets):
         ellipse_y = x_y_arrays[1]
         x_coords = np.asarray(ellipse_x[i,:], dtype=float)
         y_coords = np.asarray(ellipse_y[i,:], dtype=float)
-        for i in range(MAX_SHOTS):
-            if x_coords[i] == 0: # contrast will never be exactly 1, so points will never be exactly on [0,0].
-                end_index = i
+        for j in range(MAX_SHOTS):
+            if x_coords[j] == 0: # contrast will never be exactly 1, so points will never be exactly on [0,0].
+                end_index = j
+                break
+            if j == (MAX_SHOTS - 1):
                 break
         x_coords = np.delete(x_coords, slice(end_index,MAX_SHOTS))
         y_coords = np.delete(y_coords, slice(end_index,MAX_SHOTS))

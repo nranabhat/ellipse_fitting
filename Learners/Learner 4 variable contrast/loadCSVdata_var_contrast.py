@@ -10,10 +10,12 @@ def load_data(filePath, shape):
     with open(filePath) as f:
         reader = csv.reader(f)
         for row in reader:
-            data = np.append(data, row)
+            data.append(row)
     # loading ABCDEF labels...
     if len(shape) == 2 and shape[1] == 6:
-        data = np.reshape(data, shape, order = 'F')
+        #data = np.reshape(data, shape, order = 'F') 
+        data = [list(x) for x in zip(*data)]
+        data = np.asarray(data)
     # loading Phi_d targets 
     elif len(shape) ==1:
         data = np.reshape(data,shape)
@@ -73,7 +75,7 @@ class loadCSVdata:
             filepath = os.path.join(self._training_set_path, 'trainingY.csv')
             return load_data(filepath, self._shape_training_data)
 
-        X = get_x_train_coords().T # X [500,30]
+        X = get_x_train_coords().T # X is shape [num_ellipses, num_shots]
         X = np.append(X, get_y_train_coords().T, axis = 1)
         phi = get_train_phi_d()
         y = np.array([phi, get_train_contrasts()[:,0], get_train_contrasts()[:,1]])

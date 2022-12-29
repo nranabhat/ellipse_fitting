@@ -25,11 +25,11 @@ import random as random
 from matplotlib import pyplot as plt
 
 LAB_COMP = True
-CREATING_TRAINING_DATA = True
-CREATING_TESTING_DATA = False
+CREATING_TRAINING_DATA = False
+CREATING_TESTING_DATA = True
 
 NUMBER_ATOMS = 1000
-numEllipses = 200000 # number of ellipses 
+numEllipses = 100 # number of ellipses 
 MAX_SHOTS = 500
 MIN_SHOTS = 5
 
@@ -66,7 +66,7 @@ if not os.path.isdir(dataset_path): os.mkdir(dataset_path)
 
 numPoints = np.zeros(numEllipses) # points on each ellipse plot - number of shots measuring excitation fraction
 for k in range(numEllipses):
-    numPoints[k] = int(np.random.randint(MIN_SHOTS, MAX_SHOTS+1)) # number of shots is picked uniformly from [5,500]
+    numPoints[k] = int(np.random.randint(MIN_SHOTS, MAX_SHOTS)) # number of shots is picked uniformly from [5,499]
 
 X = np.zeros((MAX_SHOTS, numEllipses)) # x-coordinates 
 Y = np.zeros((MAX_SHOTS, numEllipses)) # y-coordinates 
@@ -122,7 +122,7 @@ for j in range(numEllipses):
     # create known_labels using Estey equations 
     A = 1 / ((c_x)**2)
     B = -(2*cos(2*phi_d)) / (c_x*c_y)
-    C = 1/(c_y)**2
+    C = 1 / ((c_y)**2)
     D = (2*b_y*cos(2*phi_d)/(c_x*c_y)) - (2*b_x)/(c_x)**2
     E = (2*b_x*cos(2*phi_d)/(c_x*c_y)) - (2*b_y)/(c_y)**2
     F = ((b_x)**2/((c_x)**2) + (b_y)**2/((c_y)**2) - 
