@@ -38,17 +38,17 @@ MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
 CLAMP_EPSILON = -0.0000001 
-DROPOUT_PROBABILITY = 0         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
+DROPOUT_PROBABILITY = 0.1         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
 FULL_PHI_RANGE = False          # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
                                 # Can change but make sure the dataset exists!
 VARIABLE_CONTRAST = False       # constant vs. variable contrast dataset
-SCHEDULER_TYPE = 'LRPlateau'    # can be 'LRPlateau' or 'CosineAnnealing' or 'CosineAnnealingWarmRestarts'
+#SCHEDULER_TYPE = 'LRPlateau'   # can be 'LRPlateau' or 'CosineAnnealing' or 'CosineAnnealingWarmRestarts'
 
 if VARIABLE_CONTRAST: var_cons = 'Var'
 else: var_cons = 'Constant'
 if FULL_PHI_RANGE: all_phi = 'allPhi'
 else: all_phi = 'fewPhi'
-LOG_NEW_ARTIFACT_TO = '-2hl-'+all_phi+'-'+var_cons+'Contrast-'+str(NUM_TRAINING_ELLIPSES)+'ellps-'
+LOG_NEW_ARTIFACT_TO = '-3hl-'+all_phi+'-'+var_cons+'Contrast-'+str(NUM_TRAINING_ELLIPSES)+'ellps-'
 # 1hl-1000n... => '1 hidden layer, 1000 neurons, phi range, contrast range, LR'
 
 # Constants for calculating loss
@@ -85,10 +85,10 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [20]
+          'values': [2]
           },
       'batch_size': {
-          'values': [30, 50, 100, 1000]
+          'values': [5, 30, 50, 100, 1000]
           },
       'optimizer': {
           'values': ['adam', 'sgd']
@@ -751,7 +751,7 @@ def main():
     
     if BAYESIAN_SWEEP:
         # COUNT = NUMBER OF RUNS!!
-        count = 20
+        count = 1
         print('\nTraining '+str(count)+' models...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)
@@ -761,7 +761,7 @@ def main():
     else:  wandb.agent(sweep_id, function=wandb_train_func)
     
     model_location = f'mlp-sweep-'+str(sweep_id)+LOG_NEW_ARTIFACT_TO+'.pt:latest'
-    test_and_plot(model_location, sweep_id, num_training_ellipses=NUM_TRAINING_ELLIPSES, is_sweep=True)
+    test_and_plot(model_location, sweep_id, NUM_TRAINING_ELLIPSES, artifact_name='', is_sweep=True)
 
     # delete any files saved to local machine
     if os.path.isdir(pathname): shutil.rmtree(pathname) 
