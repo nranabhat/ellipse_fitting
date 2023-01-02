@@ -32,13 +32,13 @@ logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 LAB_COMP = True                 # change to False if running on Nico's machine. Specifies local file paths 
 BAYESIAN_SWEEP = True           # True: bayesian search, False: grid search
 PLOT_MLE = True
-NUM_TRAINING_ELLIPSES = 10000     # number of ellipses used for training in each run of sweep.   
+NUM_TRAINING_ELLIPSES = 100000   # number of ellipses used for training in each run of sweep.   
                                 # Can change but make sure the dataset exists!
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
 MIN_CONTRAST = 0.1
-CLAMP_EPSILON = -0.0000001 
-DROPOUT_PROBABILITY = 0.1         # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
+CLAMP_EPSILON = 0 
+#DROPOUT_PROBABILITY = 0.5      # probability for a neuron to be zeroed. e.g.) p=0: no neurons are dropped.
 FULL_PHI_RANGE = False          # If false, range will be [0,0.15] and [pi/2-0.15, pi/2]. 
                                 # Can change but make sure the dataset exists!
 VARIABLE_CONTRAST = False       # constant vs. variable contrast dataset
@@ -85,10 +85,13 @@ def config_params():
 
   parameters_dict = {
       'sweep_epochs': {
-          'values': [2]
+          'values': [25]
           },
       'batch_size': {
           'values': [5, 30, 50, 100, 1000]
+          },
+      'dropout_prob': {
+          'values': [0, 0.1, 0.5, 0.8]
           },
       'optimizer': {
           'values': ['adam', 'sgd']
@@ -128,59 +131,6 @@ def config_params():
   return sweep_id
 
 
-def config_params_grid():
-  # configureation of hyperparameters for grid sweep
-
-  second_layer_size = []
-  for i in range(0,1000,20):
-    layer_size = i+1
-    second_layer_size.append(layer_size)
-
-  sweep_config = {
-      'method': 'grid'
-      }
-
-  metric = {
-      'name': 'loss',
-      'goal': 'minimize'   
-      }
-
-  sweep_config['metric'] = metric
-
-  parameters_dict = {
-      'sweep_epochs': {
-          'values': [20]     
-          },
-      'batch_size': {
-          'values': [40]
-        },
-      'optimizer': {
-          'values': ['sgd']
-          },
-      'second_layer_size': {
-          'values': second_layer_size
-          },
-      'starting_lr': {
-          'values': [0.004672124070515444]
-        },
-      'milestones' : {
-            'values':  [[0]]
-          },
-      'gamma': {
-            'values':  [0.1]
-        }
-      }
-      
-  sweep_config['parameters'] = parameters_dict
-
-  import pprint
-  pprint.pprint(sweep_config)
-
-  sweep_id = wandb.sweep(sweep_config, project="ellipse_fitting")
-
-  return sweep_id
-
-
 class CheckpointSaver:
     """     CheckpointSaver class class from https://gist.github.com/amaarora/9b867f1868f319b3f2e6adb6bfe2373e\#
     file-how-to-save-all-your-trained-model-weights-locally-after-every-epoch-ipynb
@@ -193,9 +143,9 @@ class CheckpointSaver:
 
     def __init__(self, dirpath, sweep_id, decreasing=True, top_n=1):
         """
-        dirpath: Directory path where to store all model weights 
-        decreasing: If decreasing is `True`, then lower metric is better
-        top_n: Total number of models to track based on validation metric value
+        dirpath:        Directory path where to store all model weights 
+        decreasing:     If decreasing is `True`, then lower metric is better
+        top_n:          Total number of models to track based on validation metric value
         """
         if not os.path.exists(dirpath): os.makedirs(dirpath)
         self.dirpath = dirpath
@@ -302,7 +252,7 @@ def train(checkpoint_saver, sweep_id, config=None):
         config = wandb.config
 
         trainloader = build_dataset(config.batch_size, int(NUM_TRAINING_ELLIPSES), train=True)
-        network = build_network(config.second_layer_size, DROPOUT_PROBABILITY, train=True)
+        network = build_network(config.second_layer_size, config.dropout_prob, train=True)
         optimizer = build_optimizer(network, config.optimizer, config.starting_lr)
         scheduler = build_scheduler(optimizer, config.milestones, config.gamma, config.scheduler_type)
 
@@ -738,10 +688,7 @@ def get_MLE_testloss_and_phi(X, targets):
 
 def main():
 
-    if BAYESIAN_SWEEP:
-        sweep_id = config_params()
-    else:
-        sweep_id = config_params_grid()
+    if BAYESIAN_SWEEP: sweep_id = config_params()
         
     # sweep path
     pathname = os.path.join(WANDBPATH, 'sweep-'+sweep_id)
@@ -751,7 +698,7 @@ def main():
     
     if BAYESIAN_SWEEP:
         # COUNT = NUMBER OF RUNS!!
-        count = 1
+        count = 50
         print('\nTraining '+str(count)+' models...\n')
 
     wandb_train_func = functools.partial(train, checkpoint_saver, sweep_id)

@@ -17,23 +17,24 @@ from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
 LAB_COMP = True
-RUN_ID = 'q1evlj9a'
+RUN_ID = 'w07pbyyo'
 VERSION_NUM = 'latest'
 NUM_TRAINING_ELLIPSES = '100000'
 SCHEDULER_TYPE = 'CosineAnnealingWarmRestarts' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
 DROPOUT_PROBABILITY = 0.1
-OLD_RUN_NAME = '8.4run-'+RUN_ID
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/'+OLD_RUN_NAME+\
-                          '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-2hl-fewPhi-ConstantContrast-'+\
-                          'CosineAnnealingWarmRestarts-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt:'+str(VERSION_NUM)
+OLD_RUN_NAME = 'run-'+RUN_ID
+# NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/'+OLD_RUN_NAME+\
+#                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-3hl-fewPhi-ConstantContrast-'+\
+#                           'CosineAnnealingWarmRestarts-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt:'+str(VERSION_NUM)
 NUM_TRAINING_ELLIPSES = '100000'
-# NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
-#                           '-2hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
-NEW_RUN_NAME = '9run-'+RUN_ID
+DROPOUT_PROBABILITY = 0.25
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
+                          '-3hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
+NEW_RUN_NAME = '1.1run-'+RUN_ID
 LOG_NEW_ARTIFACT_TO = f''+NEW_RUN_NAME+'-'+NUM_TRAINING_ELLIPSES+\
-                       '-trainingEllipses-2hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt'
+                       '-trainingEllipses-3hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt'
 
-NUM_NEW_EPOCHS = 150
+NUM_NEW_EPOCHS = 100
 
 if LAB_COMP:
     wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
@@ -89,7 +90,7 @@ if __name__ == '__main__':
         config['loss'] = 10
         config['current_lr'] = str(10*float(config['current_lr']))
         config['starting_lr'] = str(10*float(config['starting_lr']))
-        config['batch_size'] = '10'
+        config['batch_size'] = '1000'
 
         trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), train=True)
         network = build_network(int(config['second_layer_size']), DROPOUT_PROBABILITY, train=True)
