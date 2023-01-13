@@ -17,24 +17,25 @@ from Sweep_var_contrast import CheckpointSaver,Dataset,\
 build_dataset,build_network,build_optimizer,build_scheduler,train_epoch,get_test_loss,test_and_plot
 
 LAB_COMP = True
-RUN_ID = 'w07pbyyo'
+RUN_ID = 'c6yujtgt'
 VERSION_NUM = 'latest'
-NUM_TRAINING_ELLIPSES = '100000'
+NUM_TRAINING_ELLIPSES = '500000'
+BATCH_SIZE = 5000
 SCHEDULER_TYPE = 'CosineAnnealingWarmRestarts' # can either be 'CosineAnnealing' or 'LRPlateau' or 'CosineAnnealingWarmRestarts'
 DROPOUT_PROBABILITY = 0.1
-OLD_RUN_NAME = 'run-'+RUN_ID
-# NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/'+OLD_RUN_NAME+\
-#                           '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-3hl-fewPhi-ConstantContrast-'+\
-#                           'CosineAnnealingWarmRestarts-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt:'+str(VERSION_NUM)
-NUM_TRAINING_ELLIPSES = '100000'
-DROPOUT_PROBABILITY = 0.25
-NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
-                          '-3hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
-NEW_RUN_NAME = '1.1run-'+RUN_ID
+OLD_RUN_NAME = '4run-'+RUN_ID
+NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/'+OLD_RUN_NAME+\
+                          '-'+NUM_TRAINING_ELLIPSES+'-trainingEllipses-3hl-fewPhi-ConstantContrast-'+\
+                          'LRPlateau-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt:'+str(VERSION_NUM)
+NUM_TRAINING_ELLIPSES = '500000'
+DROPOUT_PROBABILITY = 0.1
+# NAME_OF_ARTIFACT_TO_USE = 'nicoranabhat/ellipse_fitting/mlp-sweep-'+RUN_ID+\
+#                           '-3hl-fewPhi-ConstantContrast-10000ellps-.pt:'+str(VERSION_NUM)
+NEW_RUN_NAME = '5.3run-'+RUN_ID
 LOG_NEW_ARTIFACT_TO = f''+NEW_RUN_NAME+'-'+NUM_TRAINING_ELLIPSES+\
                        '-trainingEllipses-3hl-fewPhi-ConstantContrast-'+SCHEDULER_TYPE+'-'+str(DROPOUT_PROBABILITY)+'dropout'+'.pt'
 
-NUM_NEW_EPOCHS = 100
+NUM_NEW_EPOCHS = 2000
 
 if LAB_COMP:
     wandbpath = r"D:\Nico Ranabhat\Ellipse Fitting\ellipse_fitting\Learners\wandb"
@@ -87,10 +88,10 @@ if __name__ == '__main__':
         config = artifact.metadata
 
         # Can manually adjust parameters (loss: to make sure new model with loss better than 10 will save.)
-        config['loss'] = 10
+        config['loss'] = 10               
         config['current_lr'] = str(10*float(config['current_lr']))
         config['starting_lr'] = str(10*float(config['starting_lr']))
-        config['batch_size'] = '1000'
+        config['batch_size'] = str(BATCH_SIZE)
 
         trainloader = build_dataset(int(config['batch_size']), int(NUM_TRAINING_ELLIPSES), train=True)
         network = build_network(int(config['second_layer_size']), DROPOUT_PROBABILITY, train=True)
@@ -108,6 +109,7 @@ if __name__ == '__main__':
         scheduler = build_scheduler(optimizer, adjusted_milestones, float(config['gamma']), SCHEDULER_TYPE)
         scheduler.load_state_dict(torch.load(state_dicts_path)['scheduler_state_dict'])
         scheduler._last_lr[0] = float(config['current_lr'])
+        scheduler.__dict__['verbose'] = False
         best_loss = float(config['loss'])
 
         for epoch in range(NUM_NEW_EPOCHS):

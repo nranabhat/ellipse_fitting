@@ -32,7 +32,7 @@ logging.getLogger().setLevel(logging.INFO) # used to print useful checkpoints
 LAB_COMP = True                 # change to False if running on Nico's machine. Specifies local file paths 
 BAYESIAN_SWEEP = True           # True: bayesian search, False: grid search
 PLOT_MLE = True
-NUM_TRAINING_ELLIPSES = 100000   # number of ellipses used for training in each run of sweep.   
+NUM_TRAINING_ELLIPSES = 10000   # number of ellipses used for training in each run of sweep.   
                                 # Can change but make sure the dataset exists!
 MAX_SHOTS = 500
 MAX_CONTRAST = 0.98
@@ -404,11 +404,11 @@ def build_optimizer(network, optimizer, starting_lr):
 
 def build_scheduler(optimizer, milestones, gamma, scheduler_type):
     if scheduler_type == 'LRPlateau':
-        scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.0005, patience=10, verbose=True)
+        scheduler = ReduceLROnPlateau(optimizer, factor=gamma, threshold=0.000005, patience=30, verbose=False)
     elif scheduler_type == 'CosineAnnealing':
         scheduler = CosineAnnealingLR(optimizer, T_max=4, verbose=False)
     elif scheduler_type == 'CosineAnnealingWarmRestarts':
-        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=1, verbose=False)
+        scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2, verbose=False)
     
     return scheduler
 
