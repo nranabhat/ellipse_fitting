@@ -10,4 +10,4 @@ the neural network falls short of outperforming the current least-squares method
 On the other hand, when given enough data, the maximum likelihood estimate is
 shown to produce more accurate fits than the least-squares method.
 
-See thesis for more
+Check out my [thesis]([url](https://github.com/nranabhat/ellipse_fitting/blob/main/nranabhat_Thesis.pdf)https://github.com/nranabhat/ellipse_fitting/blob/main/nranabhat_Thesis.pdf) for more details!
